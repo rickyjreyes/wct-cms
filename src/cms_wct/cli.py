@@ -42,7 +42,27 @@ def main():
         raise SystemExit("Choose only one of --tight-id or --medium-id")
     summary = run_analysis(args)
     print("Best exploratory omega:", summary.best_scan["omega"])
+    print("Cycles across analyzed log-mass span:", summary.best_cycles_across_span)
+    print("Residual RMS:", summary.residual_rms)
+    print("Maximum |residual|:", summary.residual_max_abs)
     print("Global permutation p:", summary.global_permutation_p)
+
+    if summary.best_scan_at_boundary:
+        print(
+            "WARNING: best exploratory omega is on a scan boundary; "
+            "do not interpret it as a resolved spectral peak."
+        )
+    if summary.best_cycles_across_span < 1.0:
+        print(
+            "WARNING: best exploratory omega spans less than one complete cycle; "
+            "it is degenerate with broad background structure."
+        )
+    elif summary.best_cycles_across_span < 2.0:
+        print(
+            "CAUTION: best exploratory omega spans fewer than two complete cycles; "
+            "background degeneracy remains substantial."
+        )
+
     if summary.frozen_scan is None:
         print("No frozen omega supplied: result is exploratory, not blind replication.")
     else:
