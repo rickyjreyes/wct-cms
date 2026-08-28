@@ -23,6 +23,12 @@ class AnalysisSummary:
     selected_muons: int
     opposite_sign_pairs: int
     masses_in_range: int
+    analysis_bins: int
+    residual_rms: float
+    residual_max_abs: float
+    log_mass_span: float
+    best_cycles_across_span: float
+    best_scan_at_boundary: bool
     best_scan: dict
     frozen_scan: Optional[dict]
     global_permutation_p: Optional[float]
