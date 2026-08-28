@@ -9,6 +9,7 @@ import numpy as np
 from .background import make_histogram, robust_smooth_background
 from .cmsio import expand_inputs, extract_dimuon_masses, load_golden_json
 from .models import AnalysisSummary
+from .nulls import parametric_background_null
 from .plots import write_plots
 from .signature import permutation_null, scan_omegas, weighted_linear_sinusoid
 
@@ -45,7 +46,7 @@ def run_analysis(args):
     mask = np.isfinite(residuals) & (model >= args.min_model_count) & (centers > 0)
 
     # ``--mask-window`` is an explicit physics-analysis exclusion, not merely a
-    # background-fit hint.  Keeping an excluded resonance in the spectral scan
+    # background-fit hint. Keeping an excluded resonance in the spectral scan
     # after omitting it from the continuum fit creates a deliberately enormous
     # residual and can masquerade as spectral structure.
     for lo, hi in windows:
@@ -68,6 +69,28 @@ def run_analysis(args):
         args.permutations, args.seed,
     )
 
+    (
+        p_bootstrap_global,
+        p_bootstrap_frozen,
+        bootstrap_max,
+        bootstrap_frozen,
+    ) = parametric_background_null(
+        centers=centers,
+        null_model=model,
+        analysis_mask=mask,
+        x=x,
+        omegas=omegas,
+        observed_best_score=best.delta_chi2,
+        frozen_omega=args.frozen_omega,
+        observed_frozen_score=None if frozen is None else frozen.delta_chi2,
+        degree=args.fit_degree,
+        iterations=args.fit_iterations,
+        clip_sigma=args.clip_sigma,
+        excluded_windows=windows,
+        n_bootstrap=args.parametric_bootstrap,
+        seed=args.seed + 1,
+    )
+
     log_mass_span = float(np.max(x) - np.min(x))
     best_cycles_across_span = float(best.omega * log_mass_span / (2.0 * np.pi))
     omega_step = 0.0 if len(omegas) < 2 else float(abs(omegas[1] - omegas[0]))
@@ -85,6 +108,10 @@ def run_analysis(args):
         np.savetxt(outdir / "permutation_global_max.csv", null_max, delimiter=",", header="max_delta_chi2", comments="")
     if null_frozen is not None:
         np.savetxt(outdir / "permutation_frozen.csv", null_frozen, delimiter=",", header="frozen_delta_chi2", comments="")
+    if len(bootstrap_max):
+        np.savetxt(outdir / "parametric_bootstrap_global_max.csv", bootstrap_max, delimiter=",", header="max_delta_chi2", comments="")
+    if bootstrap_frozen is not None:
+        np.savetxt(outdir / "parametric_bootstrap_frozen.csv", bootstrap_frozen, delimiter=",", header="frozen_delta_chi2", comments="")
 
     summary = AnalysisSummary(
         events_read=counters["events_read"],
@@ -102,6 +129,8 @@ def run_analysis(args):
         frozen_scan=None if frozen is None else asdict(frozen),
         global_permutation_p=p_global,
         frozen_permutation_p=p_frozen,
+        global_parametric_bootstrap_p=p_bootstrap_global,
+        frozen_parametric_bootstrap_p=p_bootstrap_frozen,
         mass_min=args.mass_min,
         mass_max=args.mass_max,
         bins=args.bins,
@@ -111,6 +140,7 @@ def run_analysis(args):
         omega_max=args.omega_max,
         omega_steps=args.omega_steps,
         permutations=args.permutations,
+        parametric_bootstrap=args.parametric_bootstrap,
         seed=args.seed,
     )
     (outdir / "summary.json").write_text(json.dumps(asdict(summary), indent=2, sort_keys=True) + "\n")
