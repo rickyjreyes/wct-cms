@@ -1,0 +1,4 @@
+# One CMS NanoAOD ROOT file or XRootD URL per line.
+# Do not commit large ROOT files to this repository.
+# Example:
+# root://eospublic.cern.ch//eos/opendata/cms/Run2016H/DoubleMuonLowMass/NANOAOD/UL2016_MiniAODv2_NanoAODv9-v1/...

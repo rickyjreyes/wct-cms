@@ -1,0 +1,16 @@
+{
+  "channel": "dimuon",
+  "mass_min_GeV": 2.0,
+  "mass_max_GeV": 120.0,
+  "bins": 350,
+  "log_bins": true,
+  "muon_pt_min_GeV": 4.0,
+  "muon_eta_max": 2.4,
+  "fit_degree": 7,
+  "omega_min": 0.5,
+  "omega_max": 80.0,
+  "omega_steps": 3000,
+  "frozen_omega": "REPLACE_BEFORE_RUNNING_CMS",
+  "permutations": 2000,
+  "seed": 20260827
+}
