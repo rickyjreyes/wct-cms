@@ -32,6 +32,15 @@ def parser():
     p.add_argument("--frozen-omega", type=float)
     p.add_argument("--m0", type=float, default=1.0)
     p.add_argument("--permutations", type=int, default=1000)
+    p.add_argument(
+        "--parametric-bootstrap",
+        type=int,
+        default=0,
+        help=(
+            "Number of Poisson pseudo-spectra for the refit background null. "
+            "Each trial refits the smooth continuum before rescanning omega."
+        ),
+    )
     p.add_argument("--seed", type=int, default=20260827)
     return p
 
@@ -46,6 +55,8 @@ def main():
     print("Residual RMS:", summary.residual_rms)
     print("Maximum |residual|:", summary.residual_max_abs)
     print("Global permutation p:", summary.global_permutation_p)
+    if summary.global_parametric_bootstrap_p is not None:
+        print("Global refit-bootstrap p:", summary.global_parametric_bootstrap_p)
 
     if summary.best_scan_at_boundary:
         print(
@@ -68,6 +79,8 @@ def main():
     else:
         print("Frozen omega:", summary.frozen_scan["omega"])
         print("Frozen permutation p:", summary.frozen_permutation_p)
+        if summary.frozen_parametric_bootstrap_p is not None:
+            print("Frozen refit-bootstrap p:", summary.frozen_parametric_bootstrap_p)
 
 
 if __name__ == "__main__":
