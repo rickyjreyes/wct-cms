@@ -16,11 +16,11 @@ where `omega` should be frozen from the external WCT analysis before the CMS res
 
 **Primary replication test:** `--frozen-omega`.
 
-The frequency is not fit to CMS. Only amplitude, phase, and intercept are fit. The repository reports the fixed-frequency improvement and a permutation p-value.
+The frequency is not fit to CMS. Only amplitude, phase, and intercept are fit. The repository reports the fixed-frequency improvement and null p-values.
 
 **Exploratory diagnostic:** omega scan.
 
-The maximum scan statistic is corrected using the distribution of the maximum statistic obtained in residual permutations. It must not be reported as though it were the pre-registered replication test.
+The maximum scan statistic is corrected using null distributions of the maximum statistic. It must not be reported as though it were the pre-registered replication test.
 
 ## Spectral-resolution safeguards
 
@@ -48,17 +48,35 @@ For the default 2--120 GeV interval, the full log-mass span is approximately 4.0
 
 Mass windows must be selected for physics reasons before inspecting which choice maximizes the WCT statistic. Keep a record of every mask set tested.
 
-## Permutation p-value resolution
+## Null models
 
-The residual-permutation null is an exploratory diagnostic. With `N` permutations and the repository's add-one correction, the smallest reportable Monte Carlo p-value is
+### Residual-permutation null
+
+The residual-permutation null is a fast exploratory diagnostic. It shuffles the fitted residuals over the fixed log-mass coordinates and records the strongest frequency in each permutation.
+
+With `N` permutations and the repository's add-one correction, the smallest reportable Monte Carlo p-value is
 
 \[
 p_{\min}=\frac{1}{N+1}.
 \]
 
-Thus 20 permutations can report no value below `1/21 = 0.047619...`; that value means only that zero of 20 shuffled residual sets exceeded the observed statistic. It is not evidence that the true p-value has been measured to approximately 0.048.
+Thus 200 permutations can report no value below `1/201 = 0.004975...`; that value means only that zero of 200 shuffled residual sets exceeded the observed statistic. It is not a measurement of a true p-value equal to approximately 0.005.
 
-Residual permutation also assumes the residuals are exchangeable after background fitting. A serious physics result requires stronger null controls, including parametric/bootstrap studies that repeat the background fit and tests on simulation/control regions.
+Residual permutation assumes the residuals are exchangeable after background fitting. Correlated background mis-modeling can violate that assumption and make the permutation p-value overly optimistic.
+
+### Refit parametric-background bootstrap
+
+`--parametric-bootstrap N` runs a stronger null for the current continuum model:
+
+1. Generate a Poisson pseudo-spectrum from the fitted smooth background.
+2. Refit the smooth background with the identical degree, clipping, and resonance exclusions.
+3. Recompute Pearson-like residuals on the fixed analysis bins.
+4. Rescan the full exploratory omega range.
+5. Record the maximum scan statistic, and the frozen-frequency statistic when supplied.
+
+This propagates counting noise and background-fit re-estimation into the null. It does **not** prove that the chosen background family is correct; model-family and fit-degree stability tests remain required.
+
+A candidate that is significant only under residual permutation but not under the refit bootstrap should be treated as a background-fitting artifact until demonstrated otherwise.
 
 ## Controls required before a physics claim
 
@@ -68,7 +86,7 @@ Residual permutation also assumes the residuals are exchangeable after backgroun
 4. Run CMS simulation/background samples through the identical pipeline.
 5. Test known detector/reconstruction resonances and predeclared masked windows.
 6. Require an interior frequency with enough cycles to be spectrally resolvable.
-7. Replace or supplement residual permutation with a null that propagates background-fit uncertainty.
+7. Require consistency under the refit parametric-background bootstrap, not only residual permutation.
 8. Test at least one independent CMS channel, preferably photons after dimuons.
 9. Apply the same dimensionless mapping used to compare GWTC, LHC, JUNO and photodiode data.
 10. Record all failed as well as successful runs.
