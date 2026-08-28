@@ -33,6 +33,8 @@ class AnalysisSummary:
     frozen_scan: Optional[dict]
     global_permutation_p: Optional[float]
     frozen_permutation_p: Optional[float]
+    global_parametric_bootstrap_p: Optional[float]
+    frozen_parametric_bootstrap_p: Optional[float]
     mass_min: float
     mass_max: float
     bins: int
@@ -42,4 +44,5 @@ class AnalysisSummary:
     omega_max: float
     omega_steps: int
     permutations: int
+    parametric_bootstrap: int
     seed: int
