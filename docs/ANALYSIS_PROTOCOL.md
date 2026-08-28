@@ -22,6 +22,36 @@ The frequency is not fit to CMS. Only amplitude, phase, and intercept are fit. T
 
 The maximum scan statistic is corrected using null distributions of the maximum statistic. It must not be reported as though it were the pre-registered replication test.
 
+## Cross-dataset frequency conventions
+
+This CMS repository currently scans the coordinate
+
+\[
+x_{\rm CMS}=\ln(m_{\mu\mu}/m_0).
+\]
+
+The existing LHCb WCT analysis uses
+
+\[
+\ell_{\rm LHCb}=\ln(q^2),
+\]
+
+with `q2 = m_mumu^2`. Therefore, apart from an additive reference-scale constant absorbed by phase,
+
+\[
+\ell_{\rm LHCb}=2x_{\rm CMS}+\text{constant}.
+\]
+
+Consequently the raw frequency conventions obey
+
+\[
+\omega_{\rm CMS}=2k_{\rm LHCb},
+\qquad
+k_{\rm LHCb}=\omega_{\rm CMS}/2.
+\]
+
+Never compare the numerical CMS `omega` directly to an LHCb `k` without this conversion. More generally, a frozen cross-dataset claim must first reproduce the exact dimensionless coordinate and frequency convention used by the source analysis.
+
 ## Spectral-resolution safeguards
 
 An exploratory frequency should not be interpreted as a resolved oscillation merely because it maximizes the scan statistic.
