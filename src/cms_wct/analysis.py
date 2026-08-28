@@ -41,12 +41,23 @@ def run_analysis(args):
         centers, counts, args.fit_degree, args.fit_iterations, args.clip_sigma, windows
     )
     residuals = (counts - model) / np.sqrt(np.maximum(model, 1.0))
+
     mask = np.isfinite(residuals) & (model >= args.min_model_count) & (centers > 0)
-    if np.count_nonzero(mask) < 20:
+
+    # ``--mask-window`` is an explicit physics-analysis exclusion, not merely a
+    # background-fit hint.  Keeping an excluded resonance in the spectral scan
+    # after omitting it from the continuum fit creates a deliberately enormous
+    # residual and can masquerade as spectral structure.
+    for lo, hi in windows:
+        mask &= ~((centers >= lo) & (centers <= hi))
+
+    analysis_bins = int(np.count_nonzero(mask))
+    if analysis_bins < 20:
         raise RuntimeError("Too few usable mass bins")
 
     x = np.log(centers[mask] / args.m0)
-    y = residuals[mask] - np.mean(residuals[mask])
+    raw_y = residuals[mask]
+    y = raw_y - np.mean(raw_y)
     omegas = np.linspace(args.omega_min, args.omega_max, args.omega_steps)
     scores, best = scan_omegas(x, y, omegas)
     frozen = None if args.frozen_omega is None else weighted_linear_sinusoid(x, y, args.frozen_omega)
@@ -55,6 +66,15 @@ def run_analysis(args):
         x, y, omegas, best.delta_chi2, args.frozen_omega,
         None if frozen is None else frozen.delta_chi2,
         args.permutations, args.seed,
+    )
+
+    log_mass_span = float(np.max(x) - np.min(x))
+    best_cycles_across_span = float(best.omega * log_mass_span / (2.0 * np.pi))
+    omega_step = 0.0 if len(omegas) < 2 else float(abs(omegas[1] - omegas[0]))
+    boundary_tol = max(1e-12, 0.51 * omega_step)
+    best_scan_at_boundary = bool(
+        abs(best.omega - float(omegas[0])) <= boundary_tol
+        or abs(best.omega - float(omegas[-1])) <= boundary_tol
     )
 
     np.savetxt(outdir / "omega_scan.csv", np.column_stack([omegas, scores]), delimiter=",", header="omega,delta_chi2", comments="")
@@ -72,6 +92,12 @@ def run_analysis(args):
         selected_muons=counters["selected_muons"],
         opposite_sign_pairs=counters["opposite_sign_pairs"],
         masses_in_range=int(np.sum(counts)),
+        analysis_bins=analysis_bins,
+        residual_rms=float(np.sqrt(np.mean(np.square(raw_y)))),
+        residual_max_abs=float(np.max(np.abs(raw_y))),
+        log_mass_span=log_mass_span,
+        best_cycles_across_span=best_cycles_across_span,
+        best_scan_at_boundary=best_scan_at_boundary,
         best_scan=asdict(best),
         frozen_scan=None if frozen is None else asdict(frozen),
         global_permutation_p=p_global,
