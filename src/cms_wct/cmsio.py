@@ -100,10 +100,13 @@ def extract_dimuon_masses(inputs, args, golden=None):
 
         pt, eta = arrays["Muon_pt"][gm], arrays["Muon_eta"][gm]
         keep = (pt >= args.muon_pt_min) & (abs(eta) <= args.muon_eta_max)
+
+        # Awkward Arrays do not support NumPy-style in-place ufunc output
+        # (for example ``keep &= other``). Build a new mask at each step.
         if args.tight_id:
-            keep &= arrays["Muon_tightId"][gm]
+            keep = keep & arrays["Muon_tightId"][gm]
         if args.medium_id:
-            keep &= arrays["Muon_mediumId"][gm]
+            keep = keep & arrays["Muon_mediumId"][gm]
 
         mu = ak.zip({
             "pt": pt[keep],
