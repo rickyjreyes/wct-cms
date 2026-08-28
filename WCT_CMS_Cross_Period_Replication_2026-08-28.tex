@@ -1,0 +1,1331 @@
+% !TeX program = pdflatex
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{microtype}
+\usepackage{siunitx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{url}
+\usepackage{listings}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue
+}
+
+\setlist[itemize]{leftmargin=1.5em}
+\setlist[enumerate]{leftmargin=1.7em}
+
+\newcommand{\WCT}{\mathrm{WCT}}
+\newcommand{\CMS}{\mathrm{CMS}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\lnm}{\ln(m_{\mu\mu}/m_0)}
+\newcommand{\chisq}{\chi^2}
+\newcommand{\dchisq}{\Delta\chi^2}
+
+\title{\textbf{Cross-Period CMS Open-Data Replication of a Pre-Existing\\
+Wave Confinement Theory Log-Periodic Collider Prediction}}
+
+\author{Richard J. Reyes\\
+Wave Confinement Theory / WaveLock\\
+\texttt{rickyjreyes.github.io}}
+
+\date{August 28, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Wave Confinement Theory (WCT) proposed prior to the present CMS analysis that
+curvature-induced spectral organization could generate discrete-scale,
+log-periodic structure in collider observables.  In particular, a WCT preprint
+published on April 23, 2026 proposed a log-periodic deformation of the
+semileptonic Wilson coefficient \(C_9(q^2)\) of the form
+\[
+\delta C_9(q^2)
+=
+A\cos\!\left[
+\omega\ln\!\left(\frac{q^2}{\Lambda^2}\right)+\phi
+\right].
+\]
+The present work does not measure \(C_9\) directly.  Instead, it performs an
+independent, model-agnostic search for related log-periodic structure in the
+inclusive opposite-sign dimuon invariant-mass spectrum of CMS Run-2 open data.
+
+A development-stage scan over \(2\)--\(120~\mathrm{GeV}\) initially selected
+the lower scan boundary, revealing a broad-background degeneracy rather than a
+resolved oscillation.  The analysis was therefore tightened by excluding
+known resonance windows from both continuum fitting and spectral testing,
+requiring frequencies corresponding to approximately two or more cycles
+across the analyzed log-mass range, applying the official CMS 2016 muon
+certification, and introducing both residual-permutation and parametric
+Poisson background-refit nulls.
+
+In the certified Run2016H discovery file, an interior candidate was found at
+\[
+\omega_m = 7.0258258258,
+\]
+with amplitude \(A_r=0.7543\), phase \(\phi=-0.1890\), and
+\(\Delta\chi^2=75.76\).  The candidate and complete analysis configuration
+were then frozen before independent-file testing.  A second Run2016H file
+reproduced the frozen frequency with \(A_r=0.9367\),
+\(\phi=-0.3060\), and \(\Delta\chi^2=118.91\).  More importantly, a separately
+preregistered Run2016G cross-period test reproduced the same frozen frequency
+with \(A_r=0.9349\), \(\phi=-0.1568\), and
+\(\Delta\chi^2=115.89\).  In both replication samples, zero of 1000 residual
+permutations and zero of 500 parametric Poisson background-refit trials
+exceeded the observed fixed-frequency statistic, so the corresponding
+reported Monte Carlo \(p\)-values are resolution floors rather than precise
+tail probabilities.
+
+These results constitute positive cross-period empirical support for the
+pre-existing WCT prediction class of collider log-periodicity.  They do not,
+by themselves, establish WCT as the unique explanation.  The principal
+remaining alternatives include stable CMS trigger/acceptance/reconstruction
+structure, incomplete Standard Model or continuum modeling, and generic
+discrete-scale mechanisms already known in the literature.  The decisive next
+stage is therefore not further exploratory frequency searching, but frozen
+tests across background families, trigger-stable regions, independent
+channels/experiments, and a WCT-derived dimensionless mapping that predicts
+frequency and phase before new data are inspected.
+\end{abstract}
+
+\section{Introduction}
+
+Discrete-scale invariance (DSI) is a well-established mathematical mechanism
+by which continuous scaling is replaced by invariance under preferred scale
+ratios, naturally producing periodic corrections in the logarithm of a scale
+variable \cite{Sornette1998}.  Log-periodic behavior has consequently appeared
+in many theoretical and empirical contexts.  In high-energy physics, prior
+examples include DSI-inspired descriptions of hadron mass spectra
+\cite{Tatischeff2011}, log-periodic decorations of LHC transverse-momentum
+spectra within complex-\(q\) or Tsallis-type descriptions
+\cite{Wilk2014,Wilk2015}, and approximately periodic invariant-mass resonance
+towers in clockwork/linear-dilaton models \cite{Giudice2018}.
+
+Wave Confinement Theory (WCT) makes a more specific claim: confinement and
+curvature-driven spectral organization can produce discrete-scale structure
+as an emergent property of confined wavefields.  A WCT preprint published on
+April 23, 2026 applied this idea specifically to the
+\(b\to s\ell^+\ell^-\) sector and proposed a log-periodic deformation of
+\(C_9(q^2)\) \cite{ReyesC9}.  Thus the general prediction of collider
+log-periodicity predates the CMS analysis reported here.
+
+The present analysis asks a deliberately narrower empirical question:
+\begin{quote}
+Does an inclusive CMS opposite-sign dimuon mass spectrum contain a stable,
+resolved log-periodic residual that survives certification, explicit resonance
+exclusions, background-refit null tests, a frozen independent-file
+replication, and a frozen cross-period replication?
+\end{quote}
+
+The answer obtained under the present pipeline is positive.  However, the
+interpretation must distinguish three levels:
+\begin{enumerate}
+    \item detection of reproducible log-periodic structure in the analyzed CMS
+          observable;
+    \item consistency with a pre-existing WCT prediction class;
+    \item unique attribution of that structure to WCT rather than detector,
+          Standard Model, statistical, or other DSI mechanisms.
+\end{enumerate}
+The first two are supported by the current analysis.  The third remains open.
+
+\section{Prior WCT prediction}
+
+\subsection{Broader WCT structure}
+
+A central scalar curvature functional used in WCT is
+\begin{equation}
+\Theta[\psi]
+=
+-\frac{\nabla^2\psi}
+{\psi+\epsilon e^{-\alpha|\psi|^2}},
+\label{eq:theta}
+\end{equation}
+with a positive energy functional of the schematic form
+\begin{equation}
+E[\psi]
+=
+\int
+\left(
+|\nabla\psi|^2 + |\Theta[\psi]|^2
+\right)\,\dd^n x.
+\label{eq:energy}
+\end{equation}
+The WCT program investigates whether nonlinear curvature feedback, finite-band
+spectral selection, winding structure, and confinement can organize physical
+observables into preferred spectral structures.
+
+The present CMS work does \emph{not} derive
+\(\omega_m=7.0258\) from Eqs.~\eqref{eq:theta}--\eqref{eq:energy}.  That is an
+important open theoretical step.  What was predicted prior to this CMS test is
+the \emph{class} of log-periodic collider structure.
+
+\subsection{April 2026 collider prediction}
+
+The April 2026 WCT preprint proposed
+\begin{equation}
+\delta C_9(q^2)
+=
+A\cos\!\left[
+\omega\ln\!\left(\frac{q^2}{\Lambda^2}\right)+\phi
+\right],
+\label{eq:c9}
+\end{equation}
+motivated by curvature-induced spectral structure in a confined wavefield
+\cite{ReyesC9}.  In conceptual form, the proposed chain was
+\begin{equation}
+\text{curvature feedback}
+\longrightarrow
+\text{spectral band selection}
+\longrightarrow
+\text{discrete-scale structure}
+\longrightarrow
+\text{log-periodic modulation}.
+\label{eq:wct_chain}
+\end{equation}
+
+Equation~\eqref{eq:c9} was written for the
+\(b\to s\ell^+\ell^-\) phenomenology associated with
+\(B^0\to K^{*0}\mu^+\mu^-\).  The inclusive CMS DoubleMuon spectrum analyzed
+below is therefore \textbf{not a direct measurement of \(C_9\)} and should not
+be described as such.  The CMS analysis instead probes whether a related
+log-periodic residual occurs in a distinct collider dimuon observable.
+
+\subsection{Coordinate convention}
+
+The CMS analysis uses
+\begin{equation}
+x_m=\ln\!\left(\frac{m_{\mu\mu}}{m_0}\right),
+\end{equation}
+whereas the WCT \(C_9\) construction and the associated LHCb analysis use
+\begin{equation}
+x_{q^2}=\ln(q^2).
+\end{equation}
+Since \(q^2=m_{\mu\mu}^2\),
+\begin{equation}
+\ln q^2 = 2\ln m_{\mu\mu},
+\end{equation}
+and therefore frequencies expressed in the two conventions obey
+\begin{equation}
+\boxed{
+\omega_m=2k_{q^2},
+\qquad
+k_{q^2}=\frac{\omega_m}{2}.
+}
+\label{eq:freqconvert}
+\end{equation}
+The frozen CMS value
+\(\omega_m=7.0258258258\) corresponds to
+\begin{equation}
+k_{q^2}=3.5129129129.
+\end{equation}
+Raw numerical frequencies from different log-coordinate definitions must not
+be compared without this conversion.
+
+\section{Prior art and competing mechanisms}
+
+The existence of log-periodic behavior is not unique to WCT.  The relevant
+question is whether a competing mechanism predicts the same observable,
+coordinate dependence, frequency/phase stability, and cross-domain behavior.
+
+\subsection{Generic discrete-scale invariance}
+
+DSI generically yields complex scaling exponents and log-periodic corrections
+to scaling \cite{Sornette1998}.  Therefore observation of a log-periodic
+residual alone cannot establish WCT.  Generic DSI is best regarded as a
+mathematical class containing multiple possible physical realizations.
+
+\subsection{Hadron-spectroscopy DSI}
+
+Tatischeff applied fractal/DSI methods to hadron masses and widths, reporting
+log-periodic corrections in hadron spectroscopy \cite{Tatischeff2011}.  This
+is relevant high-energy prior art, but it is not a prediction of the present
+inclusive CMS dimuon continuum residual and does not use the WCT confinement
+mechanism.
+
+\subsection{Complex-\(q\)/Tsallis log-periodicity}
+
+Wilk and W{\l}odarczyk reported log-periodic oscillatory decorations in
+high-\(p_T\) spectra and discussed descriptions based on a complex
+nonextensivity parameter or a log-periodically varying scale
+\cite{Wilk2014,Wilk2015}.  This is an important collider-specific alternative
+to any broad claim that WCT uniquely introduced collider log-periodicity.
+However, the primary observable and physical interpretation differ from the
+present dimuon invariant-mass residual.
+
+\subsection{Clockwork/linear-dilaton resonance towers}
+
+Clockwork/linear-dilaton phenomenology predicts a tower of approximately
+periodic resonant peaks and motivates Fourier-space searches in dilepton and
+diphoton invariant-mass spectra \cite{Giudice2018}.  This is perhaps the
+closest prior collider model in terms of a structured dilepton mass spectrum.
+Nevertheless, a resonance comb approximately periodic in mass is not the same
+functional hypothesis as
+\begin{equation}
+r(m)\propto
+\cos\!\left[\omega\ln(m/m_0)-\phi\right].
+\end{equation}
+The two can and should be compared quantitatively rather than conflated.
+
+\subsection{Standard Model and detector/systematic structure}
+
+For the present CMS result, the most serious competing explanation is not
+necessarily another beyond-Standard-Model theory.  Stable structures can arise
+from
+\begin{itemize}
+    \item trigger thresholds and changing trigger efficiencies;
+    \item reconstruction and identification efficiencies;
+    \item detector acceptance versus \(m_{\mu\mu}\);
+    \item residual resonance tails or heavy-flavor structure;
+    \item continuum background misspecification;
+    \item correlated residuals not represented by a Poisson null;
+    \item run-dependent or run-stable calibration effects.
+\end{itemize}
+Because Run2016G and Run2016H use closely related CMS reconstruction and trigger
+infrastructure, cross-period replication is stronger than a same-file
+fluctuation test but does not eliminate CMS-specific systematic explanations.
+
+\section{CMS open data}
+
+\subsection{Run2016H}
+
+The discovery and first frozen replication use the CMS
+\texttt{DoubleMuon} Run2016H Ultra Legacy NanoAOD dataset
+\cite{CMS2016H}:
+\begin{quote}
+\texttt{/DoubleMuon/Run2016H-UL2016\_MiniAODv2\_NanoAODv9-v1/NANOAOD}.
+\end{quote}
+The CERN Open Data record reports 48,912,812 events in 28 files from run
+numbers 281613--284044 \cite{CMS2016H}.
+
+The two analyzed files are
+\begin{align}
+&\texttt{127C2975-1B1C-A046-AABF-62B77E757A86.root},
+\\
+&\texttt{183BFB78-7B5E-734F-BBF5-174A73020F89.root}.
+\end{align}
+
+\subsection{Run2016G}
+
+The cross-period replication uses the CMS
+\texttt{DoubleMuon} Run2016G Ultra Legacy NanoAOD dataset
+\cite{CMS2016G}:
+\begin{quote}
+\texttt{/DoubleMuon/Run2016G-UL2016\_MiniAODv2\_NanoAODv9-v2/NANOAOD}.
+\end{quote}
+The CERN Open Data record reports 45,235,604 events in 29 files from run
+numbers 278820--280385 \cite{CMS2016G}.
+
+The preregistered first file used for the cross-period test is
+\begin{quote}
+\texttt{05DD095C-F6C3-9A4F-9FB3-348A5A6403D5.root}.
+\end{quote}
+
+\subsection{Muon certification}
+
+All primary certified analyses apply
+\begin{quote}
+\texttt{Cert\_271036-284044\_13TeV\_Legacy2016\_Collisions16\_JSON\_MuonPhys.txt},
+\end{quote}
+the official CMS list of luminosity sections valid for analyses requiring
+valid muons \cite{CMSMuonJSON}.  The certification record covers both
+Run2016G and Run2016H.
+
+\section{Event reconstruction and selection}
+
+NanoAOD files are read with \texttt{uproot} and \texttt{awkward}.  Muon
+four-vectors are reconstructed from the standard NanoAOD quantities.  The
+selection used throughout the frozen analysis is
+\begin{align}
+p_T^\mu &\ge 4~\mathrm{GeV},\\
+|\eta^\mu| &\le 2.4,\\
+\text{ID} &= \text{tight}.
+\end{align}
+Opposite-sign muon pairs are formed, and their invariant mass is
+\begin{equation}
+m_{\mu\mu}^2
+=
+(E_{\mu^+}+E_{\mu^-})^2
+-
+\left|
+\mathbf{p}_{\mu^+}+\mathbf{p}_{\mu^-}
+\right|^2.
+\end{equation}
+
+The analysis interval is
+\begin{equation}
+2~\mathrm{GeV}
+\le m_{\mu\mu}\le
+120~\mathrm{GeV},
+\end{equation}
+divided into 350 logarithmically spaced bins.
+
+\subsection{Explicit resonance masks}
+
+The following mass windows are excluded from both the continuum fit and the
+spectral analysis:
+\begin{align}
+2.90 &\le m_{\mu\mu}\le 3.30~\mathrm{GeV},\\
+3.55 &\le m_{\mu\mu}\le 3.85~\mathrm{GeV},\\
+8.50 &\le m_{\mu\mu}\le 11.50~\mathrm{GeV},\\
+80.0 &\le m_{\mu\mu}\le 100.0~\mathrm{GeV}.
+\end{align}
+These remove the dominant \(J/\psi\), \(\psi(2S)\), bottomonium-family, and
+\(Z\)-region structures from the tested continuum.
+
+This exclusion is essential.  Omitting a resonance from a background fit
+while retaining it in the residual spectral scan would deliberately generate
+a large structured residual.
+
+\section{Continuum model}
+
+Let \(N_i\) denote the observed count in mass bin \(i\) with center \(m_i\).
+The smooth background is estimated by fitting
+\begin{equation}
+y_i=\ln(N_i+0.5)
+\end{equation}
+as a Chebyshev polynomial in
+\begin{equation}
+x_i=\ln m_i.
+\end{equation}
+The frozen polynomial degree is seven.
+
+The fit is iteratively robustified.  At each iteration,
+\begin{equation}
+r_i
+=
+\frac{N_i-B_i}{\sqrt{\max(B_i,1)}}
+\label{eq:pearson}
+\end{equation}
+is computed, and bins beyond the declared clipping threshold are excluded
+from subsequent continuum fitting.  Explicit resonance masks remain excluded
+throughout.
+
+Only bins with a model expectation above the declared minimum count are
+retained for spectral testing.
+
+\section{Log-periodic spectral test}
+
+The residual model is
+\begin{equation}
+r(x)
+=
+c
++
+a\cos(\omega x)
++
+b\sin(\omega x),
+\label{eq:linmodel}
+\end{equation}
+equivalently
+\begin{equation}
+r(x)
+=
+c
++
+A_r\cos(\omega x-\phi),
+\end{equation}
+where
+\begin{align}
+A_r &= \sqrt{a^2+b^2},\\
+\phi &= \operatorname{atan2}(b,a).
+\end{align}
+
+The scan statistic is the improvement relative to an intercept-only residual
+model:
+\begin{equation}
+\Delta\chi^2(\omega)
+=
+\chi^2_0-\chi^2_\omega.
+\end{equation}
+
+The exploratory scan is
+\begin{equation}
+3.1\le\omega\le80
+\end{equation}
+with 1000 linearly spaced trial frequencies.
+
+\subsection{Spectral-resolution condition}
+
+For a log-coordinate span
+\begin{equation}
+\Delta x=x_{\max}-x_{\min},
+\end{equation}
+the number of cycles represented by a trial frequency is
+\begin{equation}
+N_{\mathrm{cycles}}
+=
+\frac{\omega\Delta x}{2\pi}.
+\label{eq:ncycles}
+\end{equation}
+Across the approximately
+\(\Delta x\simeq4.08\) analyzed span, \(\omega\simeq3.1\) corresponds to
+approximately two cycles.  Frequencies below this scale were excluded from the
+final exploratory search because sub-cycle behavior is strongly degenerate
+with broad continuum curvature.
+
+\section{Null distributions}
+
+Two Monte Carlo null procedures are used.
+
+\subsection{Residual-permutation null}
+
+The analyzed residuals are permuted across the fixed log-mass coordinates.
+For every permutation the complete frequency scan is repeated and its maximum
+\(\Delta\chi^2\) is recorded.  This controls the look-elsewhere effect over the
+declared \(\omega\)-scan under the assumption that fitted residuals are
+exchangeable.
+
+For a frozen-frequency replication, the statistic at the predeclared
+frequency is also evaluated under each permutation.
+
+The Monte Carlo estimate uses the add-one correction
+\begin{equation}
+\hat p
+=
+\frac{N_{\ge}+1}{N_{\mathrm{MC}}+1}.
+\label{eq:addone}
+\end{equation}
+
+\subsection{Parametric Poisson background-refit null}
+
+The second null propagates Poisson counting noise and continuum refitting.
+For each pseudo-experiment:
+\begin{enumerate}
+    \item counts are drawn as
+    \begin{equation}
+    N_i^\ast\sim\operatorname{Poisson}(B_i);
+    \end{equation}
+    \item the degree-seven robust continuum is refit to \(N_i^\ast\);
+    \item new Pearson residuals are computed;
+    \item the exploratory scan and/or frozen-frequency statistic is evaluated.
+\end{enumerate}
+
+This is stronger than simply shuffling residual bins because the continuum is
+re-estimated in every pseudo-experiment.  It still does \emph{not} simulate
+trigger, reconstruction, calibration, acceptance, correlated detector effects,
+or an alternative Standard Model continuum family.
+
+\section{Analysis development and rejection of the initial boundary solution}
+
+The first 100,000-event development run used a broad \(2\)--\(120~\mathrm{GeV}\)
+fit without the final resonance exclusions and scanned
+\(0.5\le\omega\le80\).  It selected
+\begin{equation}
+\omega_{\mathrm{best}}=0.5,
+\end{equation}
+exactly the lower scan boundary, with an unphysical residual amplitude of
+order \(10^2\).
+
+The full log span is
+\begin{equation}
+\ln(120/2)=\ln 60\simeq4.094,
+\end{equation}
+so \(\omega=0.5\) represents only
+\begin{equation}
+N_{\mathrm{cycles}}
+\simeq
+\frac{0.5(4.094)}{2\pi}
+\simeq0.326
+\end{equation}
+cycles.  The candidate was therefore interpreted as broad background
+misspecification rather than a resolved oscillatory signal.
+
+This negative development-stage finding motivated explicit safeguards:
+\begin{itemize}
+    \item resonance windows excluded from both fitting and testing;
+    \item an exploratory lower bound near the two-cycle resolution scale;
+    \item explicit boundary-frequency warnings;
+    \item residual RMS and maximum-residual diagnostics;
+    \item official CMS muon certification;
+    \item background-refit parametric nulls.
+\end{itemize}
+
+The initial \(\omega=0.5\) solution is not used as evidence for WCT.
+
+\section{Certified Run2016H discovery}
+
+With the final masks and official muon certification applied to the first
+Run2016H file, 100,000 events were read and 50,951 survived the certification
+within that input segment.  The analysis contained 21,930 dimuon masses in the
+declared mass interval and 287 analyzed bins.
+
+The exploratory scan selected
+\begin{equation}
+\boxed{
+\omega_m=7.0258258258
+}
+\label{eq:frozenomega}
+\end{equation}
+with
+\begin{align}
+A_r &= 0.7542594,\\
+\phi &= -0.1889538,\\
+\Delta\chi^2 &= 75.7616.
+\end{align}
+The candidate spans
+\begin{equation}
+N_{\mathrm{cycles}}=4.5652,
+\end{equation}
+and is not on a scan boundary.
+
+The residual diagnostics were
+\begin{align}
+\mathrm{RMS}(r)&=1.2865,\\
+\max|r|&=6.3986.
+\end{align}
+Thus the residuals are substantially better behaved than in the original
+development scan but are not perfectly unit-normal.
+
+Zero of 1000 residual-permutation trials exceeded the observed global scan
+maximum, and zero of 500 Poisson background-refit trials exceeded it.  Using
+Eq.~\eqref{eq:addone}, the reported Monte Carlo floors are
+\begin{align}
+\hat p_{\mathrm{perm}} &= \frac{1}{1001}
+=9.9900\times10^{-4},\\
+\hat p_{\mathrm{refit}} &= \frac{1}{501}
+=1.9960\times10^{-3}.
+\end{align}
+These values mean zero exceedances at the available Monte Carlo resolution;
+they are not precision measurements of the true tail probability.
+
+\section{Preregistration of the CMS replication}
+
+Before inspecting a second CMS file, the following were frozen:
+\begin{itemize}
+    \item \(\omega_m=7.0258258258\);
+    \item mass range \(2\)--\(120~\mathrm{GeV}\);
+    \item 350 logarithmic bins;
+    \item \(p_T^\mu\ge4~\mathrm{GeV}\);
+    \item \(|\eta^\mu|\le2.4\);
+    \item tight muon ID;
+    \item degree-seven continuum;
+    \item the four explicit mass exclusions;
+    \item 100,000-event read cap;
+    \item 1000 residual permutations;
+    \item 500 parametric background-refit trials;
+    \item random seed 20260827.
+\end{itemize}
+
+The exploratory best frequency in a replication file is secondary.  The
+primary replication statistic is the amplitude and \(\Delta\chi^2\) obtained
+at the frozen frequency in Eq.~\eqref{eq:frozenomega}.
+
+\section{Frozen Run2016H independent-file replication}
+
+The second Run2016H ROOT file was not used to determine the frozen frequency.
+After applying the same configuration, 100,000 events were read, 90,868
+survived certification, and 39,230 masses fell within the full mass interval.
+
+The exploratory scan of this replication file independently selected
+\begin{equation}
+\omega_{\mathrm{explore,H2}}=6.563964,
+\end{equation}
+but the preregistered primary result is the fit at
+\(\omega_m=7.0258258258\):
+\begin{align}
+A_r &= 0.9367121,\\
+\phi &= -0.3059911,\\
+\Delta\chi^2 &= 118.9148.
+\end{align}
+
+Again,
+\begin{align}
+N_{\ge,\mathrm{perm}}&=0/1000,\\
+N_{\ge,\mathrm{refit}}&=0/500.
+\end{align}
+
+The phase shift relative to discovery is
+\begin{equation}
+|\Delta\phi_{\mathrm{H2-H1}}|
+=
+0.11704~\mathrm{rad}
+\simeq6.71^\circ.
+\end{equation}
+
+The principal warning is that the absolute continuum residual diagnostics are
+worse:
+\begin{align}
+\mathrm{RMS}(r)&=1.8187,\\
+\max|r|&=12.4685.
+\end{align}
+Consequently, this sample strongly rejects the implemented Poisson smooth-null
+model but simultaneously demonstrates that the smooth background is not a
+complete statistical description of the data.
+
+\section{Preregistered Run2016G cross-period replication}
+
+Before inspecting Run2016G data, the same fixed frequency and analysis
+configuration were preregistered for a cross-period test.
+
+In the first Run2016G file, 100,000 events were read and all 100,000 were
+within accepted muon-certified luminosity sections for the processed segment.
+There were 39,633 masses in the declared \(2\)--\(120~\mathrm{GeV}\) interval.
+
+The secondary exploratory scan selected
+\begin{equation}
+\omega_{\mathrm{explore,G}}=7.410711,
+\end{equation}
+whereas the primary fixed-frequency result at
+\(\omega_m=7.0258258258\) was
+\begin{align}
+A_r &= 0.9348797,\\
+\phi &= -0.1567923,\\
+\Delta\chi^2 &= 115.8921.
+\end{align}
+
+For the frozen statistic,
+\begin{align}
+N_{\ge,\mathrm{perm}}&=0/1000,\\
+N_{\ge,\mathrm{refit}}&=0/500.
+\end{align}
+
+The frozen phase differs from the original discovery phase by only
+\begin{equation}
+|\Delta\phi_{\mathrm{G-H1}}|
+=
+0.03216~\mathrm{rad}
+\simeq1.84^\circ.
+\end{equation}
+The amplitude differs by approximately \(24\%\) from the discovery value and
+is almost identical to the independent Run2016H replication amplitude.
+
+The Run2016G residual diagnostics are
+\begin{align}
+\mathrm{RMS}(r)&=1.7240,\\
+\max|r|&=8.4725.
+\end{align}
+As in the second Run2016H file, these values argue against treating the fitted
+continuum as a complete physical null model.
+
+\section{Summary of results}
+
+\begin{table}[H]
+\centering
+\small
+\caption{Certified discovery and frozen replication results.  ``H1'' denotes
+the Run2016H discovery file, ``H2'' the independent Run2016H replication file,
+and ``G'' the preregistered Run2016G cross-period file.}
+\label{tab:main}
+\begin{tabular}{lrrr}
+\toprule
+Quantity & H1 discovery & H2 frozen replication & G frozen replication\\
+\midrule
+Events read & 100000 & 100000 & 100000\\
+Events after JSON & 50951 & 90868 & 100000\\
+Masses in range & 21930 & 39230 & 39633\\
+Analysis bins & 287 & 287 & 287\\
+Frozen \(\omega_m\) & 7.025826 & 7.025826 & 7.025826\\
+Amplitude \(A_r\) & 0.754259 & 0.936712 & 0.934880\\
+Phase \(\phi\) [rad] & -0.188954 & -0.305991 & -0.156792\\
+\(\Delta\chi^2\) & 75.7616 & 118.9148 & 115.8921\\
+Residual RMS & 1.2865 & 1.8187 & 1.7240\\
+Maximum \(|r|\) & 6.3986 & 12.4685 & 8.4725\\
+Permutation exceedances & 0/1000 & 0/1000 & 0/1000\\
+Refit-bootstrap exceedances & 0/500 & 0/500 & 0/500\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The three frozen-frequency amplitudes have mean
+\begin{equation}
+\overline{A}_r \simeq 0.8753
+\end{equation}
+with a sample coefficient of variation of approximately \(12\%\).
+No combined significance is assigned because the samples share analysis
+choices and, in particular, the CMS periods share detector/reconstruction
+infrastructure.
+
+\begin{table}[H]
+\centering
+\small
+\caption{Exploratory best frequencies.  These are secondary in the two
+replication datasets because the primary test is fixed at the preregistered
+\(\omega_m=7.0258258258\).}
+\begin{tabular}{lrrr}
+\toprule
+Sample & Exploratory best \(\omega\) & Best \(\Delta\chi^2\) & Best amplitude\\
+\midrule
+Run2016H discovery & 7.025826 & 75.7616 & 0.7543\\
+Run2016H file 2 & 6.563964 & 128.5539 & 0.9719\\
+Run2016G file 1 & 7.410711 & 144.1300 & 1.0316\\
+\bottomrule
+\end{tabular}
+\end{table}
+\section{Figures}
+
+The following figures summarize the certified Run2016H discovery,
+the independent Run2016H replication, and the preregistered Run2016G
+cross-period replication.  For replication samples, the frequency scan is
+preferred over the automatically generated
+\texttt{best\_log\_periodic\_fit.png}, because the latter displays the
+exploratory best-fit frequency rather than the preregistered frozen frequency.
+
+\begin{figure}[H]
+\centering
+\IfFileExists{results/dimuon_certified_bootstrap500/omega_scan.png}{
+\includegraphics[width=0.92\linewidth]
+{results/dimuon_certified_bootstrap500/omega_scan.png}
+}{
+\fbox{\parbox[c][2.0in][c]{0.84\linewidth}{\centering
+Place
+\texttt{results/dimuon\_certified\_bootstrap500/omega\_scan.png}
+here.}}
+}
+\caption{
+Certified Run2016H discovery frequency scan.
+The dominant resolved interior candidate occurs at
+$\omega_m=7.0258258258$, with
+$\Delta\chi^2=75.76$ and an oscillation spanning approximately
+$4.57$ cycles across the analyzed logarithmic mass interval.
+This value was subsequently frozen before the independent CMS
+replication tests.
+}
+\label{fig:run2016h_discovery_scan}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\IfFileExists{results/dimuon_replication_file2_frozen/omega_scan.png}{
+\includegraphics[width=0.92\linewidth]
+{results/dimuon_replication_file2_frozen/omega_scan.png}
+}{
+\fbox{\parbox[c][2.0in][c]{0.84\linewidth}{\centering
+Place
+\texttt{results/dimuon\_replication\_file2\_frozen/omega\_scan.png}
+here.}}
+}
+\caption{
+Independent Run2016H replication frequency scan.
+The dotted vertical line marks the preregistered frozen frequency
+$\omega_m=7.0258258258$ obtained from the discovery sample.
+Although the secondary exploratory maximum occurs at
+$\omega=6.5640$, the frozen frequency itself remains strongly supported,
+with $\Delta\chi^2=118.91$, amplitude $A_r=0.937$, and zero exceedances
+in both 1000 residual-permutation trials and 500 parametric
+background-refit trials.
+}
+\label{fig:run2016h_replication_scan}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\IfFileExists{results/dimuon_run2016g_frozen/omega_scan.png}{
+\includegraphics[width=0.92\linewidth]
+{results/dimuon_run2016g_frozen/omega_scan.png}
+}{
+\fbox{\parbox[c][2.0in][c]{0.84\linewidth}{\centering
+Place
+\texttt{results/dimuon\_run2016g\_frozen/omega\_scan.png}
+here.}}
+}
+\caption{
+Preregistered Run2016G cross-period replication frequency scan.
+The dotted vertical line marks the frozen prediction
+$\omega_m=7.0258258258$, fixed before inspection of the Run2016G
+sample.  The independently selected exploratory maximum occurs at
+$\omega=7.4107$, while the frozen frequency remains within the dominant
+spectral structure and gives
+$\Delta\chi^2=115.89$ with amplitude $A_r=0.935$.
+Zero of 1000 residual permutations and zero of 500 parametric
+background-refit trials exceeded the observed frozen-frequency statistic.
+}
+\label{fig:run2016g_scan}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\IfFileExists{results/dimuon_run2016g_frozen/spectrum_background.png}{
+\includegraphics[width=0.92\linewidth]
+{results/dimuon_run2016g_frozen/spectrum_background.png}
+}{
+\fbox{\parbox[c][2.0in][c]{0.84\linewidth}{\centering
+Place
+\texttt{results/dimuon\_run2016g\_frozen/spectrum\_background.png}
+here.}}
+}
+\caption{
+Certified Run2016G opposite-sign dimuon invariant-mass spectrum and
+the robust degree-seven smooth background model used to construct the
+Pearson residuals.  The dominant $J/\psi$, $\psi(2S)$, bottomonium,
+and $Z$ mass windows are excluded from the subsequent spectral analysis.
+}
+\label{fig:run2016g_spectrum}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\IfFileExists{results/dimuon_run2016g_frozen/residuals.png}{
+\includegraphics[width=0.92\linewidth]
+{results/dimuon_run2016g_frozen/residuals.png}
+}{
+\fbox{\parbox[c][2.0in][c]{0.84\linewidth}{\centering
+Place
+\texttt{results/dimuon\_run2016g\_frozen/residuals.png}
+here.}}
+}
+\caption{
+Pearson residuals of the certified Run2016G dimuon spectrum after
+the smooth-background fit and declared mass exclusions.
+The residual RMS is $1.724$ and the maximum absolute residual is
+$8.473$.  The remaining structured variation demonstrates that the
+degree-seven continuum is not a complete physical null model and
+motivates the additional systematic controls discussed in the text.
+}
+\label{fig:run2016g_residuals}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\IfFileExists{results/dimuon_run2016g_frozen/global_null_distribution.png}{
+\includegraphics[width=0.88\linewidth]
+{results/dimuon_run2016g_frozen/global_null_distribution.png}
+}{
+\fbox{\parbox[c][2.0in][c]{0.84\linewidth}{\centering
+Place
+\texttt{results/dimuon\_run2016g\_frozen/global\_null\_distribution.png}
+here.}}
+}
+\caption{
+Residual-permutation distribution of the maximum exploratory
+$\Delta\chi^2$ obtained across the declared frequency scan in Run2016G.
+No permutation exceeded the observed scan maximum.
+This figure represents the global exploratory null distribution;
+the preregistered frozen-frequency significance is separately obtained
+from the fixed-frequency permutation and parametric-refit statistics.
+}
+\label{fig:run2016g_global_null}
+\end{figure}
+
+\section{Interpretation for WCT}
+
+\subsection{What the data support}
+
+The CMS results support the following statement:
+\begin{quote}
+A log-periodic residual class proposed by WCT prior to the present CMS analysis
+is observed in a distinct inclusive CMS dimuon observable, and a
+CMS-discovered numerical candidate within that class subsequently reproduces
+at a preregistered fixed frequency in both an independent Run2016H file and a
+separately preregistered Run2016G cross-period sample.
+\end{quote}
+
+This is stronger than a single exploratory pattern match for four reasons:
+\begin{enumerate}
+    \item the broad low-frequency boundary artifact was explicitly rejected;
+    \item the surviving candidate is an interior spectral feature spanning
+          more than four cycles;
+    \item the second Run2016H test used a frozen frequency;
+    \item the Run2016G test was frozen before that period was inspected.
+\end{enumerate}
+
+The result is therefore properly described as
+\begin{quote}
+\textbf{positive cross-period empirical support for the pre-existing WCT
+prediction class of collider log-periodicity.}
+\end{quote}
+
+\subsection{What the data do not yet establish}
+
+The present result does not establish:
+\begin{itemize}
+    \item that WCT is the unique origin of the CMS structure;
+    \item that the CMS inclusive dimuon residual is a measurement of the
+          \(C_9(q^2)\) deformation in Eq.~\eqref{eq:c9};
+    \item that \(\omega_m=7.0258\) was derived from WCT field equations before
+          the CMS data were analyzed;
+    \item that the observed modulation survives a complete detector,
+          trigger-efficiency, acceptance, and Standard Model treatment;
+    \item that the same dimensionless WCT frequency has already been
+          demonstrated across CMS, LHCb, gravitational-wave, photodiode, and
+          atomic datasets.
+\end{itemize}
+
+These distinctions are not rhetorical qualifications; they define the next
+falsifiable tests.
+
+\section{Why the CMS result is not yet ``case closed''}
+
+A repeated fixed-frequency signal can arise from either a reproducible physical
+effect or a reproducible systematic effect.  Run2016G and Run2016H contain
+different collisions, and the cross-period replication therefore strongly
+weakens a one-off statistical-fluctuation explanation.  However, both periods
+remain CMS 2016 data processed through closely related trigger, detector, and
+reconstruction systems.
+
+The elevated residual RMS values,
+\begin{equation}
+1.29,\quad1.82,\quad1.72,
+\end{equation}
+also show that the degree-seven smooth continuum does not fully whiten the
+spectrum.  The refit-bootstrap result establishes that the observed fixed
+frequency is not reproduced by \emph{Poisson fluctuations around that fitted
+continuum}.  It does not establish that the fitted continuum is the correct
+complete null.
+
+The strongest remaining mundane hypothesis is therefore
+\begin{equation}
+\boxed{
+\text{stable mass-dependent CMS/SM structure not represented by the
+current smooth null}.
+}
+\end{equation}
+
+\section{Specific systematic risks}
+
+\subsection{Trigger and acceptance}
+
+The \texttt{DoubleMuon} dataset is selected by dimuon trigger paths and the
+current analysis does not yet enforce a single demonstrably flat trigger
+plateau over the entire \(2\)--\(120~\mathrm{GeV}\) interval or apply a
+mass-dependent trigger-efficiency correction.  This is a major outstanding
+control.  A stable efficiency modulation can reproduce across files and run
+periods.
+
+\subsection{Muon efficiency and reconstruction}
+
+Tight-ID, tracking, and reconstruction efficiencies can vary with muon
+kinematics.  Since \(m_{\mu\mu}\) is correlated with the individual muon
+\(p_T\) and \(\eta\), efficiency structure can project into mass space.
+
+\subsection{Continuum model dependence}
+
+A single Chebyshev degree is not sufficient for a final physical inference.
+The result must survive a predeclared family of reasonable backgrounds without
+selecting the background that maximizes the WCT statistic.
+
+\subsection{Residual resonance and heavy-flavor structure}
+
+Explicit resonance windows remove the dominant peaks, but broad tails,
+interference, heavy-flavor components, and transitions between physical
+production regimes remain possible.
+
+\subsection{Correlated residuals}
+
+Neither independent residual permutations nor simple Poisson pseudo-counts
+model arbitrary bin-to-bin detector/systematic covariance.  A final result
+requires structured nulls or simulation/control samples that encode such
+correlations.
+
+\section{Predeclared robustness matrix}
+
+A natural next test is a robustness matrix that is frozen before inspection.
+For example:
+\begin{align}
+\text{background degree} &\in \{5,6,7,8,9\},\\
+N_{\mathrm{bins}} &\in \{250,300,350,400,450\},\\
+\text{binning} &\in \{\text{logarithmic},\text{linear control}\},
+\end{align}
+with the fixed frequency
+\begin{equation}
+\omega_m=7.0258258258
+\end{equation}
+used as the primary statistic in every cell.
+
+The purpose is not to demand that every implementation give identical
+significance.  The relevant questions are:
+\begin{enumerate}
+    \item Does the fitted amplitude retain a consistent sign and order of
+          magnitude?
+    \item Does the phase remain stable?
+    \item Does the fixed-frequency statistic remain unusual under refitted
+          nulls?
+    \item Is the result concentrated in a narrow analysis choice?
+\end{enumerate}
+
+A family-wise null over the entire frozen robustness matrix would provide a
+much stronger statement than selecting the best-performing configuration.
+
+\section{Critical external replication tests}
+
+The most informative future tests are those that separate WCT from
+CMS-specific structure.
+
+\subsection{Different CMS channel}
+
+A dielectron, photon, or other independent observable could be transformed
+into a WCT-prescribed dimensionless coordinate and tested at a frequency
+frozen before inspection.  Different trigger and reconstruction systems would
+substantially reduce shared-systematic explanations.
+
+\subsection{Independent experiment}
+
+An ATLAS or other independent collider dataset would be substantially more
+decisive because CMS-specific efficiency, reconstruction, and calibration
+features would no longer be shared.
+
+\subsection{Theory-derived frequency mapping}
+
+The most important theoretical milestone is to derive
+\begin{equation}
+\boxed{
+\text{WCT field parameters}
+\longrightarrow
+\text{dimensionless scale variable}
+\longrightarrow
+\omega,\phi,A
+}
+\end{equation}
+before opening a new dataset.
+
+This would convert WCT from predicting a broad phenomenological class
+(log-periodicity) to predicting a numerical cross-domain invariant.  Such a
+test would distinguish WCT much more sharply from generic DSI.
+
+\section{Relation to the broader multi-domain WCT program}
+
+WCT has also been tested against gravitational-wave catalogs, laboratory
+photodiode data, atomic/NIST-related data, and LHC/LHCb observables.  Those
+datasets should not be combined merely because each contains a spectral or
+log-periodic feature.  A scientifically meaningful cross-domain claim
+requires:
+\begin{enumerate}
+    \item a theory-defined dimensionless coordinate in every domain;
+    \item correct conversion between \(\ln m\), \(\ln q^2\), time, frequency,
+          energy, or other coordinates;
+    \item frozen predictions before each new dataset is inspected;
+    \item explicit negative results and failed controls;
+    \item a joint null model that accounts for the number of datasets,
+          observables, transforms, and analysis families searched.
+\end{enumerate}
+
+If WCT derives a single invariant mapping and that mapping predicts the
+frequency and phase observed in multiple independently instrumented systems,
+the evidentiary status would be qualitatively stronger than independent
+post-hoc spectral matches.
+
+\section{Reproducibility}
+
+The analysis implementation is maintained in the
+\texttt{wct-cms} repository.  The repository records:
+\begin{itemize}
+    \item the discovery analysis;
+    \item the frozen candidate document;
+    \item the independent Run2016H replication result;
+    \item the preregistered Run2016G replication;
+    \item regression tests for Awkward-array selection;
+    \item vectorized spectral scanning;
+    \item residual-permutation nulls;
+    \item parametric Poisson background-refit nulls.
+\end{itemize}
+
+At the time of the reported runs, the local regression suite returned
+\begin{quote}
+\texttt{8 passed}.
+\end{quote}
+
+\subsection{Discovery-file certified run}
+
+\begin{lstlisting}[basicstyle=\ttfamily\small,breaklines=true]
+cms-wct \
+  --input data/files.txt \
+  --golden-json \
+  data/cert/14221/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON_MuonPhys.txt \
+  --output-dir results/dimuon_certified_bootstrap500 \
+  --mass-min 2 \
+  --mass-max 120 \
+  --bins 350 \
+  --log-bins \
+  --muon-pt-min 4 \
+  --muon-eta-max 2.4 \
+  --tight-id \
+  --fit-degree 7 \
+  --mask-window 2.9:3.3 \
+  --mask-window 3.55:3.85 \
+  --mask-window 8.5:11.5 \
+  --mask-window 80:100 \
+  --omega-min 3.1 \
+  --omega-max 80 \
+  --omega-steps 1000 \
+  --max-events 100000 \
+  --permutations 1000 \
+  --parametric-bootstrap 500 \
+  --seed 20260827
+\end{lstlisting}
+
+\subsection{Frozen Run2016H replication}
+
+\begin{lstlisting}[basicstyle=\ttfamily\small,breaklines=true]
+cms-wct \
+  --input data/files_replication.txt \
+  --golden-json \
+  data/cert/14221/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON_MuonPhys.txt \
+  --output-dir results/dimuon_replication_file2_frozen \
+  --mass-min 2 \
+  --mass-max 120 \
+  --bins 350 \
+  --log-bins \
+  --muon-pt-min 4 \
+  --muon-eta-max 2.4 \
+  --tight-id \
+  --fit-degree 7 \
+  --mask-window 2.9:3.3 \
+  --mask-window 3.55:3.85 \
+  --mask-window 8.5:11.5 \
+  --mask-window 80:100 \
+  --omega-min 3.1 \
+  --omega-max 80 \
+  --omega-steps 1000 \
+  --frozen-omega 7.025825825825827 \
+  --max-events 100000 \
+  --permutations 1000 \
+  --parametric-bootstrap 500 \
+  --seed 20260827
+\end{lstlisting}
+
+\subsection{Frozen Run2016G replication}
+
+\begin{lstlisting}[basicstyle=\ttfamily\small,breaklines=true]
+cms-wct \
+  --input data/files_run2016g.txt \
+  --golden-json \
+  data/cert/14221/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON_MuonPhys.txt \
+  --output-dir results/dimuon_run2016g_frozen \
+  --mass-min 2 \
+  --mass-max 120 \
+  --bins 350 \
+  --log-bins \
+  --muon-pt-min 4 \
+  --muon-eta-max 2.4 \
+  --tight-id \
+  --fit-degree 7 \
+  --mask-window 2.9:3.3 \
+  --mask-window 3.55:3.85 \
+  --mask-window 8.5:11.5 \
+  --mask-window 80:100 \
+  --omega-min 3.1 \
+  --omega-max 80 \
+  --omega-steps 1000 \
+  --frozen-omega 7.025825825825827 \
+  --max-events 100000 \
+  --permutations 1000 \
+  --parametric-bootstrap 500 \
+  --seed 20260827
+\end{lstlisting}
+
+\section{Conclusion}
+
+The CMS analysis reported here began with a failed development-stage
+low-frequency boundary solution, which was rejected as a continuum-model
+degeneracy.  After explicit resonance masking, a minimum spectral-resolution
+criterion, official muon certification, and stronger null procedures, a
+resolved Run2016H candidate emerged at
+\[
+\omega_m=7.0258258258.
+\]
+That numerical candidate was frozen before an independent CMS file was
+inspected and reproduced at the fixed frequency in a second Run2016H file.
+The same frequency was then preregistered before a Run2016G test and again
+produced a large fixed-frequency statistic, closely reproducing the original
+phase:
+\[
+|\Delta\phi_{\mathrm{G-H1}}|\simeq1.84^\circ.
+\]
+In both replication samples, zero of 1000 residual permutations and zero of
+500 Poisson background-refit pseudo-experiments exceeded the observed
+fixed-frequency statistic.
+
+Because WCT had publicly proposed collider log-periodicity before this CMS
+analysis, these results are \textbf{positive empirical support for a
+pre-existing WCT prediction class}.  They are not yet a unique confirmation
+of WCT.  Generic DSI, collider log-periodicity models, and especially stable
+CMS/Standard-Model mass-dependent structure remain viable alternatives.
+The elevated residual RMS in the replication samples makes that caveat
+quantitatively important.
+
+The strongest next test is consequently not another unrestricted spectral
+search.  It is a frozen discriminating program: trigger-stable selections,
+predeclared background-family robustness, independent detector channels,
+independent experiments, and a first-principles WCT mapping that predicts a
+dimensionless frequency and phase before new observations are opened.
+
+\begin{thebibliography}{99}
+
+\bibitem{ReyesC9}
+R.~J. Reyes,
+\newblock ``A Curvature-Induced Log-Periodic Deformation of \(C_9(q^2)\):
+Wave Confinement Theory and the LHCb
+\(B^0\to K^{*0}\mu^+\mu^-\) Anomaly,''
+\newblock Zenodo, Version 1, published April 23, 2026,
+\newblock DOI: \href{https://doi.org/10.5281/zenodo.19705254}
+{10.5281/zenodo.19705254}.
+
+\bibitem{CMS2016H}
+CMS Collaboration,
+\newblock ``DoubleMuon primary dataset in NANOAOD format from RunH of 2016
+(\texttt{/DoubleMuon/Run2016H-UL2016\_MiniAODv2\_NanoAODv9-v1/NANOAOD}),''
+\newblock CERN Open Data Portal, 2024,
+\newblock DOI:
+\href{https://doi.org/10.7483/OPENDATA.CMS.UZD7.Z50M}
+{10.7483/OPENDATA.CMS.UZD7.Z50M}.
+
+\bibitem{CMS2016G}
+CMS Collaboration,
+\newblock ``DoubleMuon primary dataset in NANOAOD format from RunG of 2016
+(\texttt{/DoubleMuon/Run2016G-UL2016\_MiniAODv2\_NanoAODv9-v2/NANOAOD}),''
+\newblock CERN Open Data Portal, 2024,
+\newblock DOI:
+\href{https://doi.org/10.7483/OPENDATA.CMS.ZQS3.LGLP}
+{10.7483/OPENDATA.CMS.ZQS3.LGLP}.
+
+\bibitem{CMSMuonJSON}
+CMS Collaboration,
+\newblock ``CMS list of validated runs
+\texttt{Cert\_271036-284044\_13TeV\_Legacy2016\_Collisions16\_JSON\_MuonPhys.txt},''
+\newblock CERN Open Data Portal, 2023,
+\newblock \url{https://opendata.cern.ch/record/cms-14221}.
+
+\bibitem{Sornette1998}
+D.~Sornette,
+\newblock ``Discrete-scale invariance and complex dimensions,''
+\newblock \emph{Physics Reports}, vol.~297, no.~5, pp.~239--270, 1998,
+\newblock DOI:
+\href{https://doi.org/10.1016/S0370-1573(97)00076-8}
+{10.1016/S0370-1573(97)00076-8}.
+
+\bibitem{Tatischeff2011}
+B.~Tatischeff,
+\newblock ``Fractal properties applied to hadron spectroscopy,''
+\newblock arXiv:1105.2034, 2011,
+\newblock \url{https://arxiv.org/abs/1105.2034}.
+
+\bibitem{Wilk2014}
+G.~Wilk and Z.~W{\l}odarczyk,
+\newblock ``Log-periodic oscillations of transverse momentum distributions,''
+\newblock arXiv:1403.3508, 2014,
+\newblock \url{https://arxiv.org/abs/1403.3508}.
+
+\bibitem{Wilk2015}
+G.~Wilk and Z.~W{\l}odarczyk,
+\newblock ``Tsallis Distribution Decorated With Log-Periodic Oscillation,''
+\newblock arXiv:1501.02608, 2015,
+\newblock \url{https://arxiv.org/abs/1501.02608}.
+
+\bibitem{Giudice2018}
+G.~F. Giudice, Y.~Kats, M.~McCullough, R.~Torre, and A.~Urbano,
+\newblock ``Clockwork / Linear Dilaton: Structure and Phenomenology,''
+\newblock \emph{JHEP} 06 (2018) 009,
+\newblock arXiv:1711.08437,
+\newblock \url{https://arxiv.org/abs/1711.08437}.
+
+\end{thebibliography}
+
+\end{document}
