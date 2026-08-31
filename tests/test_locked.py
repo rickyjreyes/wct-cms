@@ -1,5 +1,6 @@
 import numpy as np
 
+from cms_wct.coherence_fast import paired_permutation_coherence_null_fast
 from cms_wct.locked import (
     circular_mean,
     common_waveform_coherence,
@@ -70,3 +71,22 @@ def test_paired_coherence_null_shapes():
     )
     assert p is not None and 0.0 < p <= 1.0
     assert null.shape == (12,)
+
+
+def test_fast_paired_coherence_null_matches_scalar_seeded_draws():
+    rng = np.random.default_rng(314)
+    x1 = np.linspace(0.0, 2.0, 60)
+    x2 = np.linspace(0.1, 2.2, 70)
+    y1 = rng.normal(size=len(x1))
+    y2 = rng.normal(size=len(x2))
+    observed = common_waveform_coherence(x1, y1, x2, y2, 5.0)
+
+    p_slow, n_slow = paired_permutation_coherence_null(
+        x1, y1, x2, y2, 5.0, observed["coherence_score"], 23, 777
+    )
+    p_fast, n_fast = paired_permutation_coherence_null_fast(
+        x1, y1, x2, y2, 5.0, observed["coherence_score"], 23, 777, batch_size=7
+    )
+
+    assert p_fast == p_slow
+    np.testing.assert_allclose(n_fast, n_slow, rtol=1e-12, atol=1e-12)
