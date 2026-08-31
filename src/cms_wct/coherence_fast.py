@@ -45,6 +45,11 @@ def paired_permutation_coherence_null_fast(
     every paired trial, and
 
         T_coh = 2 * common_score - separate_score.
+
+    The RNG draw order intentionally matches the original scalar loop exactly:
+    permutation A, permutation B, then the next trial.  Thus the same seed
+    produces the same paired null realizations; only the linear algebra is
+    vectorized.
     """
     if n_perm <= 0:
         return None, np.array([], dtype=float)
@@ -71,8 +76,15 @@ def paired_permutation_coherence_null_fast(
     for start in range(0, n_perm, batch_size):
         stop = min(start + batch_size, n_perm)
         n = stop - start
-        ba = np.stack([rng.permutation(ya) for _ in range(n)], axis=0)
-        bb = np.stack([rng.permutation(yb) for _ in range(n)], axis=0)
+
+        # Preserve the scalar implementation's exact RNG call order.
+        batch_a = []
+        batch_b = []
+        for _ in range(n):
+            batch_a.append(rng.permutation(ya))
+            batch_b.append(rng.permutation(yb))
+        ba = np.stack(batch_a, axis=0)
+        bb = np.stack(batch_b, axis=0)
 
         ha = ba @ Xa
         hb = bb @ Xb
