@@ -72,11 +72,32 @@ def build_args(config, manifest, max_events):
     )
 
 
-def evaluate(label, manifest, golden_path, config, max_events):
+def selection_key(label, args):
+    return (
+        label,
+        float(args.muon_pt_min),
+        float(args.muon_eta_max),
+        bool(args.tight_id),
+        bool(args.medium_id),
+        int(args.max_events),
+    )
+
+
+def get_selected_masses(cache, label, manifest, golden, args):
+    key = selection_key(label, args)
+    if key not in cache:
+        inputs = expand_inputs(args.input)
+        print(
+            f"Extracting events for {label}: pT>={args.muon_pt_min}, "
+            f"|eta|<={args.muon_eta_max}, id={'tight' if args.tight_id else 'medium'}"
+        )
+        cache[key] = extract_dimuon_masses(inputs, args, golden)
+    return cache[key]
+
+
+def evaluate(label, manifest, golden, config, max_events, cache):
     args = build_args(config, manifest, max_events)
-    golden = load_golden_json(golden_path)
-    inputs = expand_inputs(args.input)
-    masses, counters = extract_dimuon_masses(inputs, args, golden)
+    masses, counters = get_selected_masses(cache, label, manifest, golden, args)
     counts, _, centers = make_histogram(masses, args.mass_min, args.mass_max, args.bins, True)
     masks = config.get("masks", BASE_MASKS)
     family = config.get("family", "chebyshev")
@@ -152,13 +173,17 @@ def main():
 
     outdir = Path(args.output_dir)
     outdir.mkdir(parents=True, exist_ok=True)
-    (outdir / "frozen_suite.json").write_text(json.dumps({"omega": OMEGA, "phase_prediction": PHASE_PRED, "configs": configs}, indent=2) + "\n")
+    (outdir / "frozen_suite.json").write_text(
+        json.dumps({"omega": OMEGA, "phase_prediction": PHASE_PRED, "configs": configs}, indent=2) + "\n"
+    )
 
+    golden = load_golden_json(args.golden_json)
+    cache = {}
     rows = []
     for config in configs:
         for label, manifest in (("Run2016H_file2", args.h_manifest), ("Run2016G_file1", args.g_manifest)):
-            print(f"Running {label}: {config['name']}")
-            rows.append(evaluate(label, manifest, args.golden_json, config, args.max_events))
+            print(f"Evaluating {label}: {config['name']}")
+            rows.append(evaluate(label, manifest, golden, config, args.max_events, cache))
 
     csv_path = outdir / "robustness_envelope.csv"
     with csv_path.open("w", newline="", encoding="utf-8") as f:
@@ -174,6 +199,7 @@ def main():
         "phase_prediction": PHASE_PRED,
         "n_rows": len(rows),
         "n_configs": len(configs),
+        "n_unique_event_selections": len(cache),
         "all_positive_sign": bool(np.all(amps > 0.0)),
         "min_locked_signed_amplitude": float(np.min(amps)),
         "min_locked_delta_chi2": float(np.min(deltas)),
