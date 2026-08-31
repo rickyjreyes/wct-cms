@@ -10,7 +10,8 @@ import numpy as np
 from cms_wct.background import make_histogram
 from cms_wct.background_families import fit_background_family
 from cms_wct.cmsio import expand_inputs, extract_dimuon_masses, load_golden_json
-from cms_wct.locked import common_waveform_coherence, paired_permutation_coherence_null
+from cms_wct.locked import common_waveform_coherence
+from cms_wct.coherence_fast import paired_permutation_coherence_null_fast
 
 OMEGA = 7.025825825825827
 MASKS = [(2.9, 3.3), (3.55, 3.85), (8.5, 11.5), (80.0, 100.0)]
@@ -78,6 +79,7 @@ def main():
     p.add_argument("--max-events", type=int, default=100000)
     p.add_argument("--permutations", type=int, default=10000)
     p.add_argument("--seed", type=int, default=20260901)
+    p.add_argument("--batch-size", type=int, default=512)
     p.add_argument("--output-dir", default="results/hg_coherence")
     args = p.parse_args()
 
@@ -85,7 +87,7 @@ def main():
     xg, yg, dg = residual_vector(args.g_manifest, args.golden_json, args.max_events)
 
     observed = common_waveform_coherence(xh, yh, xg, yg, OMEGA)
-    p_empirical, null_scores = paired_permutation_coherence_null(
+    p_empirical, null_scores = paired_permutation_coherence_null_fast(
         xh,
         yh,
         xg,
@@ -94,18 +96,23 @@ def main():
         observed["coherence_score"],
         args.permutations,
         args.seed,
+        batch_size=args.batch_size,
     )
 
     outdir = Path(args.output_dir)
     outdir.mkdir(parents=True, exist_ok=True)
+    exceedances = int(np.count_nonzero(null_scores >= observed["coherence_score"]))
     summary = {
         "classification": "retrospective_common_waveform_diagnostic",
         "omega": OMEGA,
         "statistic_definition": "T_coh = common_score - heterogeneity = 2*common_score - separate_score",
         "observed": observed,
         "empirical_p": p_empirical,
+        "null_exceedances": exceedances,
+        "at_monte_carlo_floor": bool(exceedances == 0),
         "permutations": args.permutations,
         "seed": args.seed,
+        "batch_size": args.batch_size,
         "run2016h": dh,
         "run2016g": dg,
         "warning": "H and G were already observed before this coherence statistic was introduced; use as calibrated retrospective evidence, not prospective replication.",
@@ -117,6 +124,7 @@ def main():
     print("Heterogeneity:", observed["heterogeneity"])
     print("Coherence score:", observed["coherence_score"])
     print("Phase difference (rad):", observed["phase_difference"])
+    print("Null exceedances:", exceedances, "/", args.permutations)
     print("Empirical paired-null p:", p_empirical)
     print("Summary:", outdir / "summary.json")
 
