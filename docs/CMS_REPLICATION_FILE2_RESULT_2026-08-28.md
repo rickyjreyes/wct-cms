@@ -27,9 +27,12 @@ Frozen-frequency result:
 - amplitude = `0.9367120932011154`
 - delta chi-square = `118.91483403371683`
 - phase = `-0.30599105090079975` rad
-- local chi-square p (2 dof) = `1.506509523217018e-26` (diagnostic only)
+- local chi-square p (2 dof) = `1.506509523217018e-26`
+- one-sided Gaussian-equivalent local significance = `Z = 10.5989632046 sigma` (approximately `10.6 sigma`)
 - frozen residual-permutation p = `1/1001 = 0.000999000999000999` (0 exceedances in 1000 trials; Monte Carlo floor)
 - frozen parametric refit-bootstrap p = `1/501 = 0.001996007984031936` (0 exceedances in 500 trials; Monte Carlo floor)
+
+The `10.6 sigma` value is **numerically valid as a local frozen-frequency chi-square diagnostic**: it is the one-sided Gaussian-equivalent mapping of the analytic 2-dof local p-value at the preregistered frequency. It is **not** a permutation significance, a bootstrap significance, a look-elsewhere-corrected/global significance, or a claim of 10.6-sigma physical discovery. The analytic mapping remains conditional on the implemented residual and background model.
 
 For comparison, discovery-file frozen-candidate values were:
 
@@ -69,6 +72,8 @@ The small permutation and parametric-bootstrap p-values show that the observed s
 **Result:** the preregistered fixed-frequency CMS file-to-file replication passes its implemented statistical tests.
 
 **Scientific classification:** `CMS-internal event-split replication under shared Run2016H systematics`.
+
+**Local analytic diagnostic:** `p = 1.506509523217018e-26`, equivalent to approximately `10.6 sigma` one-sided Gaussian significance at the frozen frequency, subject to the qualifications above.
 
 This must not be described as independent-detector confirmation or WCT confirmation. The two ROOT files contain distinct event subsets but share the same dataset, detector, run period, trigger/acceptance environment, reconstruction, and analysis model.
 
