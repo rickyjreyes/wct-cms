@@ -8,7 +8,7 @@ import numpy as np
 
 from cms_wct.background import make_histogram
 from cms_wct.background_families import fit_background_family
-from cms_wct.cmsio import extract_dimuon_masses, load_golden_json
+from cms_wct.cmsio import expand_inputs, extract_dimuon_masses, load_golden_json
 from cms_wct.locked import fit_phase_locked_waveform, phase_locked_permutation_null
 
 
@@ -65,8 +65,9 @@ def main():
     outdir.mkdir(parents=True, exist_ok=True)
     windows = parse_windows(args.mask_window)
     golden = load_golden_json(args.golden_json)
+    inputs = expand_inputs(args.input)
 
-    masses, counters = extract_dimuon_masses(args.input, args, golden)
+    masses, counters = extract_dimuon_masses(inputs, args, golden)
     counts, edges, centers = make_histogram(masses, args.mass_min, args.mass_max, args.bins, args.log_bins)
     model, bg_mask = fit_background_family(
         centers,
