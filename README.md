@@ -28,25 +28,37 @@ r(m)=c+A\cos[\omega\ln(m/m_0)-\phi].
 
 ## Current recorded replication result
 
-The preregistered Run2016H file-2 replication at the frozen frequency
+The candidate frequency
 
 ```text
 omega_m = 7.025825825825827
 ```
 
-returned
+was identified in one Run2016H file and frozen before inspection of a second Run2016H file and before inspection of the preregistered Run2016G cross-period sample.
+
+Both frozen replications pass the implemented tests:
+
+| sample | amplitude | phase (rad) | Delta chi-square | local p (2 dof) | local one-sided Z |
+|---|---:|---:|---:|---:|---:|
+| Run2016H file-2 frozen replication | `0.9367120932` | `-0.3059910509` | `118.9148340` | `1.5065e-26` | `10.5990 sigma` |
+| Run2016G cross-period frozen replication | `0.9348796605` | `-0.1567923197` | `115.8921026` | `6.8289e-26` | `10.4567 sigma` |
+
+The Run2016G amplitude is within about `0.20%` of the Run2016H replication amplitude. Its phase is only about `1.84 degrees` from the original Run2016H discovery-file phase under the same `m0 = 1 GeV` convention.
+
+For Run2016G, both the frozen residual-permutation test and the frozen parametric refit-bootstrap produced zero exceedances and hit their finite Monte Carlo floors:
 
 ```text
-delta chi-square = 118.91483403371683
-local chi-square p (2 dof) = 1.506509523217018e-26
-one-sided Gaussian-equivalent Z = 10.5989632046 sigma
+frozen permutation p = 1/1001 = 0.000999000999000999
+frozen refit-bootstrap p = 1/501 = 0.001996007984031936
 ```
 
-Thus the frozen-frequency analytic local diagnostic is approximately **10.6 sigma**.
+The approximately `10.5--10.6 sigma` values are **local analytic fixed-frequency diagnostics only**. They are not empirical/global significances and are conditional on the implemented background/residual model. The Run2016G residual field remains broader than an ideal Pearson field (`RMS = 1.7240`, `max |r| = 8.4725`), so model-adequacy and systematics tests remain necessary before any discovery-grade physical interpretation.
 
-This number is deliberately labeled **local and diagnostic only**. It is the Gaussian-equivalent mapping of the analytic fixed-frequency chi-square p-value; it is not the residual-permutation significance, the parametric-bootstrap significance, a look-elsewhere-corrected/global significance, or a claim of 10.6-sigma physical discovery. The empirical null tests in this finite run reached their Monte Carlo floors (`1/1001` for residual permutation and `1/501` for the refit bootstrap), and model-adequacy/systematic controls remain required.
+See:
 
-See `docs/CMS_REPLICATION_FILE2_RESULT_2026-08-28.md` for the frozen result, phase comparison, empirical-null results, and model-adequacy warning.
+- `docs/CMS_REPLICATION_FILE2_RESULT_2026-08-28.md` for the Run2016H frozen replication;
+- `docs/CMS_RUN2016G_REPLICATION_FREEZE_2026-08-28.md` for the preregistered cross-period protocol;
+- `docs/CMS_RUN2016G_RESULT_2026-08-31.md` for the Run2016G result and cross-sample comparison.
 
 ## Repository layout
 
