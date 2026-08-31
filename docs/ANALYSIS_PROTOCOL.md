@@ -18,6 +18,8 @@ where `omega` should be frozen from the external WCT analysis before the CMS res
 
 The frequency is not fit to CMS. Only amplitude, phase, and intercept are fit. The repository reports the fixed-frequency improvement and null p-values.
 
+For a sharper prospective replication, `scripts/run_phase_locked_period.py` supports a **fixed-frequency, fixed-phase, signed-amplitude** statistic. Under that protocol, `omega`, `phi`, and the directional alternative `A > 0` are frozen before the target data are inspected, leaving only the amplitude/intercept fit in the primary waveform test.
+
 **Exploratory diagnostic:** omega scan.
 
 The maximum scan statistic is corrected using null distributions of the maximum statistic. It must not be reported as though it were the pre-registered replication test.
@@ -108,6 +110,40 @@ This propagates counting noise and background-fit re-estimation into the null. I
 
 A candidate that is significant only under residual permutation but not under the refit bootstrap should be treated as a background-fitting artifact until demonstrated otherwise.
 
+For the prospective fixed-frequency/fixed-phase test, the primary deep-tail bootstrap should evaluate the **same frozen waveform statistic on every pseudoexperiment**. There is no need to rerun an exploratory omega scan inside that primary null because the frequency and phase are already fixed.
+
+## Empirical >5 sigma gate
+
+A one-sided Gaussian `5 sigma` threshold corresponds to
+
+\[
+p_5 = 2.866515718791946\times10^{-7}.
+\]
+
+An asymptotic/local analytic conversion above 5 sigma is not by itself an empirical 5-sigma result. The calibrated null distribution of the frozen statistic must reach this probability scale.
+
+Using the repository's add-one Monte Carlo convention, zero exceedances require at least:
+
+| requirement | trials |
+|---|---:|
+| numerical floor `1/(N+1) <= p5` | **3,488,555** |
+| exact one-sided 95% upper confidence bound `<= p5` | **10,450,778** |
+| exact one-sided 99% upper confidence bound `<= p5` | **16,065,391** |
+
+The repository's default discovery-grade direct-Monte-Carlo gate is the **95% exact upper-bound criterion**, not merely hitting the numerical floor. If one or more null trials exceed the observed statistic, use the exact binomial upper bound for that observed exceedance count.
+
+The helper
+
+```bash
+python scripts/plan_empirical_5sigma.py
+```
+
+prints these requirements and can evaluate a completed null count.
+
+Deep-tail calibration is only meaningful after the prospective statistic and systematic-analysis envelope are frozen. Do not change frequency, phase, cuts, masks, background model, or binning after seeing deep-tail results and retain the prospective label.
+
+See `docs/EMPIRICAL_5SIGMA_PROTOCOL_2026-08-31.md` for the full execution and claim-language rules.
+
 ## Controls required before a physics claim
 
 1. Repeat with multiple smooth-background families/degrees.
@@ -120,5 +156,6 @@ A candidate that is significant only under residual permutation but not under th
 8. Test at least one independent CMS channel, preferably photons after dimuons.
 9. Apply the same dimensionless mapping used to compare GWTC, LHC, JUNO and photodiode data.
 10. Record all failed as well as successful runs.
+11. For a claimed empirical `>5 sigma` result, require the predeclared robustness envelope and exact tail-calibration criterion in `docs/EMPIRICAL_5SIGMA_PROTOCOL_2026-08-31.md` to pass.
 
 A CMS match by itself is not evidence that WCT caused the structure. The intended value is independent cross-validation under a frozen prediction and systematic controls.
