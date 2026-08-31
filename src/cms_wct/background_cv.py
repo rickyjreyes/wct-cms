@@ -85,9 +85,19 @@ def poisson_deviance(observed: np.ndarray, expected: np.ndarray) -> float:
         raise ValueError("observed and expected shapes differ")
     if np.any(y < 0.0) or np.any(~np.isfinite(y)):
         raise ValueError("observed counts must be finite and non-negative")
-    mu = np.clip(mu, 1e-12, np.inf)
-    term = np.where(y > 0.0, y * np.log(y / mu), 0.0)
-    return float(2.0 * np.sum(mu - y + term))
+    if np.any(mu < 0.0) or np.any(~np.isfinite(mu)):
+        raise ValueError("expected counts must be finite and non-negative")
+
+    # The Poisson deviance contribution is exactly zero for y=mu=0.  Keep
+    # that limiting case explicit rather than allowing the numerical floor
+    # used inside the logarithm to create a spurious O(1e-12) contribution.
+    safe_mu = np.maximum(mu, 1e-12)
+    term = np.zeros_like(y, dtype=float)
+    positive = y > 0.0
+    term[positive] = y[positive] * np.log(y[positive] / safe_mu[positive])
+    contribution = safe_mu - y + term
+    contribution[(y == 0.0) & (mu == 0.0)] = 0.0
+    return float(2.0 * np.sum(contribution))
 
 
 def _bernstein_design(x: np.ndarray, degree: int) -> np.ndarray:
