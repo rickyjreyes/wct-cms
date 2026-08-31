@@ -26,6 +26,28 @@ r(m)=c+A\cos[\omega\ln(m/m_0)-\phi].
 
 `--frozen-omega` is the primary replication test. The unrestricted omega scan is exploratory and gets a permutation-based global p-value.
 
+## Current recorded replication result
+
+The preregistered Run2016H file-2 replication at the frozen frequency
+
+```text
+omega_m = 7.025825825825827
+```
+
+returned
+
+```text
+delta chi-square = 118.91483403371683
+local chi-square p (2 dof) = 1.506509523217018e-26
+one-sided Gaussian-equivalent Z = 10.5989632046 sigma
+```
+
+Thus the frozen-frequency analytic local diagnostic is approximately **10.6 sigma**.
+
+This number is deliberately labeled **local and diagnostic only**. It is the Gaussian-equivalent mapping of the analytic fixed-frequency chi-square p-value; it is not the residual-permutation significance, the parametric-bootstrap significance, a look-elsewhere-corrected/global significance, or a claim of 10.6-sigma physical discovery. The empirical null tests in this finite run reached their Monte Carlo floors (`1/1001` for residual permutation and `1/501` for the refit bootstrap), and model-adequacy/systematic controls remain required.
+
+See `docs/CMS_REPLICATION_FILE2_RESULT_2026-08-28.md` for the frozen result, phase comparison, empirical-null results, and model-adequacy warning.
+
 ## Repository layout
 
 ```text
