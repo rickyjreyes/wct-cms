@@ -15,7 +15,7 @@ from cms_wct.locked import fit_phase_locked_waveform
 from cms_wct.signature import weighted_linear_sinusoid
 
 OMEGA = 7.025825825825827
-PHASE_PRED = -0.2313916853457179
+PHASE_PRED = -0.2313916852932179
 BASE_MASKS = [(2.9, 3.3), (3.55, 3.85), (8.5, 11.5), (80.0, 100.0)]
 
 
