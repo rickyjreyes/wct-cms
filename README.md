@@ -63,6 +63,23 @@ See:
 - `docs/CMS_RUN2016G_RESULT_2026-08-31.md` for the Run2016G result and cross-sample comparison;
 - `docs/CMS_RUN2016F_PHASE_LOCK_FREEZE_2026-08-31.md` for the next prospective fixed-frequency/fixed-phase signed-amplitude freeze.
 
+## Current falsification priority
+
+The repository now tracks the next work as a ranked **kill-test program** in `docs/CMS_KILL_TEST_PROGRAM_2026-09-01.md`.
+
+The highest-priority question is background identifiability, not a deeper same-model sigma calculation. The frozen H/G robustness envelope already showed that most ordinary analysis perturbations preserve the waveform sign, but sufficiently flexible degree-12 polynomial and spline continua can suppress or reverse the locked component while bringing residual RMS closer to unity. The next step is therefore a signal-independent predictive-background selection plus a full spurious-signal / signal-absorption calibration of the detrending pipeline.
+
+The ranked program is:
+
+1. **CMS Background Kill Test** — can predictively competitive flexible backgrounds manufacture or absorb the frozen waveform?
+2. **CMS Freeze Test** — make the fixed-frequency evidence visibly distinct from any rescanned holdout maximum.
+3. **CMS Phase Lock Test** — repeat the fixed-frequency/fixed-phase/positive-sign statistic under the competitive background envelope.
+4. **ATLAS precedent** — explicitly compare against ATLAS JHEP 10 (2023) 079 / arXiv:2305.10894 rather than implying periodic invariant-mass searches are new.
+5. **Detrending Trap Test** — calibrate whether fitting/subtraction itself creates preferred log-frequency structure.
+6. **Interference Test** — test ordinary Standard Model/resonance/interference and detector-efficiency explanations through the identical residual pipeline.
+
+Frequency labels are kept explicit: this repository's inclusive dimuon candidate is `omega_CMS = 7.025825825825827` in `ln(m)`. The mapped LHCb request-48 work in `rickyjreyes/LHC` uses `k_LHCb = 3.512912912912913` in `ln(q^2)`, with `omega_CMS = 2 k_LHCb`. Do not relabel the present CMS candidate as `k ~ 9.7` without a separately identified source coordinate and freeze.
+
 ## What would establish empirical >5 sigma?
 
 For a one-sided Gaussian convention,
