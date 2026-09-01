@@ -54,6 +54,15 @@ k_{\rm LHCb}=\omega_{\rm CMS}/2.
 
 Never compare the numerical CMS `omega` directly to an LHCb `k` without this conversion. More generally, a frozen cross-dataset claim must first reproduce the exact dimensionless coordinate and frequency convention used by the source analysis.
 
+For the current inclusive CMS candidate,
+
+```text
+omega_CMS = 7.025825825825827
+k_LHCb-equivalent = 3.512912912912913
+```
+
+Do not relabel this candidate as `k ~ 9.7` unless a separate source analysis, coordinate convention, and freeze explicitly define that target.
+
 ## Spectral-resolution safeguards
 
 An exploratory frequency should not be interpreted as a resolved oscillation merely because it maximizes the scan statistic.
@@ -112,6 +121,41 @@ A candidate that is significant only under residual permutation but not under th
 
 For the prospective fixed-frequency/fixed-phase test, the primary deep-tail bootstrap should evaluate the **same frozen waveform statistic on every pseudoexperiment**. There is no need to rerun an exploratory omega scan inside that primary null because the frequency and phase are already fixed.
 
+## Background-identifiability and detrending kill controls
+
+A deep tail under one fitted continuum is not sufficient if other reasonable continua absorb the same structure. The current H/G robustness work has already shown that sufficiently flexible polynomial/spline backgrounds can suppress or reverse the phase-locked component while improving residual whitening. Therefore background selection and residual construction must themselves be calibrated.
+
+### Signal-independent background selection
+
+Use predictive criteria that do not depend on the WCT statistic. The current blocked-CV implementation ranks frozen continuum candidates by held-out Poisson deviance. Frequency, phase, amplitude, and `Delta chi-square` must not enter the selection rule.
+
+Report the winner and near-tied models, predictive scores in each period, and the post-selection frozen-waveform result. If a predictively preferred flexible continuum removes the waveform, that is evidence against treating a lower-flexibility result as model-robust significance.
+
+### Spurious-signal / detrending null
+
+For every prespecified plausible continuum family that survives predictive screening:
+
+1. fit the smooth null without using the WCT statistic;
+2. generate pseudo-spectra from that null;
+3. rerun the complete fit, clipping, masking, residual subtraction, and waveform-analysis pipeline;
+4. evaluate the frozen statistic and the exploratory scan maximum;
+5. measure how often the pipeline produces a positive frozen component at least as large as observed;
+6. measure how often the exploratory best frequency lands near the frozen frequency.
+
+This directly tests whether smooth fitting/subtraction can manufacture the apparent log-frequency structure.
+
+### Signal-absorption control
+
+A flexible continuum can overfit and erase a real oscillation. Therefore inject frozen-frequency signals into pseudo-spectra generated from each plausible continuum and rerun the identical fitting pipeline. Report the recovered-to-injected amplitude ratio and detection power versus injected amplitude.
+
+A model that predicts held-out counts well but absorbs nearly all injected signals at the target frequency cannot be used by itself to conclude that disappearance of the data residual proves the signal was spurious.
+
+### Cross-fitted preferred design
+
+Where practical, learn continuum parameters on training mass blocks and score the frozen waveform only on held-out blocks. This reduces reuse of the same bins for both trend estimation and residual significance.
+
+See `docs/CMS_KILL_TEST_PROGRAM_2026-09-01.md` for the ranked implementation and interpretation rules.
+
 ## Empirical >5 sigma gate
 
 A one-sided Gaussian `5 sigma` threshold corresponds to
@@ -147,15 +191,20 @@ See `docs/EMPIRICAL_5SIGMA_PROTOCOL_2026-08-31.md` for the full execution and cl
 ## Controls required before a physics claim
 
 1. Repeat with multiple smooth-background families/degrees.
-2. Vary binning without choosing the variation that maximizes significance.
-3. Repeat across data-taking eras.
-4. Run CMS simulation/background samples through the identical pipeline.
-5. Test known detector/reconstruction resonances and predeclared masked windows.
-6. Require an interior frequency with enough cycles to be spectrally resolvable.
-7. Require consistency under the refit parametric-background bootstrap, not only residual permutation.
-8. Test at least one independent CMS channel, preferably photons after dimuons.
-9. Apply the same dimensionless mapping used to compare GWTC, LHC, JUNO and photodiode data.
-10. Record all failed as well as successful runs.
-11. For a claimed empirical `>5 sigma` result, require the predeclared robustness envelope and exact tail-calibration criterion in `docs/EMPIRICAL_5SIGMA_PROTOCOL_2026-08-31.md` to pass.
+2. Select/compare continuum complexity using a signal-independent predictive rule rather than the WCT statistic.
+3. Run the spurious-signal/detrending null through the complete fit/subtraction/test pipeline.
+4. Run signal-injection/recovery tests to quantify how strongly flexible backgrounds absorb a true target-frequency waveform.
+5. Vary binning without choosing the variation that maximizes significance.
+6. Repeat across data-taking eras.
+7. Run CMS simulation/background samples through the identical pipeline.
+8. Test known detector/reconstruction resonances and predeclared masked windows.
+9. Test broad resonance tails, continuum/interference structure, heavy-flavor transitions, and efficiency effects rather than treating masking alone as a complete Standard Model control.
+10. Require an interior frequency with enough cycles to be spectrally resolvable.
+11. Require consistency under the refit parametric-background bootstrap, not only residual permutation.
+12. Test at least one independent CMS channel, preferably photons after dimuons.
+13. Apply the same dimensionless mapping used to compare GWTC, LHC, JUNO and photodiode data.
+14. Record all failed as well as successful runs.
+15. For a claimed empirical `>5 sigma` result, require the predeclared robustness envelope and exact tail-calibration criterion in `docs/EMPIRICAL_5SIGMA_PROTOCOL_2026-08-31.md` to pass.
+16. Cite the ATLAS periodic invariant-mass precedent (JHEP 10 (2023) 079, arXiv:2305.10894) and state the methodological/observable distinction rather than claiming periodic mass-spectrum searches are unprecedented.
 
 A CMS match by itself is not evidence that WCT caused the structure. The intended value is independent cross-validation under a frozen prediction and systematic controls.
