@@ -1,186 +1,346 @@
-# CMS WCT Validation
+# CMS Run-2 Log-Periodic Dimuon Residual
 
-Blind/out-of-sample CMS NanoAOD cross-validation of a pre-specified residual signature previously identified outside CMS.
+Reproducible open-data analysis of a log-periodic residual in the CMS Run-2 opposite-sign dimuon invariant-mass spectrum, with frozen independent-file replication, cross-period replication, a prospective phase-locked holdout, and an end-to-end flexible-background kill test.
 
-The repository currently implements the **opposite-sign dimuon invariant-mass channel**. Its core purpose is not to discover an arbitrary CMS oscillation; it is to ask whether a frequency/signature fixed from an external analysis survives in CMS under an independent detector and reconstruction chain.
+**Paper:** [Log-Periodic Dimuon Residual in CMS Open Data: Cross-Period Replication and a Prospective Phase-Locked Holdout](https://zenodo.org/records/22257067)  
+**Research:** [rickyjreyes.github.io](https://rickyjreyes.github.io)
 
-## Tested signature
+> **Current status:** positive replication under the implemented CMS pipeline, including a phase-locked holdout and a 10,000-trial end-to-end smooth-background adversarial calibration. This is **not yet a discovery-grade physical anomaly** and does **not uniquely establish Wave Confinement Theory (WCT)**. Detector, reconstruction, acceptance, correlated-systematic, Standard Model, resonance/interference, and independent-detector controls remain open.
 
-For residuals of a smooth dimuon mass spectrum,
+---
 
-\[
-r(m)=\frac{N(m)-B(m)}{\sqrt{B(m)}},
-\]
+## What this repository tests
 
-we test
-
-\[
-r(m)=c+a\cos[\omega\ln(m/m_0)]+b\sin[\omega\ln(m/m_0)].
-\]
-
-Equivalently,
+The primary observable is the inclusive opposite-sign dimuon invariant mass
 
 \[
-r(m)=c+A\cos[\omega\ln(m/m_0)-\phi].
+m_{\mu\mu},
 \]
 
-`--frozen-omega` is the primary replication test in the base pipeline. The unrestricted omega scan is exploratory and gets a permutation-based global p-value.
+analyzed in the logarithmic coordinate
 
-A sharper prospective script, `scripts/run_phase_locked_period.py`, supports a fixed-frequency, fixed-phase, positive-amplitude waveform test for data that remain untouched under a committed freeze.
+\[
+x = \ln\left(\frac{m_{\mu\mu}}{1\ \mathrm{GeV}}\right).
+\]
 
-## Current recorded replication result
+After fitting a smooth continuum background \(B(m)\), Pearson-like residuals are defined as
 
-The candidate frequency
+\[
+r(m)=\frac{N(m)-B(m)}{\sqrt{B(m)}}.
+\]
 
-```text
-omega_m = 7.025825825825827
-```
+The tested residual model is
 
-was identified in one Run2016H file and frozen before inspection of a second Run2016H file and before inspection of the preregistered Run2016G cross-period sample.
+\[
+r(m)=c+a\cos(\omega x)+b\sin(\omega x)
+\]
 
-Both frozen replications pass the implemented tests:
+or equivalently
 
-| sample | amplitude | phase (rad) | Delta chi-square | local p (2 dof) | local one-sided Z |
-|---|---:|---:|---:|---:|---:|
-| Run2016H file-2 frozen replication | `0.9367120932` | `-0.3059910509` | `118.9148340` | `1.5065e-26` | `10.5990 sigma` |
-| Run2016G cross-period frozen replication | `0.9348796605` | `-0.1567923197` | `115.8921026` | `6.8289e-26` | `10.4567 sigma` |
+\[
+r(m)=c+A\cos(\omega x-\phi).
+\]
 
-The Run2016G amplitude is within about `0.20%` of the Run2016H replication amplitude. Its phase is only about `1.84 degrees` from the original Run2016H discovery-file phase under the same `m0 = 1 GeV` convention.
-
-For Run2016G, both the frozen residual-permutation test and the frozen parametric refit-bootstrap produced zero exceedances and hit their finite Monte Carlo floors:
-
-```text
-frozen permutation p = 1/1001 = 0.000999000999000999
-frozen refit-bootstrap p = 1/501 = 0.001996007984031936
-```
-
-The approximately `10.5--10.6 sigma` values are **local analytic fixed-frequency diagnostics only**. They are not empirical/global significances and are conditional on the implemented background/residual model. The Run2016G residual field remains broader than an ideal Pearson field (`RMS = 1.7240`, `max |r| = 8.4725`), so model-adequacy and systematics tests remain necessary before any discovery-grade physical interpretation.
-
-See:
-
-- `docs/CMS_REPLICATION_FILE2_RESULT_2026-08-28.md` for the Run2016H frozen replication;
-- `docs/CMS_RUN2016G_REPLICATION_FREEZE_2026-08-28.md` for the preregistered cross-period protocol;
-- `docs/CMS_RUN2016G_RESULT_2026-08-31.md` for the Run2016G result and cross-sample comparison;
-- `docs/CMS_RUN2016F_PHASE_LOCK_FREEZE_2026-08-31.md` for the next prospective fixed-frequency/fixed-phase signed-amplitude freeze.
-
-## Current falsification priority
-
-The repository now tracks the next work as a ranked **kill-test program** in `docs/CMS_KILL_TEST_PROGRAM_2026-09-01.md`.
-
-The highest-priority question is background identifiability, not a deeper same-model sigma calculation. The frozen H/G robustness envelope already showed that most ordinary analysis perturbations preserve the waveform sign, but sufficiently flexible degree-12 polynomial and spline continua can suppress or reverse the locked component while bringing residual RMS closer to unity. The next step is therefore a signal-independent predictive-background selection plus a full spurious-signal / signal-absorption calibration of the detrending pipeline.
-
-The ranked program is:
-
-1. **CMS Background Kill Test** — can predictively competitive flexible backgrounds manufacture or absorb the frozen waveform?
-2. **CMS Freeze Test** — make the fixed-frequency evidence visibly distinct from any rescanned holdout maximum.
-3. **CMS Phase Lock Test** — repeat the fixed-frequency/fixed-phase/positive-sign statistic under the competitive background envelope.
-4. **ATLAS precedent** — explicitly compare against ATLAS JHEP 10 (2023) 079 / arXiv:2305.10894 rather than implying periodic invariant-mass searches are new.
-5. **Detrending Trap Test** — calibrate whether fitting/subtraction itself creates preferred log-frequency structure.
-6. **Interference Test** — test ordinary Standard Model/resonance/interference and detector-efficiency explanations through the identical residual pipeline.
-
-Frequency labels are kept explicit: this repository's inclusive dimuon candidate is `omega_CMS = 7.025825825825827` in `ln(m)`. The mapped LHCb request-48 work in `rickyjreyes/LHC` uses `k_LHCb = 3.512912912912913` in `ln(q^2)`, with `omega_CMS = 2 k_LHCb`. Do not relabel the present CMS candidate as `k ~ 9.7` without a separately identified source coordinate and freeze.
-
-## What would establish empirical >5 sigma?
-
-For a one-sided Gaussian convention,
+The frozen CMS frequency is
 
 ```text
-5 sigma  <=>  p = 2.866515718791946e-7
+omega_CMS = 7.025825825825827
 ```
 
-The current analytic `10.5--10.6 sigma` diagnostics do **not** by themselves establish that empirical tail probability. The null calibration has so far only been run deeply enough to resolve probabilities of order `10^-3`.
+in `ln(m_mumu / 1 GeV)`.
 
-The repository now defines a direct empirical gate in `docs/EMPIRICAL_5SIGMA_PROTOCOL_2026-08-31.md`:
+The important distinction is chronological:
 
-| direct-null criterion with zero exceedances | required trials |
-|---|---:|
-| add-one numerical floor reaches the 5-sigma p scale | **3,488,555** |
-| exact one-sided 95% upper confidence bound reaches the 5-sigma threshold | **10,450,778** |
-| exact one-sided 99% upper confidence bound reaches the 5-sigma threshold | **16,065,391** |
+- WCT motivated a **pre-existing prediction class** of log-periodic collider structure before this CMS analysis;
+- the specific numerical CMS frequency `omega_CMS = 7.025825825825827` was selected in the first certified Run2016H discovery file;
+- that numerical value was then frozen before the subsequent independent-file and cross-period tests.
 
-The default discovery-grade direct-Monte-Carlo gate in this repository is the **95% exact upper-bound criterion**, together with the predeclared background/systematic-control envelope. Merely reaching the add-one numerical floor is not enough.
+Do not relabel this CMS frequency as `k ~ 9.7`. That value belongs to a different observable/coordinate in the GWTC analysis.
 
-The preferred execution path is:
+---
 
-1. preserve an untouched prospective target and freeze the statistic first;
-2. run the fixed-frequency/fixed-phase directional waveform test;
-3. require a successful signed replication before spending compute on a deep tail;
-4. pass predeclared background-family, degree/smoothing, binning, era, and detector/control checks;
-5. calibrate the exact frozen statistic with end-to-end Poisson pseudoexperiments that **refit the background on every trial**;
-6. report local analytic significance, empirical Monte Carlo p-value, exact binomial upper bound, and systematics separately.
+## Evidence chain
 
-Use the planning helper to see the exact direct-Monte-Carlo requirements:
+The analysis progressively removes fitting freedom.
+
+| Stage | Dataset | What was free? | Amplitude | Phase (rad) | Delta chi-square |
+|---|---|---|---:|---:|---:|
+| **H1 discovery** | Run2016H file 1 | frequency + phase | `0.7543` | `-0.1890` | `75.76` |
+| **H2 frozen replication** | independent Run2016H file 2 | phase only at frozen frequency | `0.9367121` | `-0.3059911` | `118.9148` |
+| **G1 cross-period replication** | preregistered Run2016G file 1 | phase only at frozen frequency | `0.9348797` | `-0.1567923` | `115.8921` |
+| **G2 phase-locked holdout** | previously unused Run2016G file 2 | positive amplitude only; frequency + phase frozen | `0.9708618` | `-0.2313917` frozen | `126.2832` |
+
+The H2 and G1 amplitudes differ by only about `0.20%`.
+
+### G2 prospective phase-locked holdout
+
+Before inspection of the G2 target file, the file-selection rule, file identity, frequency, phase, positive amplitude sign, event selection, mass range, binning, resonance masks, background model, null sizes, and random seed were frozen.
+
+Observed result:
+
+```text
+A = 0.9708617746
+DeltaChi2 = 126.2832399542
+analytic one-sided fixed-waveform p = 1.3329276765e-29
+```
+
+Finite Monte Carlo ensembles gave zero exceedances:
+
+```text
+residual permutations:                 0 / 1000
+end-to-end Poisson background refits: 0 / 500
+```
+
+Therefore the empirical probabilities from those ensembles are limited by their Monte Carlo floors:
+
+```text
+1 / 1001 = 0.000999000999...
+1 / 501  = 0.001996007984...
+```
+
+The extremely small analytic probability is a **fixed-waveform diagnostic conditional on the model**. It is not an empirical `>5 sigma` claim.
+
+---
+
+## Flexible-background kill test — completed
+
+The original replication sequence used a degree-7 Chebyshev continuum. A central concern was therefore whether background fitting or detrending could manufacture the frozen waveform, or whether a sufficiently flexible continuum could absorb it.
+
+The repository implements a WCT-blind predictive-background selector over:
+
+```text
+Chebyshev degrees 5..12
+Bernstein degrees 5, 7, 9, 12
+smoothing splines with factors 0.5, 1, 2
+```
+
+Backgrounds are ranked by blocked held-out Poisson deviance **without using the WCT frequency, phase, amplitude, or test statistic**.
+
+The signal-independent procedure selected:
+
+```text
+spline_s2
+```
+
+The conservative H2-G1 pair statistic is
+
+\[
+T_{\mathrm{pair}}
+=\min(\Delta\chi^2_{\mathrm{locked,H2}},\Delta\chi^2_{\mathrm{locked,G1}})
+=108.4978.
+\]
+
+### End-to-end smooth-null calibration
+
+Each pseudoexperiment reruns:
+
+1. smooth-background generation;
+2. background-family selection;
+3. continuum refitting;
+4. residual construction;
+5. the frozen waveform test.
+
+Observed calibration:
+
+```text
+smooth-null exceedances = 0 / 10000
+add-one Monte Carlo p   = 9.9990e-5
+```
+
+This materially reduces the specific explanation that the H/G structure is produced solely by the tested smooth-continuum selection or detrending procedure.
+
+It does **not** calibrate all detector or Standard Model systematics.
+
+### Injection / recovery
+
+The same end-to-end pipeline was tested after injecting the frozen waveform at amplitudes
+
+```text
+A = 0.25, 0.50, 0.75, 1.00
+```
+
+Across that range, the selected flexible-background pipeline retained approximately
+
+```text
+76% -- 81%
+```
+
+of the injected waveform amplitude and achieved approximately
+
+```text
+93% -- 98%
+```
+
+detection power relative to the smooth-null primary-score threshold.
+
+This matters because a flexible background that simply absorbs every injected waveform would not provide an informative falsification test.
+
+Run the canonical adversarial pipeline with:
 
 ```bash
-python scripts/plan_empirical_5sigma.py
+python scripts/run_cms_background_kill.py \
+  --null-trials 10000 \
+  --injection-trials 1000 \
+  --injection-amplitudes 0.25 0.5 0.75 1.0
 ```
 
-or evaluate a completed null count:
+Reusable implementation:
 
-```bash
-python scripts/plan_empirical_5sigma.py \
-  --trials 10450778 \
-  --exceedances 0 \
-  --confidence 0.95
+```text
+src/cms_wct/background_kill.py
 ```
 
-No combined H/G/F sigma is reported by multiplying p-values or adding Z values. A combined result requires a joint statistic and joint null procedure frozen in advance.
+Regression tests:
+
+```text
+tests/test_background_kill.py
+```
+
+---
+
+## What the current result establishes
+
+Under the implemented CMS pipeline, the data support the following narrower empirical statements:
+
+1. an interior log-frequency selected in one certified Run2016H file reproduced at the frozen frequency in an independent Run2016H file;
+2. the same frozen frequency reproduced in a separately preregistered Run2016G cross-period test;
+3. a previously unused Run2016G file supported the already-frozen frequency, phase, and positive amplitude sign;
+4. a signal-independent flexible-background selector retained a large conservative H2-G1 locked statistic;
+5. zero of 10,000 complete smooth-Poisson null pipelines produced an equally large pair statistic;
+6. injection/recovery shows that the selected flexible continuum retains substantial sensitivity to the frozen waveform.
+
+These statements support **reproducible log-periodic structure in the analyzed CMS observable under the declared pipeline and null models**.
+
+---
+
+## What it does not establish
+
+The current result does not by itself show that:
+
+- WCT is the unique physical cause;
+- the residual is a new particle or resonance;
+- CMS detector or reconstruction effects cannot generate it;
+- trigger/selection/acceptance structure cannot generate it;
+- correlated detector systematics are negligible;
+- Standard Model continuum, resonance tails, or interference cannot generate it;
+- the empirical tail probability is `>5 sigma`;
+- the CMS result and results in other physical domains are statistically independent evidence for one common mechanism.
+
+The remaining conventional explanation is a reproducible CMS/Standard-Model/acceptance/reconstruction structure not represented by the current smooth-Poisson null ensemble.
+
+---
+
+## Next falsification priorities
+
+The highest-value next tests are physical/systematic controls, not another same-model sigma calculation:
+
+1. **Trigger and reconstruction efficiency controls** — test whether known efficiency structure projects onto the frozen waveform.
+2. **Correlated detector/systematic nulls** — replace independent smooth-Poisson pseudoexperiments with justified correlated uncertainty models.
+3. **Standard Model and resonance/interference controls** — propagate broad continuum, resonance tails, and interference models through the identical residual pipeline.
+4. **Acceptance and selection tests** — stress muon kinematics, IDs, masks, run subdivisions, and detector-era structure.
+5. **Independent detector replication** — test the frozen observable/signature with ATLAS or another genuinely independent detector chain where compatible data exist.
+6. **Independent CMS channels** — add clean channels as separate modules rather than mixing them into the dimuon discovery pipeline.
+
+The ranked adversarial program is documented in:
+
+```text
+docs/CMS_KILL_TEST_PROGRAM_2026-09-01.md
+```
+
+The background-kill implementation is documented in:
+
+```text
+docs/CMS_BACKGROUND_KILL_TEST_IMPLEMENTATION_2026-09-01.md
+```
+
+---
+
+## Frequency conventions
+
+This repository uses
+
+```text
+x_CMS = ln(m_mumu / 1 GeV)
+omega_CMS = 7.025825825825827
+```
+
+The mapped LHCb request-48 work in `rickyjreyes/LHC` uses `ln(q^2)`. Since `q^2 = m^2`,
+
+```text
+k_LHCb = 3.512912912912913
+omega_CMS = 2 * k_LHCb
+```
+
+Raw numerical frequencies from different logarithmic coordinates must not be compared without the coordinate conversion.
+
+---
 
 ## Repository layout
 
 ```text
-cms-wct-validation/
+wct-cms/
 ├── src/cms_wct/
-│   ├── analysis.py       end-to-end base pipeline
-│   ├── background.py     histogram + robust smooth background
-│   ├── background_families.py  Chebyshev/Bernstein/spline robustness fits
-│   ├── cmsio.py          NanoAOD input + dimuon reconstruction
-│   ├── signature.py      fixed-frequency and scanned statistics
-│   ├── locked.py         fixed-frequency/fixed-phase signed waveform tests
-│   ├── significance.py   Monte Carlo resolution and exact tail bounds
-│   ├── plots.py          diagnostic figures
-│   ├── models.py         result dataclasses
-│   └── cli.py            command-line interface
+│   ├── analysis.py             end-to-end base pipeline
+│   ├── background.py           base smooth background
+│   ├── background_families.py  Chebyshev/Bernstein/spline fits
+│   ├── background_cv.py        WCT-blind blocked predictive selection
+│   ├── background_kill.py      end-to-end adversarial null + injection tests
+│   ├── cmsio.py                NanoAOD input + dimuon reconstruction
+│   ├── signature.py            fixed-frequency and scanned statistics
+│   ├── locked.py               fixed-frequency/fixed-phase directional tests
+│   ├── significance.py         Monte Carlo resolution and exact tail bounds
+│   ├── plots.py                diagnostic figures
+│   ├── models.py               result dataclasses
+│   └── cli.py                  command-line interface
 ├── scripts/
 │   ├── run_phase_locked_period.py
+│   ├── run_hg_background_cv.py
+│   ├── run_cms_background_kill.py
 │   └── plan_empirical_5sigma.py
-├── tests/                synthetic/unit tests
-├── configs/              frozen-analysis template
-├── data/                 input manifest template
-├── docs/                 analysis, freeze, replication, and 5-sigma protocols
-├── .github/workflows/    CI
+├── tests/
+│   └── test_background_kill.py
+├── configs/
+├── data/
+├── docs/
+├── .github/workflows/
 ├── legacy_single_script.py
 ├── pyproject.toml
 └── requirements.txt
 ```
 
+ROOT inputs are intentionally ignored by git.
+
+---
+
 ## Install
 
 ```bash
 python -m venv .venv
-# Windows Git Bash:
+
+# Windows Git Bash
 source .venv/Scripts/activate
-# Linux/macOS:
+
+# Linux/macOS
 # source .venv/bin/activate
 
 pip install -e .[dev]
 pytest -q
 ```
 
+---
+
 ## Input
 
-Create `data/files.txt` containing one NanoAOD ROOT file or XRootD URL per line.
+Create `data/files.txt` containing one NanoAOD ROOT file or XRootD URL per line:
 
 ```text
 root://.../file1.root
 root://.../file2.root
 ```
 
-ROOT files are intentionally ignored by git.
+---
 
-## Blind run
-
-Freeze the externally predicted omega **before inspecting CMS output**:
+## Base frozen-frequency run
 
 ```bash
 cms-wct \
@@ -197,39 +357,109 @@ cms-wct \
   --omega-min 0.5 \
   --omega-max 80 \
   --omega-steps 3000 \
-  --frozen-omega YOUR_PREEXISTING_VALUE \
+  --frozen-omega 7.025825825825827 \
   --permutations 2000 \
   --seed 20260827
 ```
 
-For a quick pipeline test:
+The unrestricted omega scan is exploratory. The scientific replication statistic is the statistic evaluated at the frequency frozen before the target sample was inspected.
 
-```bash
-cms-wct --input data/files.txt --max-events 100000 --permutations 20 --frozen-omega YOUR_PREEXISTING_VALUE
+---
+
+## Phase-locked prospective test
+
+The sharpest holdout script freezes frequency, phase, and positive amplitude sign:
+
+```text
+scripts/run_phase_locked_period.py
 ```
 
-## Outputs
+Canonical G2 result record:
 
-Each base-pipeline run writes:
+```text
+docs/CMS_RUN2016G_FILE2_PHASE_LOCK_RESULT_2026-08-31.json
+```
 
-- `summary.json`
-- `spectrum.csv`
-- `omega_scan.csv`
-- `permutation_global_max.csv`
-- `permutation_frozen.csv` when a frozen omega is supplied
-- `spectrum_background.png`
-- `residuals.png`
-- `omega_scan.png`
-- `best_log_periodic_fit.png`
-- `global_null_distribution.png`
-- exact run configuration and input manifest
+---
 
-## Interpretation
+## Background kill test
 
-A low p-value at the **frozen** frequency is the relevant replication statistic. A low global scan p-value means CMS contains some unusually strong frequency under this model, but it does not by itself replicate the external WCT prediction.
+Quick/default diagnostic:
 
-Before treating any result as physical evidence, run the systematic controls listed in `docs/ANALYSIS_PROTOCOL.md`, especially background-model stability, data-era splits, CMS simulation, and a second CMS channel. Before using the phrase **empirical >5 sigma**, also satisfy `docs/EMPIRICAL_5SIGMA_PROTOCOL_2026-08-31.md`.
+```bash
+python scripts/run_cms_background_kill.py
+```
 
-## Current scope
+Deep run matching the current adversarial calibration:
 
-This initial repository is deliberately focused on dimuons because the observable is clean, physically interpretable, and suitable for residual-spectrum cross-validation. Photon and jet channels should be added as independent modules rather than mixed into the first blind test.
+```bash
+python scripts/run_cms_background_kill.py \
+  --null-trials 10000 \
+  --injection-trials 1000 \
+  --injection-amplitudes 0.25 0.5 0.75 1.0
+```
+
+Default outputs are written under:
+
+```text
+results/cms_background_kill/
+```
+
+including:
+
+```text
+selection_freeze.json
+cv_scores.csv
+spurious_null_trials.csv
+spurious_null_summary.json
+absorption_matrix.csv
+injection_trials.csv
+injection_summary.json
+summary.json
+```
+
+---
+
+## Empirical `>5 sigma` protocol
+
+For a one-sided Gaussian convention,
+
+```text
+5 sigma <=> p = 2.866515718791946e-7
+```
+
+Zero exceedances in 10,000 trials are nowhere near enough to resolve this tail directly.
+
+The repository therefore keeps a separate discovery-grade direct-Monte-Carlo protocol in:
+
+```text
+docs/EMPIRICAL_5SIGMA_PROTOCOL_2026-08-31.md
+```
+
+For zero exceedances:
+
+| criterion | required trials |
+|---|---:|
+| add-one numerical floor reaches 5-sigma p scale | `3,488,555` |
+| exact one-sided 95% upper bound reaches threshold | `10,450,778` |
+| exact one-sided 99% upper bound reaches threshold | `16,065,391` |
+
+The preferred direct-Monte-Carlo gate is the **95% exact upper-bound criterion**, together with the predeclared systematic-control envelope.
+
+```bash
+python scripts/plan_empirical_5sigma.py
+```
+
+No combined H/G/G2 sigma is reported by multiplying p-values or adding Z values. A combined significance requires a joint statistic and joint null procedure frozen in advance.
+
+---
+
+## Interpretation hierarchy
+
+Keep three claims separate:
+
+1. **Empirical:** a reproducible log-periodic residual is present in the analyzed CMS dimuon observable under the implemented pipeline.
+2. **Theoretical consistency:** the residual is consistent with the pre-existing WCT prediction class of log-periodic collider structure.
+3. **Physical attribution:** whether the residual is caused by WCT rather than detector, Standard Model, statistical, or other discrete-scale mechanisms remains open.
+
+The repository is designed to make claim 1 increasingly difficult to explain as an analysis artifact while keeping claim 3 explicitly falsifiable.
