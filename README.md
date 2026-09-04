@@ -13,49 +13,49 @@ Reproducible open-data analysis of a log-periodic residual in the CMS Run-2 oppo
 
 The primary observable is the inclusive opposite-sign dimuon invariant mass
 
-\[
-m_{\mu\mu},
-\]
+$$
+m_{\mu\mu}
+$$
 
 analyzed in the logarithmic coordinate
 
-\[
-x = \ln\left(\frac{m_{\mu\mu}}{1\ \mathrm{GeV}}\right).
-\]
+$$
+x = \ln\left(\frac{m_{\mu\mu}}{1\,\mathrm{GeV}}\right).
+$$
 
-After fitting a smooth continuum background \(B(m)\), Pearson-like residuals are defined as
+After fitting a smooth continuum background $B(m)$, Pearson-like residuals are defined as
 
-\[
+$$
 r(m)=\frac{N(m)-B(m)}{\sqrt{B(m)}}.
-\]
+$$
 
 The tested residual model is
 
-\[
+$$
 r(m)=c+a\cos(\omega x)+b\sin(\omega x)
-\]
+$$
 
 or equivalently
 
-\[
+$$
 r(m)=c+A\cos(\omega x-\phi).
-\]
+$$
 
 The frozen CMS frequency is
 
-```text
-omega_CMS = 7.025825825825827
-```
+$$
+\omega_{\mathrm{CMS}} = 7.025825825825827
+$$
 
-in `ln(m_mumu / 1 GeV)`.
+in $\ln(m_{\mu\mu}/1\,\mathrm{GeV})$.
 
 The important distinction is chronological:
 
 - WCT motivated a **pre-existing prediction class** of log-periodic collider structure before this CMS analysis;
-- the specific numerical CMS frequency `omega_CMS = 7.025825825825827` was selected in the first certified Run2016H discovery file;
+- the specific numerical CMS frequency $\omega_{\mathrm{CMS}} = 7.025825825825827$ was selected in the first certified Run2016H discovery file;
 - that numerical value was then frozen before the subsequent independent-file and cross-period tests.
 
-Do not relabel this CMS frequency as `k ~ 9.7`. That value belongs to a different observable/coordinate in the GWTC analysis.
+Do not relabel this CMS frequency as $k \sim 9.7$. That value belongs to a different observable/coordinate in the GWTC analysis.
 
 ---
 
@@ -63,7 +63,7 @@ Do not relabel this CMS frequency as `k ~ 9.7`. That value belongs to a differen
 
 The analysis progressively removes fitting freedom.
 
-| Stage | Dataset | What was free? | Amplitude | Phase (rad) | Delta chi-square |
+| Stage | Dataset | What was free? | Amplitude | Phase (rad) | $\Delta\chi^2$ |
 |---|---|---|---:|---:|---:|
 | **H1 discovery** | Run2016H file 1 | frequency + phase | `0.7543` | `-0.1890` | `75.76` |
 | **H2 frozen replication** | independent Run2016H file 2 | phase only at frozen frequency | `0.9367121` | `-0.3059911` | `118.9148` |
@@ -78,11 +78,19 @@ Before inspection of the G2 target file, the file-selection rule, file identity,
 
 Observed result:
 
-```text
+$$
 A = 0.9708617746
-DeltaChi2 = 126.2832399542
-analytic one-sided fixed-waveform p = 1.3329276765e-29
-```
+$$
+
+$$
+\Delta\chi^2 = 126.2832399542
+$$
+
+$$
+p_{\mathrm{analytic}} = 1.3329276765\times 10^{-29}
+$$
+
+for the one-sided fixed-waveform analytic diagnostic.
 
 Finite Monte Carlo ensembles gave zero exceedances:
 
@@ -93,12 +101,15 @@ end-to-end Poisson background refits: 0 / 500
 
 Therefore the empirical probabilities from those ensembles are limited by their Monte Carlo floors:
 
-```text
-1 / 1001 = 0.000999000999...
-1 / 501  = 0.001996007984...
-```
+$$
+p_{\mathrm{perm}} = \frac{1}{1001} \approx 9.9900\times10^{-4}
+$$
 
-The extremely small analytic probability is a **fixed-waveform diagnostic conditional on the model**. It is not an empirical `>5 sigma` claim.
+$$
+p_{\mathrm{refit}} = \frac{1}{501} \approx 1.9960\times10^{-3}
+$$
+
+The extremely small analytic probability is a **fixed-waveform diagnostic conditional on the model**. It is not an empirical $>5\sigma$ claim.
 
 ---
 
@@ -124,11 +135,11 @@ spline_s2
 
 The conservative H2-G1 pair statistic is
 
-\[
+$$
 T_{\mathrm{pair}}
-=\min(\Delta\chi^2_{\mathrm{locked,H2}},\Delta\chi^2_{\mathrm{locked,G1}})
+=\min\!\left(\Delta\chi^2_{\mathrm{locked,H2}},\Delta\chi^2_{\mathrm{locked,G1}}\right)
 =108.4978.
-\]
+$$
 
 ### End-to-end smooth-null calibration
 
@@ -142,10 +153,15 @@ Each pseudoexperiment reruns:
 
 Observed calibration:
 
-```text
-smooth-null exceedances = 0 / 10000
-add-one Monte Carlo p   = 9.9990e-5
-```
+$$
+N_{\mathrm{exceed}} = 0/10{,}000
+$$
+
+with add-one Monte Carlo probability
+
+$$
+p_{\mathrm{MC}} = \frac{0+1}{10{,}000+1} = 9.9990\times10^{-5}.
+$$
 
 This materially reduces the specific explanation that the H/G structure is produced solely by the tested smooth-continuum selection or detrending procedure.
 
@@ -155,23 +171,23 @@ It does **not** calibrate all detector or Standard Model systematics.
 
 The same end-to-end pipeline was tested after injecting the frozen waveform at amplitudes
 
-```text
-A = 0.25, 0.50, 0.75, 1.00
-```
+$$
+A_{\mathrm{inj}} \in \{0.25,\,0.50,\,0.75,\,1.00\}.
+$$
 
 Across that range, the selected flexible-background pipeline retained approximately
 
-```text
-76% -- 81%
-```
+$$
+R_A \approx 0.76\text{--}0.81
+$$
 
 of the injected waveform amplitude and achieved approximately
 
-```text
-93% -- 98%
-```
+$$
+\mathrm{power} \approx 0.93\text{--}0.98
+$$
 
-detection power relative to the smooth-null primary-score threshold.
+relative to the smooth-null primary-score threshold.
 
 This matters because a flexible background that simply absorbs every injected waveform would not provide an informative falsification test.
 
@@ -223,7 +239,7 @@ The current result does not by itself show that:
 - trigger/selection/acceptance structure cannot generate it;
 - correlated detector systematics are negligible;
 - Standard Model continuum, resonance tails, or interference cannot generate it;
-- the empirical tail probability is `>5 sigma`;
+- the empirical tail probability is $>5\sigma$;
 - the CMS result and results in other physical domains are statistically independent evidence for one common mechanism.
 
 The remaining conventional explanation is a reproducible CMS/Standard-Model/acceptance/reconstruction structure not represented by the current smooth-Poisson null ensemble.
@@ -259,17 +275,19 @@ docs/CMS_BACKGROUND_KILL_TEST_IMPLEMENTATION_2026-09-01.md
 
 This repository uses
 
-```text
-x_CMS = ln(m_mumu / 1 GeV)
-omega_CMS = 7.025825825825827
-```
+$$
+x_{\mathrm{CMS}} = \ln\left(\frac{m_{\mu\mu}}{1\,\mathrm{GeV}}\right),
+\qquad
+\omega_{\mathrm{CMS}} = 7.025825825825827.
+$$
 
-The mapped LHCb request-48 work in `rickyjreyes/LHC` uses `ln(q^2)`. Since `q^2 = m^2`,
+The mapped LHCb request-48 work in `rickyjreyes/LHC` uses $\ln(q^2)$. Since $q^2=m^2$,
 
-```text
-k_LHCb = 3.512912912912913
-omega_CMS = 2 * k_LHCb
-```
+$$
+k_{\mathrm{LHCb}} = 3.512912912912913,
+\qquad
+\omega_{\mathrm{CMS}} = 2k_{\mathrm{LHCb}}.
+$$
 
 Raw numerical frequencies from different logarithmic coordinates must not be compared without the coordinate conversion.
 
@@ -420,13 +438,13 @@ summary.json
 
 ---
 
-## Empirical `>5 sigma` protocol
+## Empirical $>5\sigma$ protocol
 
 For a one-sided Gaussian convention,
 
-```text
-5 sigma <=> p = 2.866515718791946e-7
-```
+$$
+5\sigma \iff p = 2.866515718791946\times10^{-7}.
+$$
 
 Zero exceedances in 10,000 trials are nowhere near enough to resolve this tail directly.
 
@@ -440,7 +458,7 @@ For zero exceedances:
 
 | criterion | required trials |
 |---|---:|
-| add-one numerical floor reaches 5-sigma p scale | `3,488,555` |
+| add-one numerical floor reaches $5\sigma$ p scale | `3,488,555` |
 | exact one-sided 95% upper bound reaches threshold | `10,450,778` |
 | exact one-sided 99% upper bound reaches threshold | `16,065,391` |
 
