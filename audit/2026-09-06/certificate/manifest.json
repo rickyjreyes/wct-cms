@@ -1,0 +1,48 @@
+{
+  "source_commit": "1c580e141eb5be65b81b0ca638da25bc69d2f0cc",
+  "observed": 108.43746213266161,
+  "config": {
+    "omega": 7.025825825825827,
+    "phase": -0.2313916852932179,
+    "excluded_windows": [
+      [
+        2.9,
+        3.3
+      ],
+      [
+        3.55,
+        3.85
+      ],
+      [
+        8.5,
+        11.5
+      ],
+      [
+        80.0,
+        100.0
+      ]
+    ],
+    "n_folds": 5,
+    "block_size": 16,
+    "iterations": 6,
+    "clip_sigma": 3.5,
+    "min_model_count": 5.0,
+    "primary_pair_statistic": "min(locked_delta_chi2_a, locked_delta_chi2_b)",
+    "secondary_pair_statistic": "locked_delta_chi2_a + locked_delta_chi2_b"
+  },
+  "case_counts": {
+    "historical_null": 10000,
+    "spline_s1": 1000,
+    "pois_poly12": 1000,
+    "pspline_16_0.1": 1000,
+    "injection_0.25": 1000,
+    "injection_0.5": 1000,
+    "injection_0.75": 1000,
+    "injection_1.0": 1000,
+    "search_poly12": 1000
+  },
+  "historical_seed": 20260901,
+  "injection_seed": 20260902,
+  "alternative_seed_rule": "20260907 + (1 for spline_s1, 2 for pois_poly12, 3 for pspline_16_0.1)*100000 + trial",
+  "search_seed_rule": "20260909+trial"
+}

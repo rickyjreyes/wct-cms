@@ -1,0 +1,36 @@
+{
+  "bins": 350,
+  "clip_sigma": 3.5,
+  "fit_degree": 7,
+  "fit_iterations": 6,
+  "frozen_omega": 7.025825825825827,
+  "golden_json": "data/cert/14221/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON_MuonPhys.txt",
+  "input": [
+    "/tmp/cms-audit/05DD095C-F6C3-9A4F-9FB3-348A5A6403D5.partial.root"
+  ],
+  "log_bins": true,
+  "m0": 1.0,
+  "mask_window": [
+    "2.9:3.3",
+    "3.55:3.85",
+    "8.5:11.5",
+    "80:100"
+  ],
+  "mass_max": 120.0,
+  "mass_min": 2.0,
+  "max_events": 100000,
+  "medium_id": false,
+  "min_model_count": 5.0,
+  "muon_eta_max": 2.4,
+  "muon_pt_min": 4.0,
+  "omega_max": 80.0,
+  "omega_min": 3.1,
+  "omega_steps": 1000,
+  "output_dir": "results/independent_audit_baseline/G1",
+  "parametric_bootstrap": 500,
+  "permutations": 1000,
+  "seed": 20260827,
+  "step_size": "1 MB",
+  "tight_id": true,
+  "tree": "Events"
+}

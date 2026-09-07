@@ -1,0 +1,281 @@
+historical_null 0
+historical_null 100
+historical_null 200
+historical_null 300
+historical_null 400
+historical_null 500
+historical_null 600
+historical_null 700
+historical_null 800
+historical_null 900
+historical_null 1000
+historical_null 1100
+historical_null 1200
+historical_null 1300
+historical_null 1400
+historical_null 1500
+historical_null 1600
+historical_null 1700
+historical_null 1800
+historical_null 1900
+historical_null 2000
+historical_null 2100
+historical_null 2200
+historical_null 2300
+historical_null 2400
+historical_null 2500
+historical_null 2600
+historical_null 2700
+historical_null 2800
+historical_null 2900
+historical_null 3000
+historical_null 3100
+historical_null 3200
+historical_null 3300
+historical_null 3400
+historical_null 3500
+historical_null 3600
+historical_null 3700
+historical_null 3800
+historical_null 3900
+historical_null 4000
+historical_null 4100
+historical_null 4200
+historical_null 4300
+historical_null 4400
+historical_null 4500
+historical_null 4600
+historical_null 4700
+historical_null 4800
+historical_null 4900
+historical_null 5000
+historical_null 5100
+historical_null 5200
+historical_null 5300
+historical_null 5400
+historical_null 5500
+historical_null 5600
+historical_null 5700
+historical_null 5800
+historical_null 5900
+historical_null 6000
+historical_null 6100
+historical_null 6200
+historical_null 6300
+historical_null 6400
+historical_null 6500
+historical_null 6600
+historical_null 6700
+historical_null 6800
+historical_null 6900
+historical_null 7000
+historical_null 7100
+historical_null 7200
+historical_null 7300
+historical_null 7400
+historical_null 7500
+historical_null 7600
+historical_null 7700
+historical_null 7800
+historical_null 7900
+historical_null 8000
+historical_null 8100
+historical_null 8200
+historical_null 8300
+historical_null 8400
+historical_null 8500
+historical_null 8600
+historical_null 8700
+historical_null 8800
+historical_null 8900
+historical_null 9000
+historical_null 9100
+historical_null 9200
+historical_null 9300
+historical_null 9400
+historical_null 9500
+historical_null 9600
+historical_null 9700
+historical_null 9800
+historical_null 9900
+spline_s1 0
+spline_s1 100
+spline_s1 200
+spline_s1 300
+spline_s1 400
+spline_s1 500
+spline_s1 600
+spline_s1 700
+spline_s1 800
+spline_s1 900
+pois_poly12 0
+pois_poly12 100
+pois_poly12 200
+pois_poly12 300
+pois_poly12 400
+pois_poly12 500
+pois_poly12 600
+pois_poly12 700
+pois_poly12 800
+pois_poly12 900
+pspline_16_0.1 0
+pspline_16_0.1 100
+pspline_16_0.1 200
+pspline_16_0.1 300
+pspline_16_0.1 400
+pspline_16_0.1 500
+pspline_16_0.1 600
+pspline_16_0.1 700
+pspline_16_0.1 800
+pspline_16_0.1 900
+injection_0.25 0
+injection_0.25 100
+injection_0.25 200
+injection_0.25 300
+injection_0.25 400
+injection_0.25 500
+injection_0.25 600
+injection_0.25 700
+injection_0.25 800
+injection_0.25 900
+injection_0.5 0
+injection_0.5 100
+injection_0.5 200
+injection_0.5 300
+injection_0.5 400
+injection_0.5 500
+injection_0.5 600
+injection_0.5 700
+injection_0.5 800
+injection_0.5 900
+injection_0.75 0
+injection_0.75 100
+injection_0.75 200
+injection_0.75 300
+injection_0.75 400
+injection_0.75 500
+injection_0.75 600
+injection_0.75 700
+injection_0.75 800
+injection_0.75 900
+injection_1.0 0
+injection_1.0 100
+injection_1.0 200
+injection_1.0 300
+injection_1.0 400
+injection_1.0 500
+injection_1.0 600
+injection_1.0 700
+injection_1.0 800
+injection_1.0 900
+search_poly12 0
+search_poly12 100
+search_poly12 200
+search_poly12 300
+search_poly12 400
+search_poly12 500
+search_poly12 600
+search_poly12 700
+search_poly12 800
+search_poly12 900
+[
+  {
+    "case": "historical_null",
+    "n": 10000,
+    "exceedances": 0,
+    "add_one_p": 9.999000099990002e-05,
+    "q95": 0.8677874599805127,
+    "median_amp_a": -0.001284093971414551,
+    "median_amp_b": 0.04117174464048115,
+    "broad_n": 1000,
+    "broad_exceedances": 0,
+    "broad_add_one_p": 0.000999000999000999
+  },
+  {
+    "case": "spline_s1",
+    "n": 1000,
+    "exceedances": 442,
+    "add_one_p": 0.44255744255744256,
+    "q95": 142.34803043388308,
+    "median_amp_a": 1.0141962248370655,
+    "median_amp_b": 0.8909235997058855
+  },
+  {
+    "case": "pois_poly12",
+    "n": 1000,
+    "exceedances": 359,
+    "add_one_p": 0.3596403596403596,
+    "q95": 136.73923688608986,
+    "median_amp_a": 1.0398324802987224,
+    "median_amp_b": 0.8659617073013679
+  },
+  {
+    "case": "pspline_16_0.1",
+    "n": 1000,
+    "exceedances": 405,
+    "add_one_p": 0.40559440559440557,
+    "q95": 140.04431174400494,
+    "median_amp_a": 1.0122994959804563,
+    "median_amp_b": 0.8862148304996877
+  },
+  {
+    "case": "injection_0.25",
+    "n": 1000,
+    "exceedances": 0,
+    "add_one_p": 0.000999000999000999,
+    "q95": 11.246295493905013,
+    "median_amp_a": 0.21165479200684825,
+    "median_amp_b": 0.25631188767433133,
+    "median_min_retention": 0.7439476619715194,
+    "power": 0.936,
+    "null_threshold": 0.8677874599805127
+  },
+  {
+    "case": "injection_0.5",
+    "n": 1000,
+    "exceedances": 0,
+    "add_one_p": 0.000999000999000999,
+    "q95": 36.17535307283359,
+    "median_amp_a": 0.4335163049784623,
+    "median_amp_b": 0.4585811611083566,
+    "median_min_retention": 0.7959866308591719,
+    "power": 0.975,
+    "null_threshold": 0.8677874599805127
+  },
+  {
+    "case": "injection_0.75",
+    "n": 1000,
+    "exceedances": 0,
+    "add_one_p": 0.000999000999000999,
+    "q95": 70.58377733821158,
+    "median_amp_a": 0.6435483072570107,
+    "median_amp_b": 0.6616200931108491,
+    "median_min_retention": 0.8141322016554264,
+    "power": 0.977,
+    "null_threshold": 0.8677874599805127
+  },
+  {
+    "case": "injection_1.0",
+    "n": 1000,
+    "exceedances": 117,
+    "add_one_p": 0.11788211788211789,
+    "q95": 116.4777127495228,
+    "median_amp_a": 0.8683886064149455,
+    "median_amp_b": 0.8479174197642442,
+    "median_min_retention": 0.8045277624572797,
+    "power": 0.971,
+    "null_threshold": 0.8677874599805127
+  },
+  {
+    "case": "search_poly12",
+    "n": 1000,
+    "exceedances": 358,
+    "add_one_p": 0.35864135864135865,
+    "q95": 137.9545652367408,
+    "median_amp_a": 1.0523386498287346,
+    "median_amp_b": 0.8648997978336912,
+    "broad_n": 1000,
+    "broad_exceedances": 918,
+    "broad_add_one_p": 0.9180819180819181
+  }
+]

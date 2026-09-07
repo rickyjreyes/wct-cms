@@ -1,0 +1,11 @@
+{
+  "source_commit": "1c580e141eb5be65b81b0ca638da25bc69d2f0cc",
+  "source_branch": "main",
+  "python": "3.12.13",
+  "numpy": "2.3.5",
+  "scipy": "1.17.0",
+  "uproot": "5.7.6",
+  "awkward": "2.13.0",
+  "tests": "29 passed",
+  "transport": "First 256 MiB plus final 16 MiB sparse cache; only first 100000 events, 1 MB streaming chunks. Full-file checksums and default-chunk parity pending. Small historical-statistic discrepancy explicitly unresolved."
+}
