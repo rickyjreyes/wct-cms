@@ -1,0 +1,64 @@
+{
+  "status": "Recovered from actual prior tool output in this conversation. Detailed event trial archives and downloaded ROOT files were lost on workspace rollback; regenerate with fetch_inputs.py and run_event_controls.py. These observations are secondary to the preserved statistical certificate.",
+  "full_file_adler32_verification": "All four files reported VERIFIED in prior execution; not reverified after rollback.",
+  "raw_event_overlaps": "zero within or between all four 100000-event samples",
+  "chunk_histogram_difference": "zero bins in all four samples",
+  "files": [
+    {
+      "label": "H2",
+      "certified": 90868,
+      "pairs": 45188,
+      "pair_events": 40184,
+      "multiple_pair_events": 4659,
+      "max_pairs": 8,
+      "runs": {
+        "281797": 90868
+      },
+      "same_sign_degree7_score": 37.31884653003323,
+      "same_sign_degree12_score": 2.5374694344100135,
+      "degree7_cluster_interval": [
+        0.8129045097942107,
+        1.0944394139285216
+      ]
+    },
+    {
+      "label": "G1",
+      "certified": 100000,
+      "pairs": 46816,
+      "pair_events": 42940,
+      "multiple_pair_events": 3690,
+      "max_pairs": 6,
+      "runs": {
+        "278822": 85858,
+        "278874": 14142
+      },
+      "same_sign_degree7_score": 48.21946284047914,
+      "same_sign_degree12_score": 4.145531212346043,
+      "degree7_cluster_interval": [
+        0.7760828824580683,
+        1.1040029536472806
+      ]
+    },
+    {
+      "label": "G2",
+      "certified": 100000,
+      "pairs": 45803,
+      "pair_events": 42267,
+      "multiple_pair_events": 3309,
+      "max_pairs": 6,
+      "runs": {
+        "278820": 100000
+      },
+      "same_sign_degree7_score": 23.877361000522797,
+      "same_sign_degree12_score": 1.4202341218227161,
+      "degree7_cluster_interval": [
+        0.8273026816735866,
+        1.1214184594243932
+      ],
+      "float64_score": 126.4411516403917,
+      "float64_count_L1": 33
+    }
+  ],
+  "cluster_bootstrap_trials": 300,
+  "cluster_bootstrap_seed": 20260911
+}

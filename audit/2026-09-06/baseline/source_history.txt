@@ -1,0 +1,71 @@
+756df55c2c7dffb959ff0409f6cb889284a162bb 2026-08-27T19:55:45-07:00 first commit
+8bd2510f7342df59e1b26d42ed720d82ffb65841 2026-08-28T10:52:23-07:00 Fix Awkward muon ID mask composition
+0b0efe6dad44ff5d635a55aae505fbd3bbbfdbfb 2026-08-28T10:52:47-07:00 Vectorize spectral scan and permutation null
+4b8e05f883f42ed06f22aa45135aa8b13031ddef 2026-08-28T10:53:04-07:00 Add regression tests for vectorized spectral null
+bead5c3468503653f5817719f09a1b2e7e235fd4 2026-08-28T10:53:13-07:00 Add regression test for Awkward tight ID masking
+2204485f9f200ac2a3148c67dab5da1f134d7f24 2026-08-28T10:56:29-07:00 Add spectral validity diagnostics to analysis summary
+a5334771a8415a9b9d7df10d3228da8062b1622f 2026-08-28T10:56:49-07:00 Exclude explicit mask windows from spectral scan and report validity diagnostics
+178054a45ce349431902d67a713239e2c06e7f5a 2026-08-28T10:57:00-07:00 Warn on unresolved or boundary exploratory frequencies
+feab548102e080b74d65926b6d65eac95dee96cd 2026-08-28T10:57:15-07:00 Document resonance masking and frequency-resolution safeguards
+83db253bf19d34b4efbc9a98e6253ef7d89656a5 2026-08-28T10:59:50-07:00 Add refit parametric background bootstrap
+0a58409c70c8abe03ba9b398ac9851f4786cedb2 2026-08-28T10:59:56-07:00 Expose parametric bootstrap results in summary
+757120ba19acdccf6a7d69b0a35e3f12de8f1ff7 2026-08-28T11:00:14-07:00 Run refit parametric bootstrap null
+d0fbc1f01d4a106c1622281b733ceb82e2f9be6c 2026-08-28T11:00:29-07:00 Add parametric bootstrap CLI option
+a8e5fdb910d982bd9d0b5dbe05b980006151512e 2026-08-28T11:00:38-07:00 Test refit parametric background null
+bdbc855840254a11340329cd13dcb3cda66a17aa 2026-08-28T11:00:53-07:00 Document refit parametric bootstrap null
+d4c130db0fc624f103df95313b9aca4f6244e713 2026-08-28T11:02:17-07:00 Document ln(m) versus ln(q2) frequency mapping
+afa87907eb0e811ce10cd0a6d344896b18be95a8 2026-08-28T11:10:38-07:00 Freeze CMS exploratory candidate for independent replication
+eeab1a07dd920216ae4fffa832269cfd9d8a49a2 2026-08-28T12:35:56-07:00 Record frozen CMS file-2 replication result
+2de48dc134404ecd8ac7be452c1f466246f9a173 2026-08-28T12:36:09-07:00 Freeze Run2016G cross-period CMS replication
+cc3a2e2b7d2cb684ad832f397c417e085ac77ab4 2026-08-28T16:41:39-07:00 Added paper
+087351aa6f4b74c2816a1e029643203d256fb84d 2026-08-31T01:15:38-07:00 Record 10.6 sigma local frozen-frequency diagnostic
+b4b0ce01013d31488c0eb9ca472d9423d401e206 2026-08-31T01:16:00-07:00 Surface CMS 10.6 sigma local diagnostic in README
+1c254d2c3bc84e7366666bea022c94cf1dfe9ae6 2026-08-31T02:50:59-07:00 Add frozen Run2016G replication runner
+662c9a211cdbf5279d2745b0c50498f373e1c56a 2026-08-31T02:51:22-07:00 Document exact frozen Run2016G execution
+dd475d71f7769f2a247732df7339e668de4c1111 2026-08-31T03:18:46-07:00 Record successful frozen Run2016G cross-period replication
+b65314b162efdb3170e757c83c447f7143d13a45 2026-08-31T03:19:10-07:00 Promote successful Run2016G frozen replication
+9418f46ecc0f0fddde46f6fb43f0ac1a1aa33488 2026-08-31T03:29:12-07:00 Add phase-locked waveform and coherence statistics
+aa8c9bf4d05a812c2667b5e420d22b2250c87168 2026-08-31T03:29:32-07:00 Add alternative continuum background families
+8b8c3bffb35ba113cfd3aefa6d49f2c4696db018 2026-08-31T03:30:19-07:00 Add prospective phase-locked CMS period runner
+3548380f1f78285571114b08b20af45a88eb9c45 2026-08-31T03:30:57-07:00 Add frozen H/G robustness envelope
+bfaaacc3c8adb179a4cbf1a7eec50edf8d935597 2026-08-31T03:31:15-07:00 Add H/G common-waveform coherence calibration
+695370e8f7d9281112dd6f716153f0017edc099b 2026-08-31T03:31:38-07:00 Test phase-locked and coherence statistics
+97245d70a7305d725fd55dcdaa16642a720d7d59 2026-08-31T03:31:50-07:00 Test alternative continuum families
+52855ea4236001e139d5d26a72bc5e08d751b145 2026-08-31T03:32:14-07:00 Freeze prospective Run2016F phase-locked replication
+5d10b7d80902628c0b9812edcdb1b0076f9d62f6 2026-08-31T03:32:41-07:00 Fix phase-locked manifest expansion
+498eaef9020ec3d4aa4cee2348a1edef3c42b952 2026-08-31T03:33:11-07:00 Freeze H/G robustness and coherence diagnostics
+0e1f2eb6b3099c93e5c4913925541fabe021c498 2026-08-31T03:33:51-07:00 Align robustness phase with frozen prediction
+5f56a32c43e27389a0879518b484459b95952b85 2026-08-31T03:35:19-07:00 Cache H/G event selections in robustness envelope
+9646e15edc66b36aaf64fa5e4d6b41267b722e71 2026-08-31T03:40:21-07:00 Vectorize paired coherence permutation null
+9260493187cc8c3b13ba46e8d15c56bc25f80b25 2026-08-31T03:40:39-07:00 Use vectorized H/G coherence null
+1b3c51255337849a3688a5ff91d2303e5d709c41 2026-08-31T03:40:57-07:00 Add detailed H/G robustness summarizer
+647abee00c2d01d35c031a3da4e3f9d33759fed9 2026-08-31T03:41:21-07:00 Record H/G robustness and coherence results
+1c969ab6d9152cd25a66869ce2e401cbca518b47 2026-08-31T03:41:46-07:00 Preserve seeded paired-null draw order
+e551b715f83593d18f2eeec6f9ecb33b7b0e2b99 2026-08-31T03:42:05-07:00 Test fast coherence null parity
+817684df674913e49ca263e321bdf7c5fc12d255 2026-08-31T03:45:00-07:00 Localize H/G robustness failures
+c01ec7acc24780c7f2a335d51e1bc63ddf5d93a5 2026-08-31T03:49:38-07:00 Add WCT-blind blocked background cross-validation
+539031453d9ff369147e224b4c78b42b852edbda 2026-08-31T03:50:23-07:00 Add H/G WCT-blind background selection runner
+c8a59077a2064dc2acfed34874e364127ba4a8e9 2026-08-31T03:50:40-07:00 Test WCT-blind background cross-validation
+4c818e3ae22c8decff14b27864dfdb6d5c40e8cf 2026-08-31T03:51:12-07:00 Freeze WCT-blind H/G background selection protocol
+b1551e729a3300b1a8603c6780e40d5195b8afd0 2026-08-31T04:00:48-07:00 Add empirical significance planning utilities
+c34ab3a88b3f194029bbabc30c4e23250b968cee 2026-08-31T04:01:03-07:00 Add empirical five-sigma planning CLI
+920045a17d644df682b9122c4e3705c69a3f4b3a 2026-08-31T04:01:15-07:00 Test empirical significance utilities
+20d68583a5dc7eb376db9f501eeb97de2df69966 2026-08-31T04:02:01-07:00 Add empirical five-sigma validation protocol
+933d35d9e86f2560ace9c2652be355ba323921da 2026-08-31T04:02:30-07:00 Define empirical five-sigma gate in analysis protocol
+d01db0de8a8034d8c8b4e4a090873532c6224290 2026-08-31T04:03:04-07:00 Document empirical five-sigma path
+2e811890bb204e39bbc27cc2ab060b80ba3324c6 2026-08-31T04:04:16-07:00 Fix zero-count Poisson deviance edge case
+685553bc5227a29ef734c0b6c5e603e3a44233b1 2026-08-31T10:52:57-07:00 Freeze Run2016G file-2 phase-locked holdout
+3e7a9f17ab19d8249b295213330c250cd124f9f0 2026-08-31T10:53:47-07:00 Freeze Run2016G file-2 phase-locked holdout
+97e113525052c62f7e3baa47186a67ab3b5a5507 2026-08-31T11:15:53-07:00 Record Run2016G file-2 phase-locked holdout result
+c5d2c31c75f2c4fa570cfbaaece3ba1a6bd415f0 2026-08-31T11:54:34-07:00 Add G2 phase-locked fit plotting script
+7c507d5e97e7cd42cd0d8257d8f5f6163aa60fca 2026-08-31T12:06:02-07:00 Polish G2 phase-locked figure for publication
+4e1a48be425573c629a88913f1a84b521353b7d2 2026-08-31T12:15:54-07:00 Add R publication figure pipeline
+5d0a436ddd085a4377ca6cceabf7cedc18490da2 2026-09-01T12:28:02-07:00 Add ranked CMS falsification kill-test program
+35a8f3f859ffbea4d8eefb648b6236e0d69b57e6 2026-09-01T12:28:33-07:00 Surface ranked CMS kill-test priorities
+314b89af4349c1782a3a2ec2562c793e167a9f96 2026-09-01T12:29:05-07:00 Add background identifiability and detrending kill controls
+896e3acc2e2a5f1113226affcd280784efedacfe 2026-09-01T12:38:35-07:00 Implement CMS background kill-test core
+c4be3172f72b0d0691118dab4295266244c038cb 2026-09-01T12:39:34-07:00 Add executable CMS background kill test
+b72efdb86759151a889a3984bbe2b717dc973c9d 2026-09-01T12:40:00-07:00 Add CMS background kill-test regression tests
+e00767c06667ccc479192516735fe27b524785c7 2026-09-01T12:42:07-07:00 Document implemented CMS background kill test
+bd8d3b1161b5a391fa9d03d87ed28aebdd4b846b 2026-09-04T14:54:13-07:00 Update README with CMS cross-period and background-kill results
+1c580e141eb5be65b81b0ca638da25bc69d2f0cc 2026-09-04T15:15:34-07:00 Fix GitHub Markdown math rendering in README

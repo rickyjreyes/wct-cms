@@ -10,3 +10,8 @@ results/
 outputs/
 *.root
 .DS_Store
+
+/data/audit_inputs/
+/audit/2026-09-06/events/*_pairs.npz
+# Per-chunk Monte Carlo audit checkpoints are regenerable; keep compact manifest/summary only.
+/audit/*/certificate/*_[0-9][0-9][0-9][0-9][0-9].json
