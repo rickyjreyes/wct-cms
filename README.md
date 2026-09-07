@@ -1,16 +1,16 @@
 # CMS Run-2 Log-Periodic Dimuon Residual
 
-Reproducible open-data analysis of a fixed-frequency residual in the CMS Run-2 opposite-sign dimuon invariant-mass spectrum, including frozen independent-file replication, cross-period replication, a prospective phase-locked holdout, and an independent adversarial statistical audit.
+Reproducible open-data analysis of a fixed-frequency residual in the CMS Run-2 opposite-sign dimuon invariant-mass spectrum, including frozen independent-file replication, cross-period replication, a prospective phase-locked holdout, and an independent robustness and identifiability audit.
 
 **Paper:** [Log-Periodic Dimuon Residual in CMS Open Data: Cross-Period Replication and a Prospective Phase-Locked Holdout](https://zenodo.org/records/22257067)  
 **Independent audit:** [`docs/CMS_INDEPENDENT_ADVERSARIAL_AUDIT.md`](docs/CMS_INDEPENDENT_ADVERSARIAL_AUDIT.md)  
 **Research:** [rickyjreyes.github.io](https://rickyjreyes.github.io)
 
-> **Current status — 2026-09-07:** **C. Suggestive only / insufficiently robust.** The fixed-frequency residual reproduces, including on the prospectively phase-locked G2 file, but the previously quoted significance is not robust to reasonable smooth-background uncertainty. Alternative smooth generating means with no explicitly injected sinusoid exceed the observed H2/G1 pair score in **359–442 of 1,000 trials** when the original background-selection, fitting, and scoring pipeline is rerun. This does **not** prove that the physical spectrum contains no periodic component; it does invalidate a model-robust discovery-significance interpretation from the current pipeline alone.
+> **Current status — 2026-09-07:** **Reproducible residual; significance background-dependent; physical origin unresolved.** The fixed-frequency structure reproduces across the historical H2 and G1 tests and on the prospectively phase-locked G2 holdout. The independent audit also reproduces those results. However, the previously quoted extreme significance is not robust to reasonable smooth-background uncertainty: alternative smooth generating means with no explicitly injected sinusoid exceed the observed H2/G1 pair score in **359–442 of 1,000 trials** when the original selection, fitting, and scoring pipeline is rerun. The audit therefore assigns **Category C: suggestive only / insufficiently robust** to the **discovery-significance and physical-attribution claim**, not to the empirical fact that the residual is reproducibly returned by the declared historical pipeline.
 
-## Independent adversarial audit
+## Independent robustness and identifiability audit
 
-The audit independently reproduces the historical result before attacking its assumptions.
+The audit first reproduces the historical result and then tests how strongly its interpretation depends on background, selection, binning, frequency, and nuisance assumptions.
 
 | Diagnostic | Audit result |
 |---|---:|
@@ -22,9 +22,18 @@ The audit independently reproduces the historical result before attacking its as
 | Penalized spline (16 knots, penalty 0.1) | `405 / 1,000` exceedances |
 | Permissive degree-12 broad-frequency diagnostic | `918 / 1,000` exceedances |
 
-The central obstruction is **background/signal identifiability**. Several defensible backgrounds predict held-out spectra better while removing the locked excess, but flexible backgrounds also absorb real injected waveforms. Therefore the audit stops short of calling the residual an artifact.
+The central unresolved issue is **background/signal identifiability**. Several defensible backgrounds predict held-out spectra better while removing the locked positive component, but flexible backgrounds also absorb genuinely injected waveforms. A low score after increasing continuum flexibility is therefore not, by itself, evidence that the observed residual is an artifact.
 
-The historical analytic p-values and the `0/10,000` historical-generator result below remain useful **conditional diagnostics**, but they are not validated physical discovery probabilities.
+The balanced interpretation is:
+
+- **Observed recurring structure:** reproducible under the declared historical pipeline.
+- **Prospective evidence:** meaningful; G2 was tested with frequency, phase, and sign frozen beforehand.
+- **Historical conditional significance:** strong under the historical generating background.
+- **Model-robust significance:** not established because reasonable alternative backgrounds generate comparable scores frequently.
+- **Physical origin:** unresolved between signal, detector/acceptance structure, Standard Model structure, or another mechanism.
+- **WCT attribution:** open.
+
+The historical analytic p-values and `0/10,000` historical-generator result remain useful **conditional diagnostics**. They are not validated physical discovery probabilities.
 
 ---
 
@@ -128,13 +137,13 @@ $$
 p_{\mathrm{refit}} = \frac{1}{501} \approx 1.9960\times10^{-3}.
 $$
 
-The extremely small analytic probability is a **fixed-waveform diagnostic conditional on the model**. The independent audit additionally shows that its physical significance is highly background-model dependent.
+The extremely small analytic probability is a **fixed-waveform diagnostic conditional on the model**. The independent audit shows that its physical significance is highly background-model dependent.
 
 ---
 
-## Historical flexible-background kill test
+## Background robustness and signal-retention test
 
-The original replication sequence used a degree-7 Chebyshev continuum. A central concern was therefore whether background fitting or detrending could manufacture the frozen waveform, or whether a sufficiently flexible continuum could absorb it.
+The original replication sequence used a degree-7 Chebyshev continuum. A central question is whether background fitting or detrending can manufacture the frozen waveform, or whether increased continuum flexibility can absorb it.
 
 The historical pipeline implements a WCT-blind predictive-background selector over:
 
@@ -182,7 +191,7 @@ $$
 p_{\mathrm{MC}} = \frac{0+1}{10{,}000+1} = 9.9990\times10^{-5}.
 $$
 
-This shows that the observed score is unusual **conditional on that selected generating mean**. The independent audit demonstrates that this conclusion does not survive other reasonable smooth generating backgrounds: the same unchanged analysis pipeline produces exceedance fractions of roughly `0.36–0.44` under three alternatives.
+This shows that the observed score is unusual **conditional on that selected generating mean**. The independent audit demonstrates that the same conclusion does not hold across other reasonable smooth generating backgrounds: the unchanged analysis pipeline produces exceedance fractions of roughly `0.36–0.44` under three alternatives.
 
 ### Injection / recovery
 
@@ -192,7 +201,7 @@ $$
 A_{\mathrm{inj}} \in \{0.25,\,0.50,\,0.75,\,1.00\}.
 $$
 
-Across that range, the selected flexible-background pipeline retained approximately
+Across that range, the selected historical flexible-background pipeline retained approximately
 
 $$
 R_A \approx 0.76\text{--}0.81
@@ -206,9 +215,9 @@ $$
 
 relative to the historical smooth-null 95th-percentile threshold.
 
-The audit confirms that flexible backgrounds can also absorb injected signal, especially at higher flexibility. This is why low $Q$ under a flexible background is not, by itself, proof of an artifact.
+The independent audit additionally confirms that sufficiently flexible backgrounds can absorb injected signal. This is the strongest reason not to interpret a flexible-background disappearance as proof that the residual is false.
 
-Run the canonical historical background-kill pipeline with:
+The implementation retains its historical filename for reproducibility:
 
 ```bash
 python scripts/run_cms_background_kill.py \
@@ -217,7 +226,9 @@ python scripts/run_cms_background_kill.py \
   --injection-amplitudes 0.25 0.5 0.75 1.0
 ```
 
-Run the independent adversarial suite with:
+`background_kill.py` and `run_cms_background_kill.py` are **legacy filenames**. In current documentation this procedure is referred to as the **background robustness and signal-retention test**.
+
+Run the independent robustness/identifiability suite with:
 
 ```bash
 python -m pip install -r experiments/cms_audit/requirements.txt
@@ -236,16 +247,18 @@ python -m pytest -q
 
 ## What the current result establishes
 
-The combined historical analysis and independent audit support the following narrower empirical statements:
+The combined historical analysis and independent audit support the following empirical statements:
 
 1. an interior log-frequency selected in one certified Run2016H file reproduced at the frozen frequency in an independent Run2016H file;
 2. the same frozen frequency reproduced in a separately preregistered Run2016G cross-period test;
 3. a previously unused Run2016G file supported the already-frozen frequency, phase, and positive amplitude sign under the historical background procedure;
-4. the fixed-frequency residual is not a one-bin, simple binning, or basic numerical-arithmetic accident;
-5. the historical selected-background null produces `0/10,000` exceedances, but alternative defensible smooth generating means produce `359–442/1,000` exceedances through the unchanged pipeline;
+4. the fixed-frequency residual is not explained by a single fortunate bin, a simple binning choice, or basic numerical arithmetic;
+5. the historical selected-background null produces `0/10,000` exceedances, while alternative defensible smooth generating means produce `359–442/1,000` exceedances through the unchanged pipeline;
 6. flexible backgrounds can absorb a genuine injected waveform, so the audit does not establish that the physical residual is an artifact.
 
-The correct current interpretation is **reproducible fixed-frequency structure under the historical analysis assumptions, with unresolved background/signal identifiability**.
+The current empirical conclusion is therefore:
+
+> **A recurring fixed-frequency residual is reproducibly returned by the declared CMS analysis, including a prospective phase-locked holdout. Its discovery significance and physical attribution remain unresolved because the decomposition between smooth background and periodic component is background-model dependent.**
 
 ---
 
@@ -268,16 +281,16 @@ There is currently **no unique validated global p-value** for the CMS claim in t
 
 ---
 
-## Next falsification priorities
+## Next discrimination priorities
 
-The single highest-value test is an independently constrained prospective holdout:
+The goal of the next stage is not to fit the residual away. It is to determine whether the recurring structure belongs to the physical signal or to the detector/background model.
 
 1. **Preregister an unseen CMS subset with an independently constrained background** — use an efficiency-matched control sample or validated detector-folded Standard Model prediction; freeze frequency, phase, trigger plateau, masks, nuisance/background procedure, and injection-recovery acceptance before opening the target.
-2. **Trigger and reconstruction efficiency controls** — test whether known efficiency structure projects onto the frozen waveform.
-3. **Correlated detector/systematic nulls** — replace independent smooth-Poisson pseudoexperiments with justified correlated uncertainty models.
+2. **Independent detector replication** — test the frozen observable/signature with ATLAS or another genuinely independent detector chain where compatible data exist.
+3. **Trigger and reconstruction efficiency controls** — test whether known efficiency structure projects onto the frozen waveform.
 4. **Standard Model and resonance/interference controls** — propagate broad continuum, resonance tails, and interference models through the identical residual pipeline.
-5. **Acceptance and selection tests** — stress muon kinematics, IDs, masks, run subdivisions, and detector-era structure.
-6. **Independent detector replication** — test the frozen observable/signature with ATLAS or another genuinely independent detector chain where compatible data exist.
+5. **Correlated detector/systematic models** — replace independent smooth-Poisson pseudoexperiments with justified correlated uncertainty models.
+6. **Acceptance and selection tests** — stress muon kinematics, IDs, masks, run subdivisions, and detector-era structure.
 
 More trials around the same historical fitted mean do **not** resolve the background/signal identifiability problem.
 
@@ -314,7 +327,7 @@ wct-cms/
 │   ├── background.py           base smooth background
 │   ├── background_families.py  Chebyshev/Bernstein/spline fits
 │   ├── background_cv.py        WCT-blind blocked predictive selection
-│   ├── background_kill.py      historical end-to-end null + injection tests
+│   ├── background_kill.py      legacy filename: background robustness + injection tests
 │   ├── cmsio.py                NanoAOD input + dimuon reconstruction
 │   ├── signature.py            fixed-frequency and scanned statistics
 │   ├── locked.py               fixed-frequency/fixed-phase directional tests
@@ -322,7 +335,7 @@ wct-cms/
 │   ├── plots.py                diagnostic figures
 │   ├── models.py               result dataclasses
 │   └── cli.py                  command-line interface
-├── experiments/cms_audit/      independent adversarial audit implementation
+├── experiments/cms_audit/      independent robustness/identifiability audit
 ├── audit/2026-09-06/           compact archived audit evidence and summaries
 ├── scripts/
 ├── tests/
@@ -409,7 +422,7 @@ docs/CMS_RUN2016G_FILE2_PHASE_LOCK_RESULT_2026-08-31.json
 
 ---
 
-## Background kill test
+## Background robustness test
 
 Quick/default historical diagnostic:
 
@@ -426,7 +439,7 @@ python scripts/run_cms_background_kill.py \
   --injection-amplitudes 0.25 0.5 0.75 1.0
 ```
 
-Default outputs are written under:
+Default outputs are written under the legacy path:
 
 ```text
 results/cms_background_kill/
@@ -477,10 +490,11 @@ Those trial counts matter only after the composite background/nuisance model is 
 
 ## Interpretation hierarchy
 
-Keep three claims separate:
+Keep four claims separate:
 
-1. **Empirical:** the declared historical pipeline reproducibly returns a fixed-frequency residual across H2, G1, and the phase-locked G2 holdout.
-2. **Statistical robustness:** unresolved; reasonable smooth-background alternatives remove the positive component and generate historical-sized scores routinely in the unchanged pipeline.
-3. **Physical attribution:** whether the recurring structure is signal, detector/acceptance background, Standard Model structure, or another mechanism remains open.
+1. **Empirical recurrence:** the declared historical pipeline reproducibly returns a fixed-frequency residual across H2, G1, and the phase-locked G2 holdout.
+2. **Prospective evidence:** G2 provides a meaningful frozen frequency/phase/sign test under the historical background convention.
+3. **Statistical robustness:** unresolved; reasonable smooth-background alternatives remove the positive component and generate historical-sized scores routinely in the unchanged pipeline.
+4. **Physical attribution:** whether the recurring structure is signal, detector/acceptance background, Standard Model structure, or another mechanism remains open.
 
-The repository now preserves both the original positive replication chain and the independent failure of its model-robust significance interpretation.
+The repository preserves both the positive replication chain and the independent evidence that its extreme significance is background-model dependent. Those findings are complementary rather than contradictory.
