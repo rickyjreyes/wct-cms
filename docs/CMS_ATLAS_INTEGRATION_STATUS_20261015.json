@@ -1,0 +1,53 @@
+{
+  "schema": "CMS_ATLAS_INTEGRATION_STATUS_V1",
+  "as_of_utc": "2026-10-15",
+  "scope": "cross-repository provenance only; no ATLAS signal calculation performed in wct-cms",
+  "cms": {
+    "observable": "opposite-sign dimuon invariant mass",
+    "coordinate": "ln(m_mumu / 1 GeV)",
+    "omega": 7.025825825825827,
+    "phase_locked_on_CMS_G2": -0.2313916852932179,
+    "classification": "reproducible residual; significance background-dependent; physical origin unresolved"
+  },
+  "atlas": {
+    "v61_execution_commit": "d5b3d7a3849453450a430c5b0ea46eaf456ed29f",
+    "v61_closure_commit": "6511edc39308d588031e13081310575645573a3c",
+    "v61_closure_record": "audit/v61_closure_2026-10-04/decision.json",
+    "v61_classification": "V6_FAILED_HIERARCHICAL_ROUTE_CLOSED",
+    "allocated_files": 256,
+    "active_files": 254,
+    "inactive_zero_exposure": 2,
+    "qualifying_k": [],
+    "cms_frequency_statistic_evaluated": false,
+    "final_holdout_accessed": false,
+    "final_signal_result": null,
+    "input_bundle_sha256": "c330891d79689fed6e85011b9725258c5ba09fe0fb3abc40bb813a8f6a6d645b",
+    "bundle_receipt_sha256": "fde752cef524d080a591e4d331aff02a7db6e6b1e22a7c4322043e2b260f9f4a",
+    "execution_artifact_manifest_sha256": "538d9df756764932e8b37afbd027a4485f2fea59bb842eb0c95970a8a3d08d0d",
+    "preservation_limitation": "Issue #6 original-artifact transfer incomplete in closure record; seven-file packet does not preserve all original numerical evidence.",
+    "active_domain_audit_commit": "af6da1f5cfdc0a6a685c79309db342dd2338aae9",
+    "active_domain_protocol": "ACTIVE_DOMAIN_PROTOCOL_NOT_IDENTIFIABLE",
+    "active_domain_run_decision": "NO_GO_FOR_NEW_ATLAS_RUN",
+    "active_domain_admissible_HE_pairs": 0,
+    "active_domain_target_evaluated": false,
+    "hypotheses": {
+      "H0": "no reproducible covariant relation beyond null/background",
+      "HR": "rigid k_W=k_0",
+      "HE": "active-domain kbar_W*L_W=2*pi*n_W, requires independently fixed W and n"
+    },
+    "comparison": {
+      "cms_coordinate": "ln(m_mumu/1 GeV)",
+      "atlas_proposed_coordinate": "ln(m_mumu/1 GeV)",
+      "same_mass_coordinate_frequency": 7.025825825825827,
+      "squared_mass_coordinate_frequency": 3.512912912912913,
+      "identity": "ln(q2)=2 ln(m), so k_q2 = omega_mass/2",
+      "cms_reference_selection": "OS dimuon, pT >=4 GeV, |eta|<=2.4, tight muon ID, 2–120 GeV, 350 log bins, declared masks; 2016 CMS DoubleMuon trigger stream",
+      "atlas_development_selection": "OS dimuon PHYSLITE development, proposed same kinematics and mass/masks; historical development builder lacked CMS-tight-equivalent muon-quality filter",
+      "selection_equivalence_established": false,
+      "independent_detector_chain": "ATLAS hardware distinct, but no valid final signal measurement"
+    },
+    "classification": "NO_VALID_ATLAS_SIGNAL_RESULT_TO_INTEGRATE",
+    "combined_p_value": null,
+    "final_status": "EXTERNAL_DEPENDENCY_BLOCKED_NO_ATLAS_SIGNAL_TEST"
+  }
+}
