@@ -514,3 +514,9 @@ The repository preserves both the positive replication chain and the independent
   protocol was not identifiable and no new ATLAS run was authorized.
   None of this constitutes an independent ATLAS signal measurement or
   changes CMS Category C / background-dependent significance.
+
+
+### Pending scientific execution gates (#9 and #10)
+
+- [Full official-ROOT staged comparison for CMS #9](docs/CMS_VERIFIED_ROOT_CAUSAL_PROBE_20261015.md): `scripts/trace_cms_verified_root_stages.py` requires the complete official CERN file and Adler-32, then compares both streaming chunk sizes with archived audit event mass vectors, histograms, fit/analysis masks, background, residuals and locked score. Historical numerical **cause remains unproven until a real local run and provenance review**.
+- [CMS–ATLAS integration](docs/CMS_ATLAS_INTEGRATION_20261015.md): `scripts/screen_future_atlas_handoff.py --out results/atlas_handoff_not_run.json` gives a fail-closed status; any eventual final-result handoff requires prospectively frozen source/freeze commits, digest receipts, explicit selection and coordinate mapping, and independent verification. **No final ATLAS result exists, no final holdout was accessed, and the NO-GO rule remains in force.**
