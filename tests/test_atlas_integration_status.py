@@ -1,5 +1,6 @@
 """Issue #10: route closure must never be serialized as an ATLAS signal test."""
 import json
+import math
 from pathlib import Path
 
 
@@ -15,5 +16,5 @@ def test_atlas_provenance_semantics():
     assert j["atlas"]["active_domain_protocol"]=="ACTIVE_DOMAIN_PROTOCOL_NOT_IDENTIFIABLE"
     assert j["atlas"]["active_domain_admissible_HE_pairs"]==0
     assert j["atlas"]["comparison"]["selection_equivalence_established"] is False
-    assert j["atlas"]["comparison"]["squared_mass_coordinate_frequency"] == (
-        j["cms"]["omega"]/2)
+    assert math.isclose(j["atlas"]["comparison"]["squared_mass_coordinate_frequency"],
+                        j["cms"]["omega"]/2, rel_tol=0, abs_tol=1e-14)
