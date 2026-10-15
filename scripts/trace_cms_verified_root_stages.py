@@ -95,6 +95,7 @@ def stage_from_masses(masses, *, reference, root: Path):
         checks[name]=compare_arrays(a,b)
     return {
         "checks_against_archived_audit_spectrum": checks,
+        "observed_histogram_counts": [int(n) for n in counts],
         "analysis_bins":int(mask.sum()),
         "residual_rms":float(np.sqrt(np.mean(y*y))),
         "locked_signed_amplitude":float(locked.signed_amplitude),
