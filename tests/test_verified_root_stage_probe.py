@@ -42,3 +42,17 @@ def test_official_size_name_and_adler_guard(tmp_path):
 
 def test_legacy_counts_dont_prove_mass_vector_equality():
     assert compare_arrays([2.,3.],[2.1,2.9])["exact"] is False
+
+
+def test_probe_standalone_help_from_clean_checkout():
+    """Direct invocation must work without pytest's implicit src path injection."""
+    import os
+    import subprocess
+    env=os.environ.copy()
+    env.pop("PYTHONPATH",None)
+    # -I ignores user site / PYTHONPATH; the probe must inject local src itself.
+    run=subprocess.run([sys.executable,"-I",
+        str(ROOT/"scripts/trace_cms_verified_root_stages.py"),"--help"],
+        cwd=str(ROOT),env=env,capture_output=True,text=True,timeout=30)
+    assert run.returncode==0,run.stderr
+    assert "--root-file" in run.stdout
