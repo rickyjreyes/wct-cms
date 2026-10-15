@@ -13,13 +13,17 @@ import sys
 import zlib
 from pathlib import Path
 
+# Executing `python scripts/trace_cms_verified_root_stages.py` makes scripts/
+# sys.path[0]. The checkout uses a src-layout; pytest adds src automatically,
+# but the standalone CLI must work even before `pip install -e .`.
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
 import numpy as np
 from cms_wct.cli import parser as cms_parser
 from cms_wct.cmsio import extract_dimuon_masses, load_golden_json
 from cms_wct.background import make_histogram, robust_smooth_background
 from cms_wct.locked import fit_phase_locked_waveform
-
-ROOT = Path(__file__).resolve().parents[1]
 PREFIX = {"H1": ("30555", "127C"), "H2": ("30555", "183B"),
           "G1": ("30522", "05DD"), "G2": ("30522", "209D")}
 MASKS = ("2.9:3.3", "3.55:3.85", "8.5:11.5", "80:100")
