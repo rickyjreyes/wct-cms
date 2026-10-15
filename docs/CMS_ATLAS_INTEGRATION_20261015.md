@@ -66,9 +66,10 @@ declared pipeline* and Category C / significance background-dependent. Neither
 an ATLAS route failure nor a later HE reformulation upgrades or downgrades
 that CMS measurement by itself. No cross-detector p-value combination is
 legitimate. See CMS #2, #4–#6 for the independent-background, efficiency and
-simulation prerequisites. Keep CMS #10 tracked as externally blocked until a
+simulation prerequisites. Track the original future-result obligation in successor [CMS #13](https://github.com/rickyjreyes/wct-cms/issues/13), externally blocked until a
 new scientifically valid, preregistered ATLAS test with provenance is
-actually completed.
+actually completed. The historical integration ticket #10 is closed as superseded,
+not as a completed ATLAS signal measurement.
 
 
 ## Successor final-result intake gate
