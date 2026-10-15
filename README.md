@@ -498,3 +498,19 @@ Keep four claims separate:
 4. **Physical attribution:** whether the recurring structure is signal, detector/acceptance background, Standard Model structure, or another mechanism remains open.
 
 The repository preserves both the positive replication chain and the independent evidence that its extreme significance is background-model dependent. Those findings are complementary rather than contradictory.
+
+
+## October 15 external follow-up and numerical reproduction boundaries
+
+- [Archival numerical stage comparison (#9)](docs/CMS_NUMERIC_REPRODUCTION_DELTA_20261015.md):
+  archived G2 event-selection counts agree; the first differing saved
+  checkpoint is residual RMS. Causal first divergence remains unresolved.
+  The historical and audit pair scores are preserved separately.
+- [CMS–ATLAS integration (#10)](docs/CMS_ATLAS_INTEGRATION_20261015.md)
+  ([machine-readable status](docs/CMS_ATLAS_INTEGRATION_STATUS_20261015.json)):
+  V6.1 closed its hierarchical *development route*, with no qualifying k.
+  The frozen CMS-frequency ATLAS **signal statistic was not evaluated** and
+  the final ATLAS holdout remains untouched. The subsequent active-domain
+  protocol was not identifiable and no new ATLAS run was authorized.
+  None of this constitutes an independent ATLAS signal measurement or
+  changes CMS Category C / background-dependent significance.
