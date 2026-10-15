@@ -69,3 +69,36 @@ legitimate. See CMS #2, #4–#6 for the independent-background, efficiency and
 simulation prerequisites. Keep CMS #10 tracked as externally blocked until a
 new scientifically valid, preregistered ATLAS test with provenance is
 actually completed.
+
+
+## Successor final-result intake gate
+
+The current V6.1 integration above is complete as documentation; the
+original issue's **future final scientific result** is still externally
+blocked. A separate non-scoring `scripts/screen_future_atlas_handoff.py`
+provides a strict intake screen. It does not reinterpret the historical
+V6.1 decision, execute ATLAS, verify source Git hashes over the network,
+or authorize a new run.
+
+```bash
+python scripts/screen_future_atlas_handoff.py \
+ --out results/atlas_handoff_not_run.json
+# EXTERNALLY_BLOCKED_FINAL_ATLAS_TEST_NOT_RUN
+```
+
+Once a genuinely new, independently preregistered and authorized ATLAS final
+result exists, the screen accepts a **copy** of a proposed machine-readable
+handoff JSON via `--candidate ... --out NEW_OUTPUT`. Mandatory fields:
+`repository`, full `source_commit`, full `freeze_commit`,
+`manifest_sha256`, `result_sha256`, `coordinate`, `omega`,
+`prospectively_frozen`, `selection_mapping`,
+`detector_independence_assessment`, `cms_frequency_statistic_evaluated`,
+`final_holdout_accessed`, `scientific_verdict` (POSITIVE, NEGATIVE or
+INCONCLUSIVE), `statistic` and `p_value` (nullable only if not reported).
+It refuses incorrect coordinate/frequency, missing source provenance or
+attempted promotion of an unperformed test. Passing the schema yields ONLY
+`CANDIDATE_REQUIRES_EXTERNAL_PROVENANCE_AND_PROTOCOL_REVIEW`, never
+automatic acceptance, significance combination or README alteration.
+The final result must be audited independently, and negative/inconclusive
+outcomes retained. Original final-holdout content remains untouched while
+the ATLAS protocol has a NO-GO gate.
