@@ -1,0 +1,250 @@
+{
+  "schema": "CMS_PRIOR_EVENT_COMPARISON_V1",
+  "pairs": [
+    {
+      "label": "H2",
+      "metric": "certified",
+      "prior": 90868,
+      "regenerated": 90868,
+      "exact_match": true
+    },
+    {
+      "label": "H2",
+      "metric": "pairs",
+      "prior": 45188,
+      "regenerated": 45188,
+      "exact_match": true
+    },
+    {
+      "label": "H2",
+      "metric": "pair_events",
+      "prior": 40184,
+      "regenerated": 40184,
+      "exact_match": true
+    },
+    {
+      "label": "H2",
+      "metric": "multiple_pair_events",
+      "prior": 4659,
+      "regenerated": 4659,
+      "exact_match": true
+    },
+    {
+      "label": "H2",
+      "metric": "max_pairs",
+      "prior": 8,
+      "regenerated": 8,
+      "exact_match": true
+    },
+    {
+      "label": "H2",
+      "metric": "runs",
+      "prior": {
+        "281797": 90868
+      },
+      "regenerated": {
+        "281797": 90868
+      },
+      "exact_match": true
+    },
+    {
+      "label": "H2",
+      "metric": "same_sign_degree7_score",
+      "prior": 37.31884653003323,
+      "regenerated": 37.31884653003323,
+      "absolute_delta": 0.0
+    },
+    {
+      "label": "H2",
+      "metric": "same_sign_degree12_score",
+      "prior": 2.5374694344100135,
+      "regenerated": 2.537469434410013,
+      "absolute_delta": -4.440892098500626e-16
+    },
+    {
+      "label": "H2",
+      "metric": "degree7_cluster_interval",
+      "prior": [
+        0.8129045097942107,
+        1.0944394139285216
+      ],
+      "regenerated": [
+        0.8129045097942107,
+        1.0944394139285216
+      ],
+      "trials": 300
+    },
+    {
+      "label": "G1",
+      "metric": "certified",
+      "prior": 100000,
+      "regenerated": 100000,
+      "exact_match": true
+    },
+    {
+      "label": "G1",
+      "metric": "pairs",
+      "prior": 46816,
+      "regenerated": 46816,
+      "exact_match": true
+    },
+    {
+      "label": "G1",
+      "metric": "pair_events",
+      "prior": 42940,
+      "regenerated": 42940,
+      "exact_match": true
+    },
+    {
+      "label": "G1",
+      "metric": "multiple_pair_events",
+      "prior": 3690,
+      "regenerated": 3690,
+      "exact_match": true
+    },
+    {
+      "label": "G1",
+      "metric": "max_pairs",
+      "prior": 6,
+      "regenerated": 6,
+      "exact_match": true
+    },
+    {
+      "label": "G1",
+      "metric": "runs",
+      "prior": {
+        "278822": 85858,
+        "278874": 14142
+      },
+      "regenerated": {
+        "278822": 85858,
+        "278874": 14142
+      },
+      "exact_match": true
+    },
+    {
+      "label": "G1",
+      "metric": "same_sign_degree7_score",
+      "prior": 48.21946284047914,
+      "regenerated": 48.21946284047914,
+      "absolute_delta": 0.0
+    },
+    {
+      "label": "G1",
+      "metric": "same_sign_degree12_score",
+      "prior": 4.145531212346043,
+      "regenerated": 4.145531212346043,
+      "absolute_delta": 0.0
+    },
+    {
+      "label": "G1",
+      "metric": "degree7_cluster_interval",
+      "prior": [
+        0.7760828824580683,
+        1.1040029536472806
+      ],
+      "regenerated": [
+        0.7760828824580683,
+        1.1040029536472808
+      ],
+      "trials": 300
+    },
+    {
+      "label": "G2",
+      "metric": "certified",
+      "prior": 100000,
+      "regenerated": 100000,
+      "exact_match": true
+    },
+    {
+      "label": "G2",
+      "metric": "pairs",
+      "prior": 45803,
+      "regenerated": 45803,
+      "exact_match": true
+    },
+    {
+      "label": "G2",
+      "metric": "pair_events",
+      "prior": 42267,
+      "regenerated": 42267,
+      "exact_match": true
+    },
+    {
+      "label": "G2",
+      "metric": "multiple_pair_events",
+      "prior": 3309,
+      "regenerated": 3309,
+      "exact_match": true
+    },
+    {
+      "label": "G2",
+      "metric": "max_pairs",
+      "prior": 6,
+      "regenerated": 6,
+      "exact_match": true
+    },
+    {
+      "label": "G2",
+      "metric": "runs",
+      "prior": {
+        "278820": 100000
+      },
+      "regenerated": {
+        "278820": 100000
+      },
+      "exact_match": true
+    },
+    {
+      "label": "G2",
+      "metric": "float64_count_L1",
+      "prior": 33,
+      "regenerated": 33,
+      "exact_match": true
+    },
+    {
+      "label": "G2",
+      "metric": "same_sign_degree7_score",
+      "prior": 23.877361000522797,
+      "regenerated": 23.8773610005228,
+      "absolute_delta": 3.552713678800501e-15
+    },
+    {
+      "label": "G2",
+      "metric": "same_sign_degree12_score",
+      "prior": 1.4202341218227161,
+      "regenerated": 1.420234121822716,
+      "absolute_delta": -2.220446049250313e-16
+    },
+    {
+      "label": "G2",
+      "metric": "degree7_cluster_interval",
+      "prior": [
+        0.8273026816735866,
+        1.1214184594243932
+      ],
+      "regenerated": [
+        0.8273026816735866,
+        1.1214184594243932
+      ],
+      "trials": 300
+    },
+    {
+      "label": "G2",
+      "metric": "float64_score",
+      "prior": 126.4411516403917,
+      "regenerated": 126.4411516403917,
+      "absolute_delta": 0.0
+    }
+  ],
+  "raw_overlaps": {
+    "H1__H2": 0,
+    "G1__H1": 0,
+    "G1__H2": 0,
+    "G1__G2": 0,
+    "G2__H1": 0,
+    "G2__H2": 0
+  },
+  "counts_match": true,
+  "interpretation": "Paired historical reproduction; numerical differences retained, no significance promotion."
+}

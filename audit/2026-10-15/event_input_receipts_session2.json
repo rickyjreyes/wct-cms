@@ -1,0 +1,111 @@
+{
+  "schema": "CMS_EVENT_INPUT_RECOVERY_V1",
+  "complete": true,
+  "sampling": "first 100000 ROOT entries BEFORE luminosity certification",
+  "official_manifest_sha256": {
+    "30555": "0d86f725e784cdb55eccf80247ad5812a96d25646f7101461b4321f8765e5c04",
+    "30522": "6b2459c52fd1ab12d35397644c3d59ff8a86e58e22496934323f94b895b0a9cc"
+  },
+  "files": [
+    {
+      "label": "H1",
+      "expected": {
+        "availability": "online",
+        "bucket": "af4786c6-cb8f-4a33-80a5-56d1f902da2a",
+        "checksum": "adler32:eff37065",
+        "file_id": "61dc441b-1b5c-4054-acf1-5d7b94327274",
+        "filename": "127C2975-1B1C-A046-AABF-62B77E757A86.root",
+        "key": "CMS_Run2016H_DoubleMuon_NANOAOD_UL2016_MiniAODv2_NanoAODv9-v1_2510000_file_index.json_0",
+        "size": 2016828178,
+        "tags": {},
+        "uri": "root://eospublic.cern.ch//eos/opendata/cms/Run2016H/DoubleMuon/NANOAOD/UL2016_MiniAODv2_NanoAODv9-v1/2510000/127C2975-1B1C-A046-AABF-62B77E757A86.root",
+        "version_id": "ebd1eb35-0e46-4a95-b794-f194ae491cc2"
+      },
+      "url": "https://opendata.cern.ch/eos/opendata/cms/Run2016H/DoubleMuon/NANOAOD/UL2016_MiniAODv2_NanoAODv9-v1/2510000/127C2975-1B1C-A046-AABF-62B77E757A86.root",
+      "path": "/tmp/wct-cms-raw/127C2975-1B1C-A046-AABF-62B77E757A86.root",
+      "receipt": {
+        "filename": "127C2975-1B1C-A046-AABF-62B77E757A86.root",
+        "bytes": 2016828178,
+        "sha256": "80a406d9625facd160966989f5060cbc96aa52f5819a00b1af46d7aeef2f19ab",
+        "adler32": "adler32:eff37065",
+        "official_checksum_verified": true
+      },
+      "status": "VERIFIED"
+    },
+    {
+      "label": "H2",
+      "expected": {
+        "availability": "online",
+        "bucket": "af4786c6-cb8f-4a33-80a5-56d1f902da2a",
+        "checksum": "adler32:78b69eb2",
+        "file_id": "cc17a2b5-df98-46c0-94b0-d48563b4d27b",
+        "filename": "183BFB78-7B5E-734F-BBF5-174A73020F89.root",
+        "key": "CMS_Run2016H_DoubleMuon_NANOAOD_UL2016_MiniAODv2_NanoAODv9-v1_2510000_file_index.json_1",
+        "size": 2010323460,
+        "tags": {},
+        "uri": "root://eospublic.cern.ch//eos/opendata/cms/Run2016H/DoubleMuon/NANOAOD/UL2016_MiniAODv2_NanoAODv9-v1/2510000/183BFB78-7B5E-734F-BBF5-174A73020F89.root",
+        "version_id": "26c6bdc8-83ac-40d3-8ede-94403cfcc3a3"
+      },
+      "url": "https://opendata.cern.ch/eos/opendata/cms/Run2016H/DoubleMuon/NANOAOD/UL2016_MiniAODv2_NanoAODv9-v1/2510000/183BFB78-7B5E-734F-BBF5-174A73020F89.root",
+      "path": "/tmp/wct-cms-raw/183BFB78-7B5E-734F-BBF5-174A73020F89.root",
+      "receipt": {
+        "filename": "183BFB78-7B5E-734F-BBF5-174A73020F89.root",
+        "bytes": 2010323460,
+        "sha256": "fca4ebd26740dec07833f34c600689a2f262768d9e32ec7d8292cd78dfb3c188",
+        "adler32": "adler32:78b69eb2",
+        "official_checksum_verified": true
+      },
+      "status": "VERIFIED"
+    },
+    {
+      "label": "G1",
+      "expected": {
+        "availability": "online",
+        "bucket": "733195f3-451e-4702-a417-f72ba831da2a",
+        "checksum": "adler32:71602056",
+        "file_id": "feeca746-87f5-466b-ae8d-d3b24ceb83b6",
+        "filename": "05DD095C-F6C3-9A4F-9FB3-348A5A6403D5.root",
+        "key": "CMS_Run2016G_DoubleMuon_NANOAOD_UL2016_MiniAODv2_NanoAODv9-v2_2430000_file_index.json_0",
+        "size": 2155974646,
+        "tags": {},
+        "uri": "root://eospublic.cern.ch//eos/opendata/cms/Run2016G/DoubleMuon/NANOAOD/UL2016_MiniAODv2_NanoAODv9-v2/2430000/05DD095C-F6C3-9A4F-9FB3-348A5A6403D5.root",
+        "version_id": "1814734f-e28b-4fdf-be40-c8b53d876350"
+      },
+      "url": "https://opendata.cern.ch/eos/opendata/cms/Run2016G/DoubleMuon/NANOAOD/UL2016_MiniAODv2_NanoAODv9-v2/2430000/05DD095C-F6C3-9A4F-9FB3-348A5A6403D5.root",
+      "path": "/tmp/wct-cms-raw/05DD095C-F6C3-9A4F-9FB3-348A5A6403D5.root",
+      "receipt": {
+        "filename": "05DD095C-F6C3-9A4F-9FB3-348A5A6403D5.root",
+        "bytes": 2155974646,
+        "sha256": "996593a0908048ded7ee998ad149977c504f87f0bc4e28368c99a32e77074259",
+        "adler32": "adler32:71602056",
+        "official_checksum_verified": true
+      },
+      "status": "VERIFIED"
+    },
+    {
+      "label": "G2",
+      "expected": {
+        "availability": "online",
+        "bucket": "733195f3-451e-4702-a417-f72ba831da2a",
+        "checksum": "adler32:b18e8b13",
+        "file_id": "f1a150ff-c736-4f51-9393-556b71b54647",
+        "filename": "209D94D9-B6D5-A34B-A2A3-CBB7E4EA8ADF.root",
+        "key": "CMS_Run2016G_DoubleMuon_NANOAOD_UL2016_MiniAODv2_NanoAODv9-v2_2430000_file_index.json_1",
+        "size": 2284233920,
+        "tags": {},
+        "uri": "root://eospublic.cern.ch//eos/opendata/cms/Run2016G/DoubleMuon/NANOAOD/UL2016_MiniAODv2_NanoAODv9-v2/2430000/209D94D9-B6D5-A34B-A2A3-CBB7E4EA8ADF.root",
+        "version_id": "6fd39871-aef2-4d9f-b18f-bf8bc2f850a6"
+      },
+      "url": "https://opendata.cern.ch/eos/opendata/cms/Run2016G/DoubleMuon/NANOAOD/UL2016_MiniAODv2_NanoAODv9-v2/2430000/209D94D9-B6D5-A34B-A2A3-CBB7E4EA8ADF.root",
+      "path": "/tmp/wct-cms-raw/209D94D9-B6D5-A34B-A2A3-CBB7E4EA8ADF.root",
+      "receipt": {
+        "filename": "209D94D9-B6D5-A34B-A2A3-CBB7E4EA8ADF.root",
+        "bytes": 2284233920,
+        "sha256": "91b22c5897c0b4ff3d50bf6dd1fb21a3d527fa8ac5bdfbd74e6f01bd7ad401f1",
+        "adler32": "adler32:b18e8b13",
+        "official_checksum_verified": true
+      },
+      "status": "VERIFIED"
+    }
+  ]
+}

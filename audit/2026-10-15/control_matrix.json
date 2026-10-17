@@ -1,0 +1,111 @@
+{
+  "backgrounds": [
+    "cheb_d7",
+    "cheb_d12",
+    "pspline_cv"
+  ],
+  "classification": "retrospective controls, no independent detector or discovery claim",
+  "entry_cap_before_certification": 100000,
+  "expanded_mask_width_factor": 1.15,
+  "injection": "deterministic +1 Pearson-unit waveform; refit each fixed background, subtract uninjected refit; not power",
+  "interpretation": {
+    "causality": "localization cannot identify detector cause without efficiency/trigger-object calibration",
+    "low_power": "in-range <1000, fewer than 8 analysis bins, or conditional |amplitude|/SE < 2",
+    "model_dependent": "flexible background reduces baseline Q or reverses amplitude; report all, do not select significance",
+    "multiplicity": "overlapping controls are descriptive; no minimum p or post-hoc discovery threshold",
+    "selection_dependent": "any sign reversal among evaluable partitions; report explicitly with counts and SE",
+    "stable_positive": "all evaluable file/sample baseline amplitudes positive under a given background"
+  },
+  "labels": [
+    "H1",
+    "H2",
+    "G1",
+    "G2"
+  ],
+  "low_count_rule": "retain row; do not fit if in-range pairs < 1000",
+  "mask_windows": [
+    [
+      2.9,
+      3.3
+    ],
+    [
+      3.55,
+      3.85
+    ],
+    [
+      8.5,
+      11.5
+    ],
+    [
+      80.0,
+      100.0
+    ]
+  ],
+  "mass_variant_scope": "nominal for every selection; lower5 and expanded_masks for float64 only",
+  "mass_variants": {
+    "expanded_masks": [
+      2,
+      120,
+      350
+    ],
+    "lower5": [
+      5,
+      120,
+      350
+    ],
+    "nominal": [
+      2,
+      120,
+      350
+    ]
+  },
+  "omega": 7.025825825825827,
+  "phase": -0.2313916852932179,
+  "predictive_cv": {
+    "block_bins": 16,
+    "folds": 5,
+    "selection": "minimum held-out Poisson deviance, no target score"
+  },
+  "samples": [
+    "early",
+    "late",
+    "random"
+  ],
+  "schema": "CMS_CONDITION_SWEEP_V1",
+  "seed": 20261015,
+  "selections": [
+    "baseline32",
+    "float64",
+    "same_sign",
+    "one_pair_events",
+    "pt5",
+    "pt6",
+    "eta2p1",
+    "medium",
+    "isolation0p15",
+    "small_dxy",
+    "all supported historical muon HLT bits",
+    "entry_parity0",
+    "entry_parity1",
+    "barrel_eta_le_0.9",
+    "forward_eta_ge_1.5",
+    "min_pt_4_to_6",
+    "pt_plateau_proxy_20_10",
+    "each run",
+    "each run split by floor(lumi/50) modulo 2"
+  ],
+  "spline_candidates": [
+    "pspline_16_0.1",
+    "pspline_16_1",
+    "pspline_16_10",
+    "pspline_16_100"
+  ],
+  "systematic_experiment": {
+    "generator": "shared pooled early H2/G1/G2 smooth Poisson spline, CV-selected without WCT scores; scale by each file count",
+    "scope": "conditional fitted-smooth-shape simulation; not an instrument-response model or independent null calibration",
+    "seed": 20261016,
+    "statistic": "minimum positive-only locked Q over H2/G1/G2 for degree7 and degree12",
+    "trials": 200
+  },
+  "uncertainty": "event-cluster Poisson sandwich SE, conditional on fitted background and analysis bins; no background/refit uncertainty"
+}

@@ -1,0 +1,101 @@
+{
+  "schema": "CMS_CONDITION_SWEEP_SUMMARY_V1",
+  "rows": 1800,
+  "status_counts": {
+    "EVALUATED": 1068,
+    "LOW_COUNT": 657,
+    "FIT_FAILED": 75
+  },
+  "classification": "BROAD_DEGREE7_REPEATABILITY_WITH_BACKGROUND_AND_SELECTION_DEPENDENCE",
+  "full_sweep_calibrated_p": null,
+  "independent_detector_replication": false,
+  "models": {
+    "cheb_d7": {
+      "evaluated_rows": 363,
+      "nonpositive_amplitudes": 4,
+      "conditional_low_power_rows": 45,
+      "baseline_positive": 12,
+      "baseline_amplitude_range": [
+        0.7513229151827856,
+        1.0714547000798385
+      ],
+      "baseline_Q_range": [
+        75.62827267831989,
+        153.80786368987484
+      ],
+      "baseline_injection_retention_range": [
+        0.8587000991200797,
+        0.8696708352502595
+      ]
+    },
+    "cheb_d12": {
+      "evaluated_rows": 375,
+      "nonpositive_amplitudes": 178,
+      "conditional_low_power_rows": 365,
+      "baseline_positive": 7,
+      "baseline_amplitude_range": [
+        -0.04807936774798,
+        0.04142376497045
+      ],
+      "baseline_Q_range": [
+        0.0,
+        0.2298952772023564
+      ],
+      "baseline_injection_retention_range": [
+        0.2467007980636985,
+        0.2908383635643992
+      ]
+    },
+    "pspline_cv": {
+      "evaluated_rows": 330,
+      "nonpositive_amplitudes": 11,
+      "conditional_low_power_rows": 76,
+      "baseline_positive": 12,
+      "baseline_amplitude_range": [
+        0.3326321414951792,
+        0.4803986720225948
+      ],
+      "baseline_Q_range": [
+        14.823792771302552,
+        30.919645637632744
+      ],
+      "baseline_injection_retention_range": [
+        0.4213545471120936,
+        0.547223239540302
+      ]
+    }
+  },
+  "shared_smooth_shape_experiment": {
+    "cheb_d7": {
+      "observed_min_Q": 115.32113977630274,
+      "evaluated_trials": 200,
+      "failed_trials": 0,
+      "exceedances": 0,
+      "all_positive_trials": 200,
+      "min_Q_quantiles_05_50_95": [
+        53.285701962050105,
+        76.76682910666356,
+        96.60146159635605
+      ]
+    },
+    "cheb_d12": {
+      "observed_min_Q": 0.0,
+      "evaluated_trials": 200,
+      "failed_trials": 0,
+      "exceedances": 200,
+      "all_positive_trials": 160,
+      "min_Q_quantiles_05_50_95": [
+        0.0,
+        0.09410904204405852,
+        0.8434386838365715
+      ]
+    }
+  },
+  "limitations": [
+    "Conditional uncertainty omits background fitting/selection",
+    "Deterministic injection retention is not power",
+    "Degree12 has poor blocked predictive extrapolation here; spline is the competitive alternative",
+    "Common-shape simulation shows repeatability but does not fully reproduce observed degree7 joint score",
+    "No trigger-object or response-efficiency calibration; no causal detector identification"
+  ]
+}

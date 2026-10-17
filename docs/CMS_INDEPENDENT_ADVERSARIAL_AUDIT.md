@@ -2,6 +2,8 @@
 
 **Determination: C. Suggestive only / insufficiently robust.**
 
+**Execution update, 2026-10-15/16:** all four original ROOT files were recovered and fully checksum-verified, and the event controls were freshly regenerated. The 1,800-row frozen condition sweep is complete. See [the execution report](CMS_EXECUTION_2026-10-15.md) for paired historical comparisons, provenance, unfavorable outcomes, and remaining calibration limits. This supersedes the historical event-archive limitation below; it does not change Determination C.
+
 The fixed-frequency residual is reproducible, including on the prospectively phase-locked second Run2016G file. Its quoted significance is not robust to background uncertainty. Smooth generating models with no explicitly injected sinusoid produce a score at least as large as observed in **359–442 of 1,000 trials**, with the original background-selection, fitting, and scoring pipeline rerun in every trial. This is a concrete failure of a model-robust significance interpretation, not proof that the physical spectrum contains no periodic component.
 
 Audit date: 2026-09-07. Historical source: `rickyjreyes/wct-cms`, `main` commit `1c580e141eb5be65b81b0ca638da25bc69d2f0cc`. Audit branch: `agent/cms-independent-adversarial-audit`. Historical source, acceptance rules, and results are preserved. The preceding PDE closure investigation is outside this audit.
@@ -21,7 +23,7 @@ OPENBLAS_NUM_THREADS=1 python experiments/cms_audit/run_spectrum_attacks.py
 OPENBLAS_NUM_THREADS=1 python experiments/cms_audit/run_failure_certificate.py --out results/cms_audit_certificate_clean
 OPENBLAS_NUM_THREADS=1 python experiments/cms_audit/run_additional_controls.py
 OPENBLAS_NUM_THREADS=1 python experiments/cms_audit/run_model_averaging.py
-OPENBLAS_NUM_THREADS=1 python experiments/cms_audit/run_event_controls.py
+OPENBLAS_NUM_THREADS=1 python experiments/cms_audit/run_event_controls.py --input-root /tmp/cms-originals --output results/cms_events_fresh
 python -m pytest -q
 python experiments/cms_audit/plot_audit.py
 ```

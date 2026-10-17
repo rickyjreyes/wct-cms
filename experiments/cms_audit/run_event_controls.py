@@ -1,5 +1,8 @@
 """Regenerate event-key, precision, selection and cluster-bootstrap controls."""
-import pathlib,json
+import pathlib,json,argparse,sys,hashlib,platform
+ROOT=pathlib.Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/"src"));sys.path.insert(0,str(ROOT/"scripts"))
+from trace_cms_verified_root_stages import published_identity,hash_input
 import numpy as np
 import awkward as ak
 import uproot
@@ -12,10 +15,15 @@ from run_spectrum_attacks import write
 
 
 def main():
-    root=pathlib.Path('data/audit_inputs');out=pathlib.Path('audit/2026-09-06/events');out.mkdir(exist_ok=True);ids={};summary=[];rows=[];boot=[];rng=np.random.default_rng(20260911)
+    p=argparse.ArgumentParser(description=__doc__)
+    p.add_argument('--input-root',type=pathlib.Path,default=ROOT/'data/audit_inputs')
+    p.add_argument('--output',type=pathlib.Path,required=True)
+    args=p.parse_args()
+    root=args.input_root;out=args.output;out.mkdir(parents=True,exist_ok=False)
+    ids={};summary=[];rows=[];boot=[];receipts=[];rng=np.random.default_rng(20260911)
     cert=load_golden_json('data/cert/14221/Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON_MuonPhys.txt')
     for label,prefix in [('H1','127C'),('H2','183B'),('G1','05DD'),('G2','209D')]:
-        file=next(root.glob(prefix+'*.root'));t=uproot.open(file)['Events'];fields=['pt','eta','phi','mass','charge','tightId','mediumId','pfRelIso04_all','dxy']
+        file=next(root.glob(prefix+'*.root'));receipts.append(dict(label=label,**hash_input(file,published_identity(ROOT,label))));t=uproot.open(file)['Events'];fields=['pt','eta','phi','mass','charge','tightId','mediumId','pfRelIso04_all','dxy']
         triggers=[k for k in t.keys() if k.startswith('HLT_') and ('Mu17_TrkIsoVVL_Mu8_TrkIsoVVL' in k or k in ['HLT_DoubleMu0','HLT_Mu17_Mu8_DZ'])]
         ar=t.arrays(['run','luminosityBlock','event']+['Muon_'+f for f in fields]+triggers,entry_stop=100000,how=dict)
         run=ak.to_numpy(ar['run']);lumi=ak.to_numpy(ar['luminosityBlock']);event=ak.to_numpy(ar['event']);ids[label]=set(zip(run.tolist(),lumi.tolist(),event.tolist()));gold=golden_mask(run,lumi,cert);ar={k:v[gold] for k,v in ar.items()}
@@ -25,7 +33,7 @@ def main():
         os=flat(pairs.a.charge*pairs.b.charge<0);tight=flat(pairs.a.tightId & pairs.b.tightId);baseline=os&tight;pe,pc=np.unique(entry[baseline],return_counts=True)
         data=dict(mass32=mass32,mass64=mass64,entry=entry,os=os,tight=tight);np.savez_compressed(out/(label+'_pairs.npz'),**data)
         edges=np.geomspace(2,120,351);old=np.load(f'audit/2026-09-06/baseline/{label}_masses.npz')['masses'];h32=np.histogram(mass32[baseline],edges)[0];h64=np.histogram(mass64[baseline],edges)[0]
-        summary.append(dict(label=label,certified=int(gold.sum()),unique_events=len(ids[label]),pairs=int(baseline.sum()),pair_events=len(pc),multiple_pair_events=int(np.sum(pc>1)),max_pairs=int(pc.max()),changed_bins_vs_initial=int(np.sum(h32!=np.histogram(old,edges)[0])),float64_count_L1=int(np.abs(h64-h32).sum()),runs={str(k):int(v) for k,v in zip(*np.unique(run[gold],return_counts=True))}))
+        summary.append(dict(label=label,sampled_before_certification=len(run),certification_rejected=int((~gold).sum()),raw_event_key_sha256=hashlib.sha256(np.asarray(sorted(ids[label]),dtype='<u8').tobytes()).hexdigest(),certified=int(gold.sum()),unique_events=len(ids[label]),pairs=int(baseline.sum()),pair_events=len(pc),multiple_pair_events=int(np.sum(pc>1)),max_pairs=int(pc.max()),changed_bins_vs_initial=int(np.sum(h32!=np.histogram(old,edges)[0])),float64_count_L1=int(np.abs(h64-h32).sum()),runs={str(k):int(v) for k,v in zip(*np.unique(run[gold],return_counts=True))}))
         sels={'baseline32':(baseline,mass32),'float64':(baseline,mass64),'same_sign':(~os&tight,mass64),'one_pair_events':(baseline&np.isin(entry,pe[pc==1]),mass64),'pt5':(baseline&flat(np.minimum(pairs.a.pt,pairs.b.pt)>=5),mass64),'pt6':(baseline&flat(np.minimum(pairs.a.pt,pairs.b.pt)>=6),mass64),'eta2p1':(baseline&flat(np.maximum(abs(pairs.a.eta),abs(pairs.b.eta))<=2.1),mass64),'medium':(os&flat(pairs.a.mediumId & pairs.b.mediumId),mass64),'isolation0p15':(baseline&flat(np.maximum(pairs.a.pfRelIso04_all,pairs.b.pfRelIso04_all)<.15),mass64),'small_dxy':(baseline&flat(np.maximum(abs(pairs.a.dxy),abs(pairs.b.dxy))<.02),mass64)}
         for tr in triggers:sels[tr]=(baseline&flat(ak.broadcast_arrays(ar[tr],pairs.a.pt)[0]),mass64)
         for parity in (0,1):sels[f'entry_parity{parity}']=(baseline&(entry%2==parity),mass64)
@@ -45,5 +53,5 @@ def main():
                 for d in (7,12):
                     r,_=evaluate_candidate(m,y,BackgroundCandidate(f'cheb_d{d}','chebyshev',d),PairKillConfig(OMEGA,PHASE,MASKS));boot.append(dict(label=label,trial=trial,degree=d,amplitude=r['locked_signed_amplitude']))
         print(label,flush=True)
-    (out/'summary.json').write_text(json.dumps(dict(files=summary,overlaps={a+'__'+b:len(ids[a]&ids[b]) for a in ids for b in ids if a<b}),indent=2));write(out/'selections.csv',rows);write(out/'bootstrap.csv',boot)
+    (out/'summary.json').write_text(json.dumps(dict(sampling='first 100000 entries BEFORE certification',bootstrap_seed=20260911,bootstrap_trials=300,input_receipts=receipts,environment=dict(python=platform.python_version(),numpy=np.__version__,awkward=ak.__version__,uproot=uproot.__version__),script_sha256=hashlib.sha256(pathlib.Path(__file__).read_bytes()).hexdigest(),files=summary,overlaps={a+'__'+b:len(ids[a]&ids[b]) for a in ids for b in ids if a<b}),indent=2));write(out/'selections.csv',rows);write(out/'bootstrap.csv',boot)
 if __name__=='__main__':main()

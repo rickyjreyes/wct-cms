@@ -1,0 +1,31 @@
+{
+  "schema": "CMS_EXECUTION_RECEIPT_V1",
+  "baseline": "c1e24d13a34e5b68ebf8615444168ce04cfcac69",
+  "protocol_commit": "c749ee00d7197bbf2261a98faca6aaa0a578427a",
+  "tests": {
+    "command": "python -m pytest -q",
+    "passed": 60
+  },
+  "files": {
+    "audit/2026-10-15/conditions/common_shape_simulation.json": "b812059b7d3f1f400bbd5218afb4080c4acb713792add05c22ea6afeaaa7bf98",
+    "audit/2026-10-15/conditions/condition_summary.svg": "919aba160189f062906bc227607e761b3c5f6dbfed85a13d49d906c835af73a7",
+    "audit/2026-10-15/conditions/execution.json": "a740fbeed4f068d089570f42fd3b247240b14c3835ff0e0d5e04f3e952217b72",
+    "audit/2026-10-15/conditions/results.csv.gz": "4e84d7dd64241b7889a28e530735d35bce7259415bfd9aaa149bb150bd10c4a0",
+    "audit/2026-10-15/conditions/summary.json": "1a1d892e2da0ebb1dc06d4e59073313e563d8ec144ab8fc83155b0485bc22612",
+    "audit/2026-10-15/control_matrix.json": "d8d1c078e8b29f990cd403511338a76a2414fd68a8aa3a2ee41a9922072513ea",
+    "audit/2026-10-15/event_comparison_complete.json": "5fa020a6103dbce97231255e24853a10d179ff6335caf29f20fc83ae4fc1ddb7",
+    "audit/2026-10-15/event_input_receipts.json": "e9d4b66eeeb15a50835dc95126f4ab58021347e352db86563971ce86583231e4",
+    "audit/2026-10-15/event_input_receipts_session2.json": "e9d4b66eeeb15a50835dc95126f4ab58021347e352db86563971ce86583231e4",
+    "audit/2026-10-15/events/bootstrap.csv": "c0ba81fcd8f5181651c63834030ea93ea19ac74c497c3ae9db37fd3e5ca2b8b9",
+    "audit/2026-10-15/events/selections.csv": "9e9e737b22c49518874e8a68abc19b3cb6b6c22eafe5bec5b1e1688397631ad1",
+    "audit/2026-10-15/events/summary.json": "6d20df81c22a5c3982d2788f6f5ef9797a86888c9c71e4c9a5a4ff7b67c617e8",
+    "docs/CMS_EXECUTION_2026-10-15.md": "2112d1a83e2be9da38cb2ea5a5ed9844dcdb19eb51027b04842a645fc1f59c42",
+    "experiments/cms_audit/event_samples.py": "516cdb3a3c78ed75c7fe13da25ef508b1579208d1b900c54cf7e4726a3697103",
+    "experiments/cms_audit/run_condition_sweep.py": "64d4cf346a08d9ace88c326736546b820bdd90b172619424cc89f7f306246d57",
+    "experiments/cms_audit/run_event_controls.py": "77eb8f1e3956726eea7db46feb719bfa315befc02adf19e55b209c2660b15a98",
+    "experiments/cms_audit/summarize_condition_sweep.py": "7c3ac56146508ba47d380f90ad262ef050c59c7b79d86520b358b126e2e41a0c",
+    "scripts/compare_event_recovery.py": "e1a6e30db5871b4c686889059806db8880b1c45930a7251f737d55079e003cbf",
+    "scripts/recover_cms_event_inputs.py": "1d768e062ae68aa07a9a382d87380e4693a08e93d82f69a8d08b224325cea454",
+    "tests/test_condition_sweep.py": "805c6015267fffa5948aadc4823ce603ebcff2b5a8d421eaf57f2ef7cd906895"
+  }
+}
